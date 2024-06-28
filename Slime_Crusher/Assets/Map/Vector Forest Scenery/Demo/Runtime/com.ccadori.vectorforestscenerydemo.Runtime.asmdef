@@ -1,0 +1,16 @@
+{
+    "name": "com.ccadori.vectorforestscenerydemo.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f8de4c3d86a32e74ab9835d876167230"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

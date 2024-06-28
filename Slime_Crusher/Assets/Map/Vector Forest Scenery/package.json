@@ -1,0 +1,17 @@
+{
+    "name": "com.ccadori.vectorforestscenery",
+    "version": "1.0.0",
+    "displayName": "Vector Forest Scenery",
+    "unity": "2020.3",
+    "keywords": [
+      "unity",
+      "2d",
+      "vector",
+      "scenery"
+    ],
+    "author": {
+      "name": "CCadori",
+      "email": "carloscadori.dev@gmail.com",
+      "url": "https://github.com.br/ccadori"
+    }
+}

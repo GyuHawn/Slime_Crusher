@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Stone
+  m_Controller: {fileID: 9100000, guid: 013d8a050c3d98c40b8e3ca1c2bd875e, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 562efbd2977454d4bbb818ad9f02baf7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2f2b429d1b9fae64698028d640a19bfa, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: de322387713a1ad478ca39f8dde6a0ae, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 83c89f3e14000ba4d84d7c87e1c4604e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2c359ba8f5238a546b6e674036636f6e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4a714a48382f4e946ba19d3bad0edf5a, type: 2}

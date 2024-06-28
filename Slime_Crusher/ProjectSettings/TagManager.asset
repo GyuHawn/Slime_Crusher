@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - FxTemporaire
+  - Monster
+  - Boss
+  - Fire
+  - HolyShot
+  - Poison
+  - FireShotSub
+  - Stage6
+  - Stage4
+  - Stage7
+  - Bullet
+  - HealthUp
+  - MonsterDefense
+  - MonsterDenefe
+  - Wall
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Wall
+  - Water
+  - UI
+  - Monster
+  - Boss
+  - Stage6
+  - Stage4
+  - Stage7
+  - 
+  - 
+  - 
+  - 
+  - Bullet
+  - MonsterDefense
+  - HealthUp
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
