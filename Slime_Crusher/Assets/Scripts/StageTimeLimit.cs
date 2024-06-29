@@ -12,7 +12,7 @@ public class StageTimeLimit : MonoBehaviour
 
     public float stageTime; // 제한시간
     public float stageFail; // 경과한 시간
-    public TMP_Text timeText;
+    public TMP_Text timeText; // 시간 텍스트
 
     private void Awake()
     {
@@ -29,6 +29,11 @@ public class StageTimeLimit : MonoBehaviour
         // 남은 시간 표시
         timeText.text = ((int)(stageTime - stageFail)).ToString();
 
+        UpdateTime(); // 시간 시각적 업데이트
+    }
+
+    void UpdateTime() // 시간 시각적 업데이트
+    {
         if (stageManager.gameStart)
         {
             if (!stageManager.selectingPass)
@@ -44,7 +49,7 @@ public class StageTimeLimit : MonoBehaviour
                     stageFail = stageFail + Time.deltaTime;
                     timeImage.fillAmount = 1.0f - (Mathf.Lerp(0, 100, stageFail / stageTime) / 100);
                 }
-            }          
+            }
         }
     }
 }

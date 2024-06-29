@@ -17,7 +17,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource bgmSelectMenu; // 아이템선택메뉴
     public AudioSource bgmResultMenu; // 결과
 
-    // function
+    // 기능
     public AudioSource attackAudio; // 공격
     public AudioSource defenseAudio; // 방어
     public AudioSource hitAudio; // 피격
@@ -25,7 +25,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource buttonAudio; // 버튼
     public AudioSource startAudio; // 시작
 
-    // Item
+    // 아이템
     public AudioSource fireAudio; // 파이어
     public AudioSource fireShotAudio; // 파이어샷
     public AudioSource holyShotAudio; // 홀리샷
@@ -35,9 +35,10 @@ public class AudioManager : MonoBehaviour
     public AudioSource rockAudio; // 돌
     public AudioSource sturnAudio; // 스턴
 
-    // Character
+    // 캐릭터
     public AudioSource water;
 
+    // 오디오 슬라이드
     public Slider bgmSlider;
     public Slider generalSlider;
 
@@ -48,9 +49,12 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        StopAudio();
+        StopAudio(); // 전체 오디오 정지
+        VolumeSetting(); // 전체 볼륨 조절   
+    }
 
-        // 전체 볼륨 조절
+    void VolumeSetting() // 전체 볼륨 조절
+    {      
         float bgmVolume = PlayerPrefs.GetFloat("BGMVolume", 1.0f);
         float genVolume = PlayerPrefs.GetFloat("GenVolume", 1.0f);
 
@@ -87,7 +91,12 @@ public class AudioManager : MonoBehaviour
 
     void Update()
     {
-        // 전체 볼륨 조절
+        UpdateVolume(); // 볼륨 업데이트
+    }
+
+    void UpdateVolume()
+    {
+        // 볼륨 업데이트
         if (SceneManager.GetActiveScene().name == "MainMenu")
         {
             bgmMainMenu.volume = bgmSlider.value;
@@ -116,7 +125,6 @@ public class AudioManager : MonoBehaviour
             attackAudio.volume = generalSlider.value;
             defenseAudio.volume = generalSlider.value;
             hitAudio.volume = generalSlider.value;
-           // monsterAttackAudio.volume = generalSlider.value;
             buttonAudio.volume = generalSlider.value;
 
             fireAudio.volume = generalSlider.value;
@@ -135,6 +143,7 @@ public class AudioManager : MonoBehaviour
         PlayerPrefs.SetFloat("GenVolume", generalSlider.value);
     }
 
+    
     // 소리 재생
     public void AttackAudio()
     {
@@ -161,7 +170,7 @@ public class AudioManager : MonoBehaviour
         startAudio.Play();
     }
 
-    // Item
+    // 아이템
     public void FireAudio()
     {
         fireAudio.Play();

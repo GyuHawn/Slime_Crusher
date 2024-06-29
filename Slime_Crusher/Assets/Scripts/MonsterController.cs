@@ -34,7 +34,8 @@ public class MonsterController : MonoBehaviour
     public bool pRockTakeDamage = true; // 돌
     public bool pWaterTakeDamage = true; // 물
 
-    private int bossAttackNum;
+    // 몬스터 공격 관련
+    private bool bossAttackNum;
     public float attackTime;
     public float selectedAttackTime;
 
@@ -50,9 +51,6 @@ public class MonsterController : MonoBehaviour
     public bool fired; // 불
     public bool stop; // 기절중인지
     public bool poisoned; // 중독   
-
-    private int monsterLayer;
-    private int bossLayer;
 
     // 보스 스킬 관련
     public bool boss1Defending = false;
@@ -86,12 +84,12 @@ public class MonsterController : MonoBehaviour
         danager.SetActive(false);
         stop = false;
 
-        bossAttackNum = 1; // 보스 연속 공격 방지용 (1 = 평소, 0 = 공격)
+        bossAttackNum = false; // 보스 연속 공격 방지용 (false = 평소, true = 공격)
 
-        monsterLayer = LayerMask.NameToLayer("Monster");
-        bossLayer = LayerMask.NameToLayer("Boss");
-
-        // 스테이지 몬스터 체력관리
+        MonsterHealthSetting(); // 스테이지 몬스터 체력관리
+    }
+    void MonsterHealthSetting() // 스테이지 몬스터 체력관리
+    {       
         if (stageManager.mainStage > 8)
         {
             maxHealth = maxHealth + ((stageManager.mainStage - 8) * 15);
@@ -104,7 +102,7 @@ public class MonsterController : MonoBehaviour
             {
                 GameObject monster = GameObject.Find("6(Clone)");
 
-                if(monster != null)
+                if (monster != null)
                 {
                     MonsterController monsterController = monster.GetComponent<MonsterController>();
                     maxHealth = monsterController.currentHealth / 2;
@@ -114,10 +112,11 @@ public class MonsterController : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    void Update()
+
+
+    void UpdateBossDieState() // 보스 사망시 상태 초기화
     {
-        // 몬스터 사망시 상태 및 오브젝트 제거
-        if (stageManager.mainStage == 1 && stageManager.subStage == 5)
+        if (stageManager.mainStage == 1 && stageManager.subStage == 5) // 1스테이지 보스
         {
             GameObject boss = GameObject.Find("4(Clone)");
             if (boss == null)
@@ -125,7 +124,7 @@ public class MonsterController : MonoBehaviour
                 boss1Defending = false;
             }
         }
-        else if (stageManager.mainStage >= 8)
+        else if (stageManager.mainStage >= 8) // 8스테이지 보스
         {
             GameObject boss = GameObject.Find("6(Clone)");
             if (boss == null)
@@ -133,7 +132,8 @@ public class MonsterController : MonoBehaviour
                 boss1Defending = false;
             }
         }
-        if (stageManager.mainStage == 7 && stageManager.subStage == 5)
+
+        if (stageManager.mainStage == 7 && stageManager.subStage == 5) // 7스테이지 보스
         {
             GameObject boss = GameObject.Find("4(Clone)");
             GameObject[] bossSkill = GameObject.FindObjectsOfType<GameObject>();
@@ -151,7 +151,7 @@ public class MonsterController : MonoBehaviour
                 }
             }
         }
-        else if (stageManager.mainStage >= 8)
+        else if (stageManager.mainStage >= 8) // 8스테이지 보스
         {
             GameObject boss = GameObject.Find("6(Clone)");
             GameObject[] bossSkill = GameObject.FindObjectsOfType<GameObject>();
@@ -169,13 +169,18 @@ public class MonsterController : MonoBehaviour
                 }
             }
         }
-        
-        // 사망
+    }
+
+    void MonsterDie() // 사망
+    {
         if (currentHealth <= 0)
         {
             Die();
         }
+    }
 
+    void MonsterState() // 몬스터 상태
+    {
         // 기절시 멈추도록
         if (stop)
         {
@@ -185,25 +190,29 @@ public class MonsterController : MonoBehaviour
         {
             anim.enabled = true;
         }
-        
-        // 몬스터 공격
+    }
+
+    void MonsterAttackCoolTime() // 몬스터 공격 대기시간
+    {
         if (attackTime <= 0)
         {
             if (gameObject.tag == "Monster")
-            {             
+            {
                 StartCoroutine(MonsterAttackReady());
             }
-            else if(gameObject.tag == "Boss" && bossAttackNum == 1)
+            else if (gameObject.tag == "Boss" && bossAttackNum == false)
             {
-                StartCoroutine(BossAttackReady());                           
+                StartCoroutine(BossAttackReady());
             }
         }
         else
         {
             attackTime -= Time.deltaTime;
         }
+    }
 
-        // 플레이어 아이템 발동시 데미지
+    void PlayerItemHitDamage() // 플레이어 아이템에 대한 피격
+    {
         if (itemSkill.holyWave && playerTakeDamage)
         {
             if (holyWaveTakeDamage)
@@ -221,7 +230,7 @@ public class MonsterController : MonoBehaviour
 
                     currentHealth -= itemSkill.holyWaveDamage;
                     StartCoroutine(HolyWaveDamageCooldown(0.7f, 0.2f));
-                }           
+                }
             }
         }
 
@@ -245,7 +254,7 @@ public class MonsterController : MonoBehaviour
                         currentHealth -= itemSkill.poisonDamage;
                         StartCoroutine(PoisonDamageCooldown(0.5f, 0.2f));
                     }
-                    
+
                 }
                 else
                 {
@@ -278,6 +287,15 @@ public class MonsterController : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        UpdateBossDieState(); // 보스 사망시 상태 초기화
+        MonsterDie(); // 사망
+        MonsterState(); // 몬스터 상태
+        MonsterAttackCoolTime(); // 몬스터 공격 대기시간
+        PlayerItemHitDamage(); // 플레이어 아이템에 대한 피격
+    }
+
     // 기절종료
     IEnumerator Removestun()
     {
@@ -286,6 +304,7 @@ public class MonsterController : MonoBehaviour
         stop = false;
     }
 
+    // 불 삭제
     IEnumerator DeleteFire()
     {
         yield return new WaitForSeconds(3f);
@@ -317,18 +336,15 @@ public class MonsterController : MonoBehaviour
 
         anim.SetBool("Attack", true);
 
-        if (bossAttackNum != 0)
+        if (bossAttackNum != true)
         {
-            if (playerController.defending)
+            if (!playerController.defending)
             {
-
-            }
-            else
-            {
-                bossAttackNum = 0;
+                bossAttackNum = true;
                 playerController.playerHealth -= damage;
                 combo.comboNum = 0;
-            }         
+            }
+            else {}         
         }
 
         yield return new WaitForSeconds(1f);
@@ -344,7 +360,7 @@ public class MonsterController : MonoBehaviour
     IEnumerator ReadyBossAttack()
     {
         yield return new WaitForSeconds(attackTime);
-        bossAttackNum = 1;
+        bossAttackNum = false;
     }
 
     // 몬스터 공격 준비
@@ -550,10 +566,10 @@ public class MonsterController : MonoBehaviour
     // 사망
     public void Die()
     {
-        StartCoroutine(MonsterDie());
+        StartCoroutine(ItemSpawn());
     }
 
-    IEnumerator MonsterDie()
+    IEnumerator ItemSpawn()
     {
         // 사망시 확률적으로 회복 아이템 생성
         if (gameObject.CompareTag("Monster"))
@@ -575,7 +591,6 @@ public class MonsterController : MonoBehaviour
         {
             isDie = true;
             
-            combo.comboNum++;
             combo.ComboUp();
 
             if(combo.comboNum % 5 == 0)

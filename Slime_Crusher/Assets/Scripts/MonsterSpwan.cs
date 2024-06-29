@@ -6,17 +6,14 @@ public class MonsterSpwan : MonoBehaviour
 {
     private StageManager stagerManage;
 
-    private int stage; // 현재 스테이지
-
-    // sub == 1 -> [0] / sub == 2 -> [0,1] / sub == 3 -> [0,1,2] / sub == 4 -> [0,1,2,3] / sub == 5 -> [0,1,2,3,4(Boss)] 
-    public GameObject[] stage1Monsters; // 스테이지 별 몬스터
+    public GameObject[] stage1Monsters; // 스테이지 별 몬스터 프리팹
     public GameObject[] stage2Monsters;
     public GameObject[] stage3Monsters;
     public GameObject[] stage4Monsters;
     public GameObject[] stage5Monsters;
     public GameObject[] stage6Monsters;
     public GameObject[] stage7Monsters;
-    public GameObject[] InfiniteMonsters;
+    public GameObject[] InfiniteMonsters; // 8스테이지 이후 몬스터
 
     public GameObject[] monsterSpawnPoints; // 몬스터 소환 위치
     public GameObject[] bossStageSpawnPoints; // 보스 스테이지 몬스터 소환 위치
@@ -28,11 +25,6 @@ public class MonsterSpwan : MonoBehaviour
     private void Awake()
     {
         stagerManage = GameObject.Find("Manager").GetComponent<StageManager>();
-    }
-
-    private void Update()
-    {
-        stage = stagerManage.mainStage;
     }
 
     // 몬스터 소환
@@ -171,6 +163,7 @@ public class MonsterSpwan : MonoBehaviour
         spawnedMonsters.Add(spawnedMonster); // 몬스터를 리스트에 추가
     }
 
+    // 랜덤 포지션 지정
     public Vector3 GetRandomPosition(Vector3 center)
     {
         float radius = 1.0f;

@@ -5,24 +5,32 @@ using UnityEngine;
 public class Option : MonoBehaviour
 {
     public GameObject settingMenu; // 옵션 버튼
+
     public float moveDuration = 1.0f; // 옵션창 이동시간
     private Vector3 startMenuPos; // 옵션창 위치관리
-    private Vector3 endMenuPos;
-    private bool onSetting; // 옵션 활성화
+    private Vector3 endMenuPos; // 옵션창 위치관리
 
+    private bool onSetting; // 옵션 활성화
+    
     private void Start()
     {
+        SettingMovePosition(); // 옵션 UI 위치값 설정
+
+        // 기초 값 설정
         onSetting = false;
-
-        startMenuPos = new Vector3(950f, settingMenu.transform.localPosition.y, settingMenu.transform.localPosition.z);
-        endMenuPos = new Vector3(350f, settingMenu.transform.localPosition.y, settingMenu.transform.localPosition.z);
     }
-    public void OnSettingMenu()
+    void SettingMovePosition() // 옵션 UI 위치값 설정
     {
-        StartCoroutine(MoveSettingMenu());
+        startMenuPos = new Vector3(870f, settingMenu.transform.localPosition.y, settingMenu.transform.localPosition.z);
+        endMenuPos = new Vector3(540f, settingMenu.transform.localPosition.y, settingMenu.transform.localPosition.z);
     }
 
-    IEnumerator MoveSettingMenu()
+    public void OnSettingMenu() // 옵션메뉴 활성화
+    {
+        StartCoroutine(MoveSettingMenu()); // 옵션메뉴 이동
+    }
+
+    IEnumerator MoveSettingMenu() // 옵션메뉴 이동
     {
         // 옵션창 비활성화시 처음 위치로 이동
         if (!onSetting)
@@ -53,10 +61,9 @@ public class Option : MonoBehaviour
             settingMenu.transform.localPosition = startMenuPos;
             onSetting = false;
         }
-
     }
 
-    public void MainMenu()
+    public void MainMenu() // 메인메뉴로 이동
     {
         LodingController.LoadNextScene("MainMenu");
     }

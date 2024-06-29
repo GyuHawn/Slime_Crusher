@@ -15,9 +15,13 @@ public class Character : MonoBehaviour
 
     void Start()
     {
-        currentCharacter = PlayerPrefs.GetInt("SelectChar");
+        currentCharacter = PlayerPrefs.GetInt("SelectChar"); // 선택한 캐릭터 값 받아오기
 
-        // 캐릭터 초기화
+        ResetCharacter(); // 캐릭터 초기화
+    }
+
+    void ResetCharacter() // 캐릭터 초기화
+    {
         rock = false;
         water = false;
         lihgt = false;
@@ -27,20 +31,24 @@ public class Character : MonoBehaviour
     
     void Update()
     {
-        // 선택한 캐릭터
-        if(currentCharacter == 1) 
+        SelectedCharacter(); // 선택한 캐릭터
+    }
+
+    void SelectedCharacter() // 선택한 캐릭터
+    {
+        if (currentCharacter == 1)
         {
             rock = true;
         }
-        else if(currentCharacter == 2)
+        else if (currentCharacter == 2)
         {
             water = true;
         }
-        else if(currentCharacter == 3)
+        else if (currentCharacter == 3)
         {
             lihgt = true;
         }
-        else if(currentCharacter==4)
+        else if (currentCharacter == 4)
         {
             luck = true;
         }

@@ -55,7 +55,15 @@ public class CharacterSelect : MonoBehaviour
 
     private void Start()
     {
-        // 캐릭터 데이터 관리
+        LoadPlayerDatas(); // 캐릭터 데이터 관리
+
+        // 게임시작 관리
+        enter = false;
+        enterText.color = Color.black;
+    }
+
+    void LoadPlayerDatas() // 캐릭터 데이터 관리
+    {
         waterChar = PlayerPrefs.GetInt("WaterCharOpen", 0) == 1;
         lightChar = PlayerPrefs.GetInt("LightCharOpen", 0) == 1;
         luckChar = PlayerPrefs.GetInt("LuckCharOpen", 0) == 1;
@@ -64,19 +72,25 @@ public class CharacterSelect : MonoBehaviour
         waterLevel = PlayerPrefs.GetInt("waterLevel", 1);
         lightLevel = PlayerPrefs.GetInt("lightLevel", 1);
         luckLevel = PlayerPrefs.GetInt("luckLevel", 1);
-        
-        // 게임시작 관리
-        enter = false;
-        enterText.color = Color.black;
     }
 
     void Update()
     {
-        // 플레이어 머니 관리
+        UpdatePlayerMoney(); // 플레이어 머니 관리
+        SelectCharacterText(); // 캐릭터 선택 여부 텍스트
+        UpdateOpenCharacter(); // 캐릭터 오픈 여부
+        UpdateCharacterLevelText(); // 캐릭터 레벨 텍스트
+        MaxCharacterLevel(); // 캐릭터 레벨 상한
+    }
+
+    void UpdatePlayerMoney() // 플레이어 머니 관리
+    {
         playerMoney = PlayerPrefs.GetInt("GameMoney", 0);
         playerMoneyText.text = playerMoney.ToString();
+    }
 
-        // 캐릭터 선택 여부 텍스트
+    void SelectCharacterText() // 캐릭터 선택 여부 텍스트
+    {   
         if (!enter)
         {
             enterText.fontSize = 35f;
@@ -87,8 +101,10 @@ public class CharacterSelect : MonoBehaviour
             enterText.fontSize = 50f;
             enterText.text = "게임시작";
         }
+    }
 
-        // 캐릭터 오픈 여부
+    void UpdateOpenCharacter() // 캐릭터 오픈 여부
+    {
         if (waterChar)
         {
             useWater.SetActive(false);
@@ -110,14 +126,18 @@ public class CharacterSelect : MonoBehaviour
             luckLevelUPButton.SetActive(true);
             luckLevelText.gameObject.SetActive(true);
         }
+    } 
 
-        // 캐릭터 레벨 텍스트
+    void UpdateCharacterLevelText() // 캐릭터 레벨 텍스트
+    {
         rockLevelText.text = rockLevel.ToString();
         waterLevelText.text = waterLevel.ToString();
         lightLevelText.text = lightLevel.ToString();
         luckLevelText.text = luckLevel.ToString();
+    }
 
-        // 캐릭터 레벨 상한
+    void MaxCharacterLevel() // 캐릭터 레벨 상한
+    {
         if (rockLevel >= 20)
         {
             rockLevelUPButton.SetActive(false);
@@ -136,7 +156,7 @@ public class CharacterSelect : MonoBehaviour
         }
     }
 
-    void CheckReset()
+    void CheckReset() // 캐릭터 선택 UI 초기화
     {
         foreach(GameObject check in checkChar)
         {
@@ -145,25 +165,25 @@ public class CharacterSelect : MonoBehaviour
     }
 
     // 캐릭터 선택
-    public void RockChar()
+    public void RockChar() // 돌 캐릭터
     {
-        CheckReset();
-        checkChar[0].SetActive(true);
+        CheckReset(); // 캐릭터 선택 UI 초기화
+        checkChar[0].SetActive(true); // 캐릭터 선택 UI 활성화
 
+        // 돌 캐릭터 설명 활성화, 나머지 비활성화
         rockEx.SetActive(true);
         waterEx.SetActive(false);
         lightEx.SetActive(false);
         luckEx.SetActive(false);
 
-        enter = true;
-        selectChar = 1;
+        enter = true; // 게임 시작 가능 여부
+        selectChar = 1; // 선택한 캐릭터 값
     }
 
     public void WaterChar()
     {
         if (waterChar)
         {
-
             CheckReset();
             checkChar[1].SetActive(true);
 
@@ -212,12 +232,12 @@ public class CharacterSelect : MonoBehaviour
     }
 
     // 캐릭터 오픈
-    public void OpenWater()
+    public void OpenWater() // 물 캐릭터 오픈
     {
-        if (playerMoney >= 100)
+        if (playerMoney >= 100) // 100원 이상일때
         {
-            waterChar = true;
-            playerMoney -= 100;     
+            waterChar = true; // 캐릭터 오픈
+            playerMoney -= 100; // 사용한 돈 제거
             PlayerPrefs.SetInt("WaterCharOpen", 1);
             PlayerPrefs.SetInt("GameMoney", playerMoney);
         }
@@ -246,14 +266,14 @@ public class CharacterSelect : MonoBehaviour
     }
 
     // 캐릭터 레벨업
-    public void LevelUpRock()
+    public void LevelUpRock() // 돌 캐릭터 레벨업
     {
-        if (rockLevel <= 20)
+        if (rockLevel <= 20) // 레벨이 20이하일때
         {
-            if (playerMoney >= 1000)
+            if (playerMoney >= 1000) // 1000원 이상일때
             {
-                rockLevel++;
-                playerMoney -= 1000;
+                rockLevel++; // 레벨얼
+                playerMoney -= 1000; // 사용한 1000원 제거
                 PlayerPrefs.SetInt("rockLevel", rockLevel);
                 PlayerPrefs.SetInt("GameMoney", playerMoney);
             }
@@ -302,19 +322,19 @@ public class CharacterSelect : MonoBehaviour
     // 게임시작
     public void GameStart()
     {
-        if (enter)
+        if (enter) // 게임시작 가능일때
         {
-            enterText.color = Color.white;
+            enterText.color = Color.white; // 텍스트 시각화
             PlayerPrefs.SetInt("SelectChar", selectChar);
-            StartCoroutine(GameStartButton());
+            StartCoroutine(GameStartButton()); // 게임시작
         }
         else
         {
-            StartCoroutine(EnterTextColor());
+            StartCoroutine(EnterTextColor()); // 캐릭터 비선택시 텍스트 (시작불가)
         }
     }
 
-    // 캐릭터 비선택시 텍스트
+    // 캐릭터 비선택시 텍스트 (시작불가)
     IEnumerator EnterTextColor()
     {
         enterText.color = Color.red;
@@ -325,7 +345,7 @@ public class CharacterSelect : MonoBehaviour
     // 캐릭터 선택시 게임이동
     IEnumerator GameStartButton()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1f); // 만약을 위한 1초 대기
 
         LodingController.LoadNextScene("Game");
     }

@@ -5,45 +5,50 @@ using TMPro;
 
 public class Combo : MonoBehaviour
 {
-    public GameObject comboObj;
     public int comboNum; // 현재 콤보수
     public int maxComboNum; // 최대 콤보수
-    public TMP_Text comboText; // 콤보 텍스트
 
     // 콤보수 변경시 텍스트 크기 관리
+    public TMP_Text comboText; // 콤보 텍스트
     public float maxScale; // 크기 증가
     public float minScale; // 크기 감소
     public float scaleSpeed; // 증감 속도
 
     void Start()
     {
-        comboObj.SetActive(false); 
-
         // 텍스트 크기 및 콤보수 초기화
         maxScale = 100f;
         minScale = 55f;
         scaleSpeed = 400f;
         maxComboNum = 0;
+
+        comboText.gameObject.SetActive(false); // 콤보 텍스트 활성화
     }
 
     void Update()
     {
         comboText.text = "x " + comboNum.ToString(); // 콤보수 변경
 
-        // 콤보수 0일시 비활성화
+        ComboActivate(); // 콤보수 0일시 비활성화
+    }
+    void ComboActivate() // 콤보수 0일시 비활성화
+    {
         if (comboNum <= 0)
         {
-            comboObj.SetActive(false);
+            comboText.gameObject.SetActive(false);
         }
         else
         {
-            comboObj.SetActive(true);
+            comboText.gameObject.SetActive(true);
         }
     }
 
-    public void ComboUp()
+
+    public void ComboUp() // 콤보 증가
     {
-        StartCoroutine(ScaleComboText());
+        comboNum++; // 콤보 값 증가
+
+        StartCoroutine(ScaleComboText()); // 콤보수 변경시 텍스트의 크기가 키웠다가 줄어듬
 
         // 최대 콤보수 관리
         if (comboNum > maxComboNum)

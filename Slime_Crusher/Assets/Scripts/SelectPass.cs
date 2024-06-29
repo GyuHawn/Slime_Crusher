@@ -9,10 +9,11 @@ public class SelectPass : MonoBehaviour
     private StageManager stageManager;
     private StageTimeLimit stageTimeLimit;
 
-    public GameObject passMenu;
+    public GameObject passMenu; // 패시브 선택 UI
 
     public int selecPass; // 선택한 패시브
 
+    // 패시브 이름, 설명
     public TMP_Text passName;
     public TMP_Text passEx;
 
@@ -25,7 +26,7 @@ public class SelectPass : MonoBehaviour
 
     private void Start()
     {
-        selecPass = 0;
+        selecPass = 0; // 선택한 패시브
     }
 
     // 패시브 선택, 설명표시
@@ -54,8 +55,7 @@ public class SelectPass : MonoBehaviour
         passEx.text = "게임 머니를 100원 획득합니다.";
     }
 
-    // 패시브 선택 결정
-    public void EnterPass()
+    void UpdateSelectPass() // 선택한 패시브의 값 업데이트
     {
         if (selecPass == 1)
         {
@@ -73,17 +73,23 @@ public class SelectPass : MonoBehaviour
         {
             PlayerPrefs.SetInt("GameMoney", PlayerPrefs.GetInt("GameMoney", 0) + 100);
         }
+    }
 
-        stageManager.selectingPass = false;
-        playerController.isAttacking = false;
-        Time.timeScale = 1f;
-        selecPass = 0;
-        passName.text = "";
+    // 패시브 선택 결정
+    public void EnterPass()
+    {
+        UpdateSelectPass(); // 선택한 패시브의 값 업데이트
+
+        stageManager.selectingPass = false; // 패시브 선택중이지 않음 (패시브 선택중 - 참)
+        playerController.isAttacking = false; // 다시 공격 가능 (선택중 공격 금지)
+        Time.timeScale = 1f; // 시간이 다시 진행 (선택중 시간 멈춤)
+        selecPass = 0; // 선택한 패시브 값 초기화
+        passName.text = ""; // 패시브 이름, 설명 초기화
         passEx.text = "";
 
-        stageManager.passing = true;
+        stageManager.passing = true; // 스테이지 변경
         stageManager.NextSetting();
 
-        passMenu.SetActive(false);
+        passMenu.SetActive(false); // UI 비활성화
     }
 }

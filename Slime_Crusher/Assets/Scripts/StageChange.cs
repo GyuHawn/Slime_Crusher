@@ -9,11 +9,11 @@ public class StageChange : MonoBehaviour
 
     public GameObject nextStageUI;
 
-    public TMP_Text mainStageText;
-    public TMP_Text subStageText;
-
     public int mainStage;
     public int subStage;
+
+    public TMP_Text mainStageText;
+    public TMP_Text subStageText;
 
     private void Awake()
     {
@@ -52,7 +52,5 @@ public class StageChange : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
         nextStageUI.SetActive(false);
-
-
     }
 }
