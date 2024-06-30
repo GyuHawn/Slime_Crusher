@@ -21,8 +21,8 @@ public class StageManager : MonoBehaviour
     public GameObject[] map;
     public int mainStage; // 메인스테이지 (1, 2, 3...)
     public int subStage; // 서브스테이지 (1-1, 1-2...)
-    public TMP_Text stageText;
     private bool isNextStageAvailable = true;
+    public TMP_Text stageText;
 
     public int base0Monster; // 스테이지 몬스터 [0]의 수
     public int base1Monster; // 스테이지 몬스터 [1]의 수
@@ -30,8 +30,6 @@ public class StageManager : MonoBehaviour
     public int base3Monster; // 스테이지 몬스터 [3]의 수
     public int bossMonster; // 보스몬스터 수
     public bool allMonstersSpawned = false; // 모든 몬스터 소환 확인
-
-    // public int monsterCount = 0; // 소환된 몬스터 수
 
     public float timeLimit; // 스테이지당 제한시간
 
@@ -45,7 +43,7 @@ public class StageManager : MonoBehaviour
     public TMP_Text maxComboText;
     public TMP_Text clearText;
 
-    public bool passing; // 스테이지 타일 표시 중
+    public bool passing; // 스테이지 전환 표시 중
 
     public Canvas canvas;
 
@@ -94,8 +92,19 @@ public class StageManager : MonoBehaviour
             playerController.gameover.SetActive(true);
         }
 
-        // 스테이지 맵 변경
-        if (mainStage <= 8)
+        UpdateMap(); // 스테이지 맵 변경
+        UpdateStageText(); // 스테이지 표시 텍스트 변경
+        TimeOver(); // 제한시간 초과시 게임종료
+        GameOver();  // 게임종료 결과 표시, 집계
+    }
+    void UpdateMap() // 스테이지 맵 변경
+    {
+        for (int i = 0; i < Mathf.Min(8, mainStage); ++i)
+        {
+            map[i].SetActive(i == mainStage - 1);
+        }
+        /*
+         if (mainStage <= 8)
         {
             for (int i = 0; i < mainStage - 1; ++i)
             {
@@ -113,38 +122,45 @@ public class StageManager : MonoBehaviour
 
             map[7].SetActive(true);
         }
-
-        // 스테이지 표시 텍스트 변경
+        */
+    }
+    void UpdateStageText() // 스테이지 표시 텍스트 변경
+    { 
         if (mainStage <= 7)
         {
             stageText.text = "스테이지 " + mainStage + "-" + subStage;
         }
-        else if(mainStage >= 8)
+        else if (mainStage >= 8)
         {
             stageText.text = "스테이지 " + mainStage;
         }
-
-        // 제한시간 초과시 게임종료
-        if(stageTimeLimit.stageFail >= stageTimeLimit.stageTime)
+    }
+    void TimeOver() // 제한시간 초과시 게임종료
+    {     
+        if (stageTimeLimit.stageFail >= stageTimeLimit.stageTime)
         {
             playerController.gameover.SetActive(true);
             gameStart = false;
         }
+    }
 
-        // 게임종료 결과 표시, 집계
+    void GameOver()  // 게임종료 결과 표시, 집계
+    {
         totalTime = playerController.gameTime;
         totalTimeText.text = string.Format("{0:00}:{1:00}", Mathf.Floor(totalTime / 60), totalTime % 60);
-        if(mainStage < 8)
+        if (mainStage < 8)
         {
             finalWaveText.text = mainStage + " - " + subStage + " Wave";
         }
-        else if(mainStage >= 8)
+        else if (mainStage >= 8)
         {
             finalWaveText.text = mainStage + " Wave";
         }
         maxComboText.text = combo.maxComboNum.ToString();
         rewardMoneyText.text = rewardMoney.ToString();
     }
+
+
 
     // 게임중 머니 획득 (결과 머니 게임중 획득)
     public void Reward()
@@ -155,9 +171,7 @@ public class StageManager : MonoBehaviour
             rewardMoney += combo.maxComboNum;
 
             int playerMoney = PlayerPrefs.GetInt("GameMoney", 0);
-
             playerMoney += rewardMoney;
-
             PlayerPrefs.SetInt("GameMoney", playerMoney);
             PlayerPrefs.Save();
         }       
@@ -166,9 +180,8 @@ public class StageManager : MonoBehaviour
     // 스테이지 몬스터 수 설정
     public void StageMonsterSetting()
     {
-        if (mainStage <= 7)
-        {
-            // 1~7 스테이지 설정
+        if (mainStage <= 7) // 1~7 스테이지 설정
+        {          
             switch (subStage)
             {
                 case 1:
@@ -198,9 +211,8 @@ public class StageManager : MonoBehaviour
                     break;
             }
         }
-        else
-        {
-            // 8 스테이지 이후
+        else  // 8 스테이지 이후
+        {    
             base0Monster = 2;
             base1Monster = 1;
             base2Monster = 1;
@@ -217,16 +229,14 @@ public class StageManager : MonoBehaviour
         base2Monster = 0;
         base3Monster = 0;
         bossMonster = 0;
-
+        
         stageTimeLimit.stageFail = 0f;
     }
 
     // 몬스터 스폰
     void SpawnMonsters()
     {
-        //monsterCount = base0Monster + base1Monster + base2Monster + base3Monster + bossMonster; // 몬스터 수 설정
         monsterSpawn.MonsterInstantiate(base0Monster, base1Monster, base2Monster, base3Monster, bossMonster);
-
         allMonstersSpawned = true;
     }
 
@@ -299,8 +309,7 @@ public class StageManager : MonoBehaviour
                 if (mainStage >= 8)
                 {
                     if (mainStage == 8 || mainStage == 10 || mainStage == 12 || mainStage == 15 || mainStage == 16 || mainStage == 18)
-                    {
-                    }
+                    {}
                     else
                     {
                         passing = true;
@@ -310,8 +319,7 @@ public class StageManager : MonoBehaviour
                 else
                 {
                     if ((mainStage >= 2 && (subStage == 1 || subStage == 2)) || subStage == 3)
-                    {
-                    }
+                    {}
                     else
                     {
                         passing = true;
@@ -329,19 +337,15 @@ public class StageManager : MonoBehaviour
     {
         isNextStageAvailable = false;
         yield return new WaitForSeconds(1f); 
-
         isNextStageAvailable = true; 
     }
 
     // 스테이지 변경전 초기화 및 설정
     public void NextSetting()
     {
-        if(mainStage <= 20)
+        if (mainStage <= 20 && passing)
         {
-            if (passing)
-            {
-                StartCoroutine(NextStageOrTile());
-            }
+            StartCoroutine(NextStageOrTile());
         }
     }
 
@@ -396,135 +400,5 @@ public class StageManager : MonoBehaviour
     IEnumerator DelayStage()
     {
         yield return new WaitForSeconds(1f);
-    }
-    /*
-    //-----------[광고 관련]------------
-    #if UNITY_ANDROID
-        private string _adUnitId = "ca-app-pub-4956833096962057~1338843571";
-    #elif UNITY_IPHONE
-      private string _adUnitId = "ca-app-pub-3940256099942544~1458002511";
-    #else
-      private string _adUnitId = "unused";
-    #endif
-
-    private InterstitialAd _interstitialAd;
-
-    // 광고 로드
-    public void LoadInterstitialAd()
-    {
-        // 이전 광고가 있으면 정리
-        if (_interstitialAd != null)
-        {
-            _interstitialAd.Destroy();
-            _interstitialAd = null;
-        }
-
-        Debug.Log("Loading the interstitial ad.");
-
-        // 광고 요청 생성
-        AdRequest adRequest = new AdRequest();
-
-        // 광고 로드 요청
-        InterstitialAd.Load(_adUnitId, adRequest, (InterstitialAd ad, LoadAdError error) =>
-        {
-            if (error != null || ad == null)
-            {
-                Debug.LogError("Interstitial ad failed to load an ad with error: " + error);
-                return;
-            }
-
-            Debug.Log("Interstitial ad loaded with response: " + ad.GetResponseInfo());
-            _interstitialAd = ad;
-
-            RegisterEventHandlers(_interstitialAd);
-        });
-    }
-
-    // 광고 표시
-    public void ShowInterstitialAd()
-    {
-        StartCoroutine(showInterstitial());
-
-        IEnumerator showInterstitial()
-        {
-            while (_interstitialAd == null && !_interstitialAd.CanShowAd())
-            {
-                yield return new WaitForSeconds(0.2f);
-            }
-            _interstitialAd.Show();
-        }
-        *//*if (_interstitialAd != null && _interstitialAd.CanShowAd())
-        {
-            Debug.Log("Showing interstitial ad.");
-            _interstitialAd.Show();
-        }
-        else
-        {
-            Debug.LogError("Interstitial ad is not ready yet.");
-        }*//*
-    }
-
-    private void RegisterReloadHandler(InterstitialAd interstitialAd)
-    {
-        // 전면 광고가 전체 화면 콘텐츠를 닫았을 때 호출됩니다.
-        interstitialAd.OnAdFullScreenContentClosed += () =>
-        {
-            Debug.Log("Interstitial Ad full screen content closed.");
-
-            // 가능한 한 빨리 다른 광고를 보여줄 수 있도록 광고를 다시 로드합니다.
-            LoadInterstitialAd();
-        };
-
-        // 전면 광고가 전체 화면 콘텐츠를 열지 못했을 때 호출됩니다.
-        interstitialAd.OnAdFullScreenContentFailed += (AdError error) =>
-        {
-            Debug.LogError("Interstitial ad failed to open full screen content " +
-                       "with error : " + error);
-
-            // 가능한 한 빨리 다른 광고를 보여줄 수 있도록 광고를 다시 로드합니다.
-            LoadInterstitialAd();
-        };
-    }
-
-    private void RegisterEventHandlers(InterstitialAd interstitialAd)
-    {
-        interstitialAd.OnAdPaid += (AdValue adValue) =>
-        {
-            Debug.Log(String.Format("Interstitial ad paid {0} {1}.", adValue.Value, adValue.CurrencyCode));
-        };
-
-        interstitialAd.OnAdImpressionRecorded += () =>
-        {
-            Debug.Log("Interstitial ad recorded an impression.");
-        };
-
-        interstitialAd.OnAdClicked += () =>
-        {
-            Debug.Log("Interstitial ad was clicked.");
-        };
-
-        interstitialAd.OnAdFullScreenContentOpened += () =>
-        {
-            Debug.Log("Interstitial ad full screen content opened.");
-        };
-
-        interstitialAd.OnAdFullScreenContentClosed += () =>
-        {
-            Debug.Log("Interstitial ad full screen content closed.");
-            SceneManager.LoadScene("MainMenu"); // 광고후 메뉴로 돌아가기
-            LoadInterstitialAd(); // 광고 닫힌 후 새 광고 로드
-        };
-
-        interstitialAd.OnAdFullScreenContentFailed += (AdError error) =>
-        {
-            Debug.LogError("Interstitial ad failed to open full screen content with error: " + error);
-            LoadInterstitialAd(); // 광고 실패 후 새 광고 로드
-        };
-    }
-
-    // 게임 오버시 광고 표시 
-    public void GameOver()
-    {
-        ShowInterstitialAd();
-    }*/
+    }  
 }

@@ -337,7 +337,7 @@ MonoBehaviour:
   - {fileID: 899482100}
   - {fileID: 5875218}
   - {fileID: 1521765857}
-  healthEffect: {fileID: 6855314210357232287, guid: 7c2a9b83b809a0848915fabd9596b68b, type: 3}
+  hitEffect: {fileID: 0}
   playerHealth: 0
   gameover: {fileID: 909437216}
   die: 0
@@ -345,8 +345,12 @@ MonoBehaviour:
   comboDamage: 0
   comboDamageUP: 0
   isAttacking: 0
-  hitBullet: 1
+  playerHit: 1
   hubDamageText: {fileID: 5731957617961231814, guid: aa615103c4892a34ba9918ab7b799ceb, type: 3}
+  attckEffect: {fileID: 696086729348756167, guid: 3e39937104f65b54593071add0a1e431, type: 3}
+  dragEffect: {fileID: 1191912830}
+  lastClickPosition: {x: 0, y: 0, z: 0}
+  isDragging: 0
   defenseEffect: {fileID: 1671184088}
   defending: 0
   defenseTime: 0
@@ -355,12 +359,8 @@ MonoBehaviour:
   money: 0
   gameTime: 0
   gameTimeText: {fileID: 841981646}
-  isDragging: 0
-  attckEffect: {fileID: 696086729348756167, guid: 3e39937104f65b54593071add0a1e431, type: 3}
-  dragEffect: {fileID: 1191912830}
   stage5Debuff: 0
   isStageHit: 1
-  lastClickPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &4910544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,11 +388,11 @@ MonoBehaviour:
   itemPos3: {fileID: 99484302}
   selectItems: []
   playerItems: []
+  selectNum: 0
   selectItemPos1: {fileID: 489994465}
   selectItemPos2: {fileID: 1675999324}
   selectItemPos3: {fileID: 871049383}
   selectItemPos4: {fileID: 692695626}
-  selectNum: 0
   itemName: {fileID: 1225476955}
   itemEx: {fileID: 2046036445}
   item1LvText: {fileID: 615957222}
@@ -591,9 +591,9 @@ MonoBehaviour:
   rockCoolTimeText: {fileID: 1031743697}
   useWaterSkill: 0
   waterLevel: 0
-  waterEffect: {fileID: 1687118924408352, guid: 77c69ec12208c4c4380d15e30b6f8f68, type: 3}
   waterDamage: 5
   waterTime: 0
+  waterEffect: {fileID: 1687118924408352, guid: 77c69ec12208c4c4380d15e30b6f8f68, type: 3}
   waterCoolTime: {fileID: 796974863}
   waterCoolTimeText: {fileID: 1182218095}
   sturnLevel: 0
@@ -667,7 +667,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7070f8ea0a4459f44b0c062b611af722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comboObj: {fileID: 386434698}
   comboNum: 0
   maxComboNum: 0
   comboText: {fileID: 1673948558}
@@ -687,10 +686,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextStageUI: {fileID: 1882922546}
-  mainStageText: {fileID: 1806575821}
-  subStageText: {fileID: 2024316791}
   mainStage: 0
   subStage: 0
+  mainStageText: {fileID: 1806575821}
+  subStageText: {fileID: 2024316791}
 --- !u!1 &5875218
 GameObject:
   m_ObjectHideFlags: 0
@@ -14044,7 +14043,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4371369334075902766, guid: d1e6ed385729e4c44971393459f26176, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1653.0001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4371369334075902766, guid: d1e6ed385729e4c44971393459f26176, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

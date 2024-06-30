@@ -8,7 +8,6 @@ public class CharacterSkill : MonoBehaviour
     private ItemSkill itemSkill;
     private AudioManager audioManager;
     private PlayerController playerController;
-    private MonsterController monsterController;
 
     // 캐릭터 변수
     public int rockLevel;
@@ -19,9 +18,11 @@ public class CharacterSkill : MonoBehaviour
 
     public bool useWaterSkill = false; // 스킬 사용관리 
     public int waterLevel;
-    public GameObject waterEffect;
     public int waterDamage;
     public int waterTime;
+    private List<GameObject> MonsterList = new List<GameObject>();
+
+    public GameObject waterEffect;
     public GameObject waterCoolTime;
     public TMP_Text waterCoolTimeText;
 
@@ -38,7 +39,6 @@ public class CharacterSkill : MonoBehaviour
         itemSkill = GameObject.Find("Manager").GetComponent<ItemSkill>();
         audioManager = GameObject.Find("Manager").GetComponent<AudioManager>();
         playerController = GameObject.Find("Manager").GetComponent<PlayerController>();
-        monsterController = GameObject.Find("Manager").GetComponent<MonsterController>();
     }
 
     void Start()
@@ -52,40 +52,32 @@ public class CharacterSkill : MonoBehaviour
 
     void Update()
     {
-        // 캐릭터 수치 관리
+        SkillValueSetting(); // 스킬 수치 설정
+        SkillCoolTime(); // 스킬 쿨타임
+    }
+
+    void SkillValueSetting()
+    {
         rockDamage = (int)((playerController.damage + playerController.comboDamage) + (playerController.damage * (0.1f * rockLevel)));
         waterDamage = (int)((playerController.damage + playerController.comboDamage) * (0.1f * waterLevel));
-        sturnTime = 3 + (0.1f * sturnLevel);
+        sturnDuration = 3 + (0.1f * sturnLevel);
+    }
 
-        // 쿨타임 중 사용제어
-        if (rockTime > 0)
+    void SkillCoolTime() // 스킬 쿨타임
+    {
+        CoolTimeManager(rockTime, rockCoolTime, rockCoolTimeText);
+        CoolTimeManager(waterTime, waterCoolTime, waterCoolTimeText);
+        CoolTimeManager(sturnTime, sturnCoolTime, sturnCoolTimeText);
+    }
+    void CoolTimeManager(float time, GameObject coolTime, TMP_Text coolTimeText)
+    {
+        if(time > 0)
         {
-            rockCoolTime.SetActive(true);
-            rockCoolTimeText.text = rockTime.ToString();
-        }
-        else
-        {
-           rockCoolTime.SetActive(false);
-        }
-        if (waterTime > 0)
-        {
-            waterCoolTime.SetActive(true);
-            waterCoolTimeText.text = waterTime.ToString();
-        }
-        else
-        {
-            waterCoolTime.SetActive(false);
-        }
-        if (sturnTime > 0)
-        {
-            sturnCoolTime.SetActive(true);
-            sturnCoolTimeText.text = sturnTime.ToString();
-        }
-        else
-        {
-            sturnCoolTime.SetActive(false);
+            coolTime.SetActive(true);
+            coolTimeText.text = time.ToString();
         }
     }
+
 
     // 스킬사용
     public void Rock()
@@ -113,17 +105,14 @@ public class CharacterSkill : MonoBehaviour
         {
             MonsterController monsterController = monster.GetComponent<MonsterController>();
 
-            if (monsterController != null)
+            if (monsterController != null && monsterController.pRockTakeDamage)
             {
                 // 이펙트 생성
                 GameObject rockInstance = Instantiate(itemSkill.rockEffect, monsterController.gameObject.transform.position, Quaternion.identity);
 
-                if (monsterController.pRockTakeDamage)
-                {
-                    playerController.CRockDamageText(monsterController); // 데미지 텍스트 생성
-                    monsterController.currentHealth -= rockDamage; // 데미지 적용
-                    monsterController.PlayerRockDamegeCoolDown(0.5f, 0.2f); // 피격 시간 및 시각적 효과
-                }
+                playerController.CRockDamageText(monsterController); // 데미지 텍스트 생성
+                monsterController.currentHealth -= rockDamage; // 데미지 적용
+                monsterController.PlayerRockDamegeCoolDown(0.5f, 0.2f); // 피격 시간 및 시각적 효과
 
                 ItemSkill(monsterController); // 아이템 사용
 
@@ -151,15 +140,17 @@ public class CharacterSkill : MonoBehaviour
         foreach (GameObject monster in monsters)
         {
             MonsterController monsterController = monster.GetComponent<MonsterController>();
-            GameObject sturnInstance = Instantiate(itemSkill.sturnEffect, monster.transform.position, Quaternion.identity); // 스턴 이펙트 생성
-            GameObject sturnimageInstance = Instantiate(itemSkill.sturnImage, monsterController.sturn.transform.position, Quaternion.identity); // 스턴 이미지 생성
             if (monsterController != null)
             {
+                GameObject sturnInstance = Instantiate(itemSkill.sturnEffect, monster.transform.position, Quaternion.identity); // 스턴 이펙트 생성
+                GameObject sturnimageInstance = Instantiate(itemSkill.sturnImage, monsterController.sturn.transform.position, Quaternion.identity); // 스턴 이미지 생성
+                
                 monsterController.stop = true; // 몬스터 기절 적용
                 monsterController.attackTime += 5; // 몬스터 공격 시간 늘리기
+                monsterToSturnImage[monster] = sturnimageInstance; // 각 몬스터와 스턴 이미지 함께 관리 (몬스터 제거시 이미지도 함께 삭제)
+                
+                Destroy(sturnimageInstance, 3f); // 스턴 이미지 제거
             }
-            monsterToSturnImage[monster] = sturnimageInstance; // 각 몬스터와 스턴 이미지 함께 관리 (몬스터 제거시 이미지도 함께 삭제)
-            Destroy(sturnimageInstance, 3f); // 스턴 이미지 제거
         }
         StartCoroutine(Removestun());
     }
@@ -197,72 +188,24 @@ public class CharacterSkill : MonoBehaviour
         if (waterTime <= 0)
         {
             useWaterSkill = true; // 스킬사용 활성화
-            StartCoroutine(WaterAttack());
+            StartCoroutine(WaterSkill());
         }       
     }
 
-    IEnumerator WaterAttack()
+    
+
+    IEnumerator WaterSkill()
     {
         if (useWaterSkill)
         {
             waterTime = 4; // 쿨타임 적용
 
-            List<GameObject> MonsterList = new List<GameObject>(); // 몬스터 확인
+            MonsterList = new List<GameObject>(); // 몬스터 확인
 
             for (int i = 0; i < 20; i++)
             {
-                List<GameObject> selectedMonsters = new List<GameObject>(); // 현재 존재하는 몬스터 재 확인
-                if (MonsterList.Count == 0)
-                {
-                    // 모든 몬스터, 보스 확인
-                    GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
-                    GameObject[] bossMonsters = GameObject.FindGameObjectsWithTag("Boss");
-
-                    // 몬스터 리스트에 할당
-                    List<GameObject> allMonsters = new List<GameObject>(monsters);
-                    allMonsters.AddRange(bossMonsters);
-
-                    if (allMonsters.Count > 0)
-                    {
-                        // 랜덤 몬스터 선택
-                        selectedMonsters.Add(allMonsters[Random.Range(0, allMonsters.Count)]);
-                    }
-
-                    MonsterList.AddRange(selectedMonsters);
-                }
-                else
-                {
-                    if (MonsterList.Count > 0)
-                    {
-                        selectedMonsters.Add(MonsterList[Random.Range(0, MonsterList.Count)]);
-                    }
-                }
-
-
-                foreach (GameObject monster in selectedMonsters)
-                {
-                    MonsterController monsterController = monster.GetComponent<MonsterController>();
-
-                    if (monsterController != null)
-                    { 
-                        // 이펙트 생성 위치
-                        Vector3 waterPosition = new Vector3(monsterController.gameObject.transform.position.x, monsterController.gameObject.transform.position.y - 0.2f, monsterController.gameObject.transform.position.z);
-                        GameObject waterInstance = Instantiate(waterEffect, waterPosition, Quaternion.Euler(90, 0, 0)); // 이펙트 생성
-                        audioManager.WaterAudio(); // 오디오 실행
-
-                        if (monsterController.pWaterTakeDamage)
-                        {
-                            playerController.CWaterDamageText(monsterController); // 데미지 텍스트 생성
-                            monsterController.currentHealth -= waterDamage; // 데미지 적용
-                            monsterController.PlayerWaterDamegeCoolDown(0.5f, 0.1f); // 피격 시간 및 시각적 효과
-                        }
-
-                        ItemSkill(monsterController); // 아이템 사용
-
-                        Destroy(waterInstance, 2f); // 이펙트 제거
-                    }
-                }
-
+                WaterAttack(); // 몬스터 확인 및 공격
+               
                 if (MonsterList.Count > 0)
                 {
                     // 리스트 초기화
@@ -279,6 +222,61 @@ public class CharacterSkill : MonoBehaviour
             }
         }
     }
+    void WaterAttack()
+    {
+        List<GameObject> selectedMonsters = new List<GameObject>(); // 현재 존재하는 몬스터 재 확인
+        if (MonsterList.Count == 0)
+        {
+            // 모든 몬스터, 보스 확인
+            GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+            GameObject[] bossMonsters = GameObject.FindGameObjectsWithTag("Boss");
+
+            // 몬스터 리스트에 할당
+            List<GameObject> allMonsters = new List<GameObject>(monsters);
+            allMonsters.AddRange(bossMonsters);
+
+            if (allMonsters.Count > 0)
+            {
+                // 랜덤 몬스터 선택
+                selectedMonsters.Add(allMonsters[Random.Range(0, allMonsters.Count)]);
+            }
+
+            MonsterList.AddRange(selectedMonsters);
+        }
+        else
+        {
+            if (MonsterList.Count > 0)
+            {
+                selectedMonsters.Add(MonsterList[Random.Range(0, MonsterList.Count)]);
+            }
+        }
+
+
+        foreach (GameObject monster in selectedMonsters)
+        {
+            MonsterController monsterController = monster.GetComponent<MonsterController>();
+
+            if (monsterController != null)
+            {
+                // 이펙트 생성 위치
+                Vector3 waterPosition = new Vector3(monsterController.gameObject.transform.position.x, monsterController.gameObject.transform.position.y - 0.2f, monsterController.gameObject.transform.position.z);
+                GameObject waterInstance = Instantiate(waterEffect, waterPosition, Quaternion.Euler(90, 0, 0)); // 이펙트 생성
+                audioManager.WaterAudio(); // 오디오 실행
+
+                if (monsterController.pWaterTakeDamage)
+                {
+                    playerController.CWaterDamageText(monsterController); // 데미지 텍스트 생성
+                    monsterController.currentHealth -= waterDamage; // 데미지 적용
+                    monsterController.PlayerWaterDamegeCoolDown(0.5f, 0.1f); // 피격 시간 및 시각적 효과
+                }
+
+                ItemSkill(monsterController); // 아이템 사용
+
+                Destroy(waterInstance, 2f); // 이펙트 제거
+            }
+        }
+    }
+
 
     // 캐릭터 스킬로 인한 공격중 확률적으로 아이템 사용
     void ItemSkill(MonsterController monsterController)

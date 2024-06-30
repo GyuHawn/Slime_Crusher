@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 
 public class SelectItem : MonoBehaviour
 {
@@ -21,20 +22,20 @@ public class SelectItem : MonoBehaviour
     public List<GameObject> selectItems; // 아이템 선택지 3개 설정 리스트
     public List<GameObject> playerItems; // 획득한 아이템 리스트
 
+    public int selectNum; // 선택한 아이템
+
     public GameObject selectItemPos1; // 획득한 아이템 표시
     public GameObject selectItemPos2;
     public GameObject selectItemPos3;
     public GameObject selectItemPos4;
-    public int selectNum; // 선택한 아이템
 
     public TMP_Text itemName; // 선택한 아이템 이름과 설명
     public TMP_Text itemEx;
-    
     public TMP_Text item1LvText; // 획득한 아이템 레벨 표시
     public TMP_Text item2LvText;
     public TMP_Text item3LvText;
     public TMP_Text item4LvText;
-
+    
     public GameObject[] characters; // 캐릭터 리스트
     public GameObject charPos; // 캐릭터 표시 위치
     public bool selectChar;
@@ -60,12 +61,12 @@ public class SelectItem : MonoBehaviour
     public bool rockSelect;
     public bool sturnSelect;
 
-    public GameObject selectItemMenu;
+    public GameObject selectItemMenu; // 아이템 선택 메뉴
 
     public bool selectedItem; // 아이템을 선택하였는지 확인
 
     public Canvas canvas;
-    public GameObject getItemUIPos;
+    public GameObject getItemUIPos; // 생성한 아이템 오브젝트 부모용 오브젝트
 
     private void Awake()
     {
@@ -92,22 +93,7 @@ public class SelectItem : MonoBehaviour
     {
         if (!selectChar)
         {
-            if (character.currentCharacter == 1)
-            {
-                characters[0].transform.position = charPos.transform.position;
-            }
-            if (character.currentCharacter == 2)
-            {
-                characters[1].transform.position = charPos.transform.position;
-            }
-            if (character.currentCharacter == 3)
-            {
-                characters[2].transform.position = charPos.transform.position;
-            }
-            if (character.currentCharacter == 4)
-            {
-                characters[3].transform.position = charPos.transform.position;
-            }
+            characters[character.currentCharacter - 1].transform.position = charPos.transform.position;
 
             selectChar = true;
         }
@@ -151,10 +137,25 @@ public class SelectItem : MonoBehaviour
                         }
                     }
 
+                    // 선택한 아이템 알맞은 위치 설정
                     GameObject itemPos = null;
-                    if (selectItems.Count == 1) itemPos = itemPos1;
-                    else if (selectItems.Count == 2) itemPos = itemPos2;
-                    else if (selectItems.Count == 3) itemPos = itemPos3;
+
+                    switch (selectItems.Count)
+                    {
+                        case 1:
+                            itemPos = itemPos1;
+                            break;
+                        case 2:
+                            itemPos = itemPos2;
+                            break;
+                        case 3:
+                            itemPos = itemPos3;
+                            break;
+                        default:
+                            itemPos = null;
+                            break;
+                    }
+
 
                     itemFromItems.transform.position = itemPos.transform.position;
                 }
@@ -171,10 +172,25 @@ public class SelectItem : MonoBehaviour
                 {
                     selectItems.Add(selectedItem);
 
+                    // 선택한 아이템 알맞은 위치 설정
                     GameObject itemPos = null;
-                    if (selectItems.Count == 1) itemPos = itemPos1;
-                    else if (selectItems.Count == 2) itemPos = itemPos2;
-                    else if (selectItems.Count == 3) itemPos = itemPos3;
+
+                    switch (selectItems.Count)
+                    {
+                        case 1:
+                            itemPos = itemPos1;
+                            break;
+                        case 2:
+                            itemPos = itemPos2;
+                            break;
+                        case 3:
+                            itemPos = itemPos3;
+                            break;
+                        default:
+                            itemPos = null;
+                            break;
+                    }
+
 
                     selectedItem.transform.position = itemPos.transform.position;
                 }
@@ -243,53 +259,27 @@ public class SelectItem : MonoBehaviour
     // 획득한 아이템 생성
     void InstantiateItem()
     {
-        GameObject newItem = null;
+        GameObject newItem = Instantiate(items[selectNum - 1], selectItemPos1.transform.position, Quaternion.identity);
+        newItem.transform.SetParent(getItemUIPos.transform, false);
+
         switch (selectItems.Count)
         {
             case 1:
-                newItem = Instantiate(items[selectNum - 1], selectItemPos1.transform.position, Quaternion.identity);
-                newItem.transform.SetParent(getItemUIPos.transform, false);
                 newItem.transform.position = selectItemPos1.transform.position;
                 break;
             case 2:
-                newItem = Instantiate(items[selectNum - 1], selectItemPos2.transform.position, Quaternion.identity);
-                newItem.transform.SetParent(getItemUIPos.transform, false);
                 newItem.transform.position = selectItemPos2.transform.position;
                 break;
             case 3:
-                newItem = Instantiate(items[selectNum - 1], selectItemPos3.transform.position, Quaternion.identity);
-                newItem.transform.SetParent(getItemUIPos.transform, false);
                 newItem.transform.position = selectItemPos3.transform.position;
                 break;
             case 4:
-                newItem = Instantiate(items[selectNum - 1], selectItemPos4.transform.position, Quaternion.identity);
-                newItem.transform.SetParent(getItemUIPos.transform, false);
                 newItem.transform.position = selectItemPos4.transform.position;
                 break;
         }
 
         playerItems.Add(newItem);
-
-        if (newItem != null)
-        {
-            newItem.name = newItem.name.Replace("(Clone)", "Pltem");
-            int nextPos = Mathf.Min(playerItems.Count, 4);
-            switch (nextPos)
-            {
-                case 1:
-                    newItem.transform.position = selectItemPos1.transform.position;
-                    break;
-                case 2:
-                    newItem.transform.position = selectItemPos2.transform.position;
-                    break;
-                case 3:
-                    newItem.transform.position = selectItemPos3.transform.position;
-                    break;
-                case 4:
-                    newItem.transform.position = selectItemPos4.transform.position;
-                    break;
-            }
-        }
+        newItem.name = newItem.name.Replace("(Clone)", "Pltem");      
     }
 
     // 획득한 아이템과 맞는 레벨 할당
@@ -312,49 +302,17 @@ public class SelectItem : MonoBehaviour
     // 획득한 아이템의 레벨표시 오픈
     void ItemLevelOpen()
     {
-        if (playerItems.Count > 0)
-        {
-            int item1Level = GetItemLevel(playerItems[0]);
-            item1LvText.text = item1Level.ToString();
-            item1LvText.gameObject.SetActive(true);
-        }
-        else
-        {
-            item1LvText.gameObject.SetActive(false);
-        }
+        item1LvText.gameObject.SetActive(playerItems.Count > 0);
+        item1LvText.text = playerItems.Count > 0 ? GetItemLevel(playerItems[0]).ToString() : "";
 
-        if (playerItems.Count > 1)
-        {
-            int item2Level = GetItemLevel(playerItems[1]);
-            item2LvText.text = item2Level.ToString();
-            item2LvText.gameObject.SetActive(true);
-        }
-        else
-        {
-            item2LvText.gameObject.SetActive(false);
-        }
+        item2LvText.gameObject.SetActive(playerItems.Count > 1);
+        item2LvText.text = playerItems.Count > 1 ? GetItemLevel(playerItems[1]).ToString() : "";
 
-        if (playerItems.Count > 2)
-        {
-            int item3Level = GetItemLevel(playerItems[2]);
-            item3LvText.text = item3Level.ToString();
-            item3LvText.gameObject.SetActive(true);
-        }
-        else
-        {
-            item3LvText.gameObject.SetActive(false);
-        }
+        item3LvText.gameObject.SetActive(playerItems.Count > 2);
+        item3LvText.text = playerItems.Count > 2 ? GetItemLevel(playerItems[2]).ToString() : "";
 
-        if (playerItems.Count > 3)
-        {
-            int item4Level = GetItemLevel(playerItems[3]);
-            item4LvText.text = item4Level.ToString();
-            item4LvText.gameObject.SetActive(true);
-        }
-        else
-        {
-            item4LvText.gameObject.SetActive(false);
-        }
+        item4LvText.gameObject.SetActive(playerItems.Count > 3);
+        item4LvText.text = playerItems.Count > 3 ? GetItemLevel(playerItems[3]).ToString() : "";
     }
 
     // 아이템 레벨업

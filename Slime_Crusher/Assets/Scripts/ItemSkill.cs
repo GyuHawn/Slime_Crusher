@@ -79,7 +79,7 @@ public class ItemSkill : MonoBehaviour
     public float sturnDuration;
     public float sturnPercent;
     public bool isSturn;
-    private GameObject currentAttackedMonster;
+    private GameObject currentAttackedMonster; // 선택된 몬스터
 
     private void Awake()
     {
@@ -92,13 +92,21 @@ public class ItemSkill : MonoBehaviour
 
     void Start()
     {
-        // 사용중인지
+        // 사용 여부
         holyWave = false;
     }
 
     private void Update()
     {
-        // 공격력 퍼센트
+        UpdateDamagePercents(); // 데미지 퍼센트 업데이트
+        UpdateDamage(); // 데미지 업데이트
+        UpdateSkillCounts(); // 스킬 개수 업데이트
+        UpdateSkillDurations(); // 지속시간 업데이트
+        UpdateSkillPercents(); // 발동 확률 업데이트
+    }
+
+    void UpdateDamagePercents() // 데미지 퍼센트 업데이트
+    {
         fireDamagePercent = 0.4f + (0.1f * selectItem.fireLv);
         fireShotDamagePercent = 1.3f + (0.2f * selectItem.fireShotLv);
         fireShotSubDamagePercent = 0.3f + (0.2f * selectItem.fireShotLv);
@@ -106,8 +114,9 @@ public class ItemSkill : MonoBehaviour
         holyShotDamagePercent = 0.5f + (0.2f * selectItem.holyShotLv);
         poisonDamagePercent = 0.35f + (0.05f * selectItem.posionLv);
         rockDamagePercent = 1.5f + (0.5f * selectItem.rockLv);
-
-        // 공격력
+    }
+    void UpdateDamage() // 데미지 업데이트
+    {
         fireDamage = (playerController.damage + playerController.comboDamage) * fireDamagePercent;
         fireShotDamage = (playerController.damage + playerController.comboDamage) * fireShotDamagePercent;
         fireShotSubDamage = (playerController.damage + playerController.comboDamage) * fireShotSubDamagePercent;
@@ -115,19 +124,22 @@ public class ItemSkill : MonoBehaviour
         holyShotDamage = (playerController.damage + playerController.comboDamage) * holyShotDamagePercent;
         poisonDamage = (playerController.damage + playerController.comboDamage) * poisonDamagePercent;
         rockDamage = (playerController.damage + playerController.comboDamage) * rockDamagePercent;
-
-        // 갯수
+    }
+    void UpdateSkillCounts() // 스킬 개수 업데이트
+    {
         fireShotSubNum = 2 + (1 * selectItem.fireShotLv);
         meleeNum = 2 + (1 * selectItem.meleeLv);
-
-        // 시간
+    }
+    void UpdateSkillDurations() // 지속시간 업데이트
+    {
         fireDuration = 2.5f + (0.5f * selectItem.fireLv);
         holyShotDuration = 1.5f + (0.5f * selectItem.holyShotLv);
         holyWaveDuration = 3.5f + (0.5f * selectItem.holyWaveLv);
         posionDuration = 5f;
         sturnDuration = 2f + (1 * selectItem.sturnLv);
-
-        // 확률      
+    }
+    void UpdateSkillPercents() // 발동 확률 업데이트
+    {     
         if (character.currentCharacter == 4)
         {
             firePercent = 10f + (0.5f * characterSkill.luckLevel);
@@ -152,50 +164,20 @@ public class ItemSkill : MonoBehaviour
         }
     }
 
+
+
     // 아이템 획득
     public void GetItem()
     {
-        GameObject fireObj = GameObject.Find("FirePltem");
-        GameObject fireShotObj = GameObject.Find("Fire ShotPltem");
-        GameObject holyWaveObj = GameObject.Find("Holy WavePltem");
-        GameObject holyShotObj = GameObject.Find("Holy ShotPltem");
-        GameObject rockObj = GameObject.Find("RockPltem");
-        GameObject posionObj = GameObject.Find("PosionPltem");
-        GameObject meleeObj = GameObject.Find("MeleePltem");
-        GameObject sturnObj = GameObject.Find("SturnPltem");
-
-        if (fireObj != null)
-        {
-            isFire = true;
-        }
-        else if (fireShotObj != null)
-        {
-            isFireShot = true;
-        }
-        else if (holyWaveObj != null)
-        {
-            isHolyWave = true;
-        }
-        else if (holyShotObj != null)
-        {
-            isHolyShot = true;
-        }
-        else if (rockObj != null)
-        {
-            isRock = true;
-        }
-        else if (posionObj != null)
-        {
-            isPosion = true;
-        }
-        else if (meleeObj != null)
-        {
-            isMelee = true;
-        }
-        else if (sturnObj != null)
-        {
-            isSturn = true;
-        }
+        // 특정 오브젝트를 찾아서 null이 아니면 true 반환
+        isFire = GameObject.Find("FirePltem") != null;
+        isFireShot = GameObject.Find("Fire ShotPltem") != null;
+        isHolyWave = GameObject.Find("Holy WavePltem") != null;
+        isHolyShot = GameObject.Find("Holy ShotPltem") != null;
+        isRock = GameObject.Find("RockPltem") != null;
+        isPosion = GameObject.Find("PosionPltem") != null;
+        isMelee = GameObject.Find("MeleePltem") != null;
+        isSturn = GameObject.Find("SturnPltem") != null;
     }
 
     // fire
@@ -221,7 +203,6 @@ public class ItemSkill : MonoBehaviour
             audioManager.FireShotAudio();
 
             GameObject fireShotInstance = Instantiate(fireShotEffect, targetPosition, Quaternion.identity);
-
             List<GameObject> sub = new List<GameObject>();
 
             for (int i = 0; i < fireShotSubNum; i++)
@@ -235,7 +216,6 @@ public class ItemSkill : MonoBehaviour
             }
 
             StartCoroutine(DestroySubShots(sub, 3f));
-
             Destroy(fireShotInstance, 1f);
         }
     } 
@@ -351,7 +331,6 @@ public class ItemSkill : MonoBehaviour
             audioManager.PosionAudio();
 
             GameObject posionInstance = Instantiate(posionEffect, targetPosition, Quaternion.identity);
-
             Destroy(posionInstance, 5f);
         }       
     }
@@ -364,7 +343,6 @@ public class ItemSkill : MonoBehaviour
             audioManager.RockAudio();
 
             GameObject rockInstance = Instantiate(rockEffect, targetPosition, Quaternion.identity);
-
             Destroy(rockInstance, 5f);
         }       
     }
@@ -376,10 +354,10 @@ public class ItemSkill : MonoBehaviour
     {
         if (isSturn)
         {
-            audioManager.SturnAudio();
-
             if (currentAttackedMonster != null)
             {
+                audioManager.SturnAudio();
+
                 MonsterController monsterController = currentAttackedMonster.GetComponent<MonsterController>();
                 if (monsterController != null)
                 {
@@ -388,10 +366,8 @@ public class ItemSkill : MonoBehaviour
                     GameObject sturnimageInstance = Instantiate(sturnImage, monsterController.sturn.transform.position, Quaternion.identity);
                     sturnimageInstance.name = "PlayerSkill";
 
-
                     monsterController.stop = true;
                     monsterController.attackTime += 5;
-
                     monsterToSturnImage[currentAttackedMonster] = sturnimageInstance;
 
                     Destroy(sturnimageInstance, 2f);
@@ -410,7 +386,6 @@ public class ItemSkill : MonoBehaviour
         foreach (GameObject monster in monsters)
         {
             MonsterController monsterController = monster.GetComponent<MonsterController>();
-
             if (monsterController != null)
             {
                 monsterController.stop = false;
@@ -418,7 +393,7 @@ public class ItemSkill : MonoBehaviour
         }
     }
 
-    public void SetCurrentAttackedMonster(GameObject monster)
+    public void SetCurrentAttackedMonster(GameObject monster) // 현재 공격받는 몬스터 설정
     {
         currentAttackedMonster = monster;
     }

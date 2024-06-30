@@ -59,15 +59,14 @@ public class StageStatus : MonoBehaviour
 
     void Start()
     {
-        // 리스트에 추가
-        // 버프
+        // 버프 리스트 추가
         buffList.Add(damageUp);
         buffList.Add(monsterHealthDown);
         buffList.Add(timeUp);
         buffList.Add(percentUp);
         buffList.Add(monsterDie);
 
-        // 디버프
+        // 디버프 리스트 추가
         deBuffList.Add(damageDown);
         deBuffList.Add(monsterHealthUP);
         deBuffList.Add(timeDown);
@@ -75,7 +74,7 @@ public class StageStatus : MonoBehaviour
         deBuffList.Add(monsterAttackSpdUp);
         deBuffList.Add(monsterSizeDown);
 
-        // 버프 적용않함
+        // 버프 적용상태 초기화
         isDamageUp = false;
         isMonsterHealthDown = false;
         isTimeUp = false;
@@ -90,107 +89,117 @@ public class StageStatus : MonoBehaviour
 
     void Update()
     {
-        // 버프 적용
-        if (buff == 1)
+        if (buff == 1) // 버프 적용
         {
-            if (status == 1)
-            {
-                buffText.text = "플레이어의 기본 공격력이 증가합니다.";
-                if (!isDamageUp)
-                {
-                    DamageUP();
-                }
-            }
-            else if (status == 2)
-            {
-                buffText.text = "몬스터의 기본 체력이 감소합니다.";
-                if (!isMonsterHealthDown)
-                {
-                    MonsterHealthDown();
-                }
-            }
-            else if (status == 3)
-            {
-                 buffText.text = "스테이지 제한 시간이 증가합니다.";
-                if (!isTimeUp)
-                {
-                    TimeUp();
-                }
-            }
-            else if (status == 4)
-            {
-                buffText.text = "아이템 발동 확률이 증가합니다.";
-                if (!isPercentUp)
-                {
-                    PercentUp();
-                }
-            }
-            else if (status == 5)
-            {
-                buffText.text = "일정 시간마다 몬스터가 사망합니다.";
-                timer += Time.deltaTime;
-
-                if (timer >= delay)
-                {
-                    MonsterDie();
-
-                    timer = 0f;
-                }
-            }
+            ApplyBuff();
         }
         else if (buff == 2) // 디버프 적용
         {
-            if (status == 1)
+            ApplyDeBuff();
+        }
+    }
+
+    void ApplyBuff() // 버프 적용
+    {
+        if (status == 1)
+        {
+            buffText.text = "플레이어의 기본 공격력이 증가합니다.";
+            if (!isDamageUp)
             {
-                buffText.text = "플레이어의 기본 공격력이 감소합니다.";
-                if (!isDamageDown)
-                {
-                    DamageDown();
-                }
+                DamageUP();
             }
-            else if (status == 2)
+        }
+        else if (status == 2)
+        {
+            buffText.text = "몬스터의 기본 체력이 감소합니다.";
+            if (!isMonsterHealthDown)
             {
-                buffText.text = "몬스터의 기본 체력이 증가합니다.";
-                if (!isMonsterHealthUP)
-                {
-                    MonsterHealthUP();
-                }
+                MonsterHealthDown();
             }
-            else if (status == 3)
+        }
+        else if (status == 3)
+        {
+            buffText.text = "스테이지 제한 시간이 증가합니다.";
+            if (!isTimeUp)
             {
-                buffText.text = "스테이지 제한 시간이 감소합니다.";
-                if (!isTimeDown)
-                {
-                    TimeDown();
-                }
+                TimeUp();
             }
-            else if (status == 4)
+        }
+        else if (status == 4)
+        {
+            buffText.text = "아이템 발동 확률이 증가합니다.";
+            if (!isPercentUp)
             {
-                buffText.text = "아이템 발동 확률이 감소합니다.";
-                if (!isPercentDown)
-                {
-                    PercentDown();
-                }
+                PercentUp();
             }
-            else if (status == 5)
+        }
+        else if (status == 5)
+        {
+            buffText.text = "일정 시간마다 몬스터가 사망합니다.";
+            timer += Time.deltaTime;
+
+            if (timer >= delay)
             {
-                buffText.text = "투사체 속도가 증가합니다.";
-                if (!isMonsterAttackSpdUp)
-                {
-                    MonsterAttackSpdUp();
-                }
-            }
-            else if (status == 6)
-            {
-                buffText.text = "몬스터의 사이즈가 감소합니다.";
-                if (!isMonsterSizeDown)
-                {
-                    MonsterSizeDown();
-                }
+                MonsterDie();
+
+                timer = 0f;
             }
         }
     }
 
+    void ApplyDeBuff() // 디버프 적용
+    {
+        if (status == 1)
+        {
+            buffText.text = "플레이어의 기본 공격력이 감소합니다.";
+            if (!isDamageDown)
+            {
+                DamageDown();
+            }
+        }
+        else if (status == 2)
+        {
+            buffText.text = "몬스터의 기본 체력이 증가합니다.";
+            if (!isMonsterHealthUP)
+            {
+                MonsterHealthUP();
+            }
+        }
+        else if (status == 3)
+        {
+            buffText.text = "스테이지 제한 시간이 감소합니다.";
+            if (!isTimeDown)
+            {
+                TimeDown();
+            }
+        }
+        else if (status == 4)
+        {
+            buffText.text = "아이템 발동 확률이 감소합니다.";
+            if (!isPercentDown)
+            {
+                PercentDown();
+            }
+        }
+        else if (status == 5)
+        {
+            buffText.text = "투사체 속도가 증가합니다.";
+            if (!isMonsterAttackSpdUp)
+            {
+                MonsterAttackSpdUp();
+            }
+        }
+        else if (status == 6)
+        {
+            buffText.text = "몬스터의 사이즈가 감소합니다.";
+            if (!isMonsterSizeDown)
+            {
+                MonsterSizeDown();
+            }
+        }
+    }
+
+    
     // 버프
     // 기본데미지증가
     public void DamageUP()
@@ -474,22 +483,27 @@ public class StageStatus : MonoBehaviour
                 }
             }
 
-            isDamageUp = false;
-            isMonsterHealthDown = false;
-            isTimeUp = false;
-            isPercentUp = false;
-            isDamageDown = false;
-            isMonsterHealthUP = false;
-            isTimeDown = false;
-            isPercentDown = false;
-            isMonsterAttackSpdUp = false;
-            isMonsterSizeDown = false;
-
-            buff = 0;
-            status = 0;
-
-            selectedEffect = null;
+            ResetState(); // 버프 초기화
         }
+    }
+
+    void ResetState() // 버프 초기화
+    {
+        isDamageUp = false;
+        isMonsterHealthDown = false;
+        isTimeUp = false;
+        isPercentUp = false;
+        isDamageDown = false;
+        isMonsterHealthUP = false;
+        isTimeDown = false;
+        isPercentDown = false;
+        isMonsterAttackSpdUp = false;
+        isMonsterSizeDown = false;
+
+        buff = 0;
+        status = 0;
+
+        selectedEffect = null;
     }
 
     // 버프, 디버프 시각적 표시
