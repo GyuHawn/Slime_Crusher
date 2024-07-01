@@ -1,20 +1,16 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameStart : MonoBehaviour
 {
-    public GameObject settingMenu; // 옵션 메뉴
     public GameObject resetMenu; // 데이터 리셋 메뉴
     public GameObject tutorialMenu; // 튜토리얼 메뉴
     public GameObject[] tutorials; // 튜토리얼 오브젝트 관리
     public GameObject source; // 저작권 관련 표시 메뉴
-
-    public float moveDuration = 1.0f; // 옵션창 이동시간
-    private Vector3 startMenuPos; // 옵션창 위치관리
-    private Vector3 endMenuPos; // 옵션창 위치관리
-    private bool onSetting; // 옵션 활성화
+    public GameObject settingMenu; // 옵션 메뉴
 
     public int tutorialNum; // 현재 튜토리얼 장면 값
 
@@ -24,20 +20,24 @@ public class GameStart : MonoBehaviour
     public TMP_Text tutorialMenuText;
     public TMP_Text exitMenuText;
 
+    public Button settingButton;
+
     private void Start()
     {
-        SettingMovePosition(); // 옵션 UI 위치값 설정
         TextColorSetting(); // 텍스트 컬러 설정
 
         // 기초 값 설정
-        onSetting = false; // 옵션 비활성화 상태
         tutorialNum = -1; // 튜토리얼 페이지 값
+
+        SettingMenuManager.Instance.InitializeOptionMenu(settingMenu);
+        settingButton.onClick.AddListener(OnSettingMenu);
     }
-    void SettingMovePosition() // 옵션 UI 위치값 설정
+
+    void OnSettingMenu()
     {
-        startMenuPos = new Vector3(870f, settingMenu.transform.localPosition.y, settingMenu.transform.localPosition.z);
-        endMenuPos = new Vector3(540f, settingMenu.transform.localPosition.y, settingMenu.transform.localPosition.z);
+        SettingMenuManager.Instance.ToggleSettingMenu();
     }
+
     void TextColorSetting() // 텍스트 컬러 설정
     {
         startMenuText.color = Color.black;
@@ -71,49 +71,6 @@ public class GameStart : MonoBehaviour
     {  
         startMenuText.color = Color.white;
         LodingController.LoadNextScene("Character");
-    }
-
-    public void OnSettingMenu() // 옵션메뉴 활성화
-    {
-        StartCoroutine(MoveSettingMenu()); // 옵션메뉴 이동
-    }
-
-    IEnumerator MoveSettingMenu() // 옵션메뉴 이동
-    {
-        // 버튼 클릭 시각적 표시
-        settingMenuText.color = Color.white;
-
-        // 옵션창 비활성화시 처음 위치로 이동
-        if (!onSetting)
-        {
-            float elapsed = 0f;
-
-            while (elapsed < moveDuration)
-            {
-                settingMenu.transform.localPosition = Vector3.Lerp(startMenuPos, endMenuPos, elapsed / moveDuration);
-                elapsed += Time.deltaTime;
-                yield return null;
-            }
-
-            settingMenu.transform.localPosition = endMenuPos;
-            onSetting = true;
-        }
-        else // 옵션창 활성화시 정해진 위치로 이동
-        {
-            float elapsed = 0f;
-
-            while (elapsed < moveDuration)
-            {
-                settingMenu.transform.localPosition = Vector3.Lerp(endMenuPos, startMenuPos, elapsed / moveDuration);
-                elapsed += Time.deltaTime;
-                yield return null;
-            }
-
-            settingMenu.transform.localPosition = startMenuPos;
-            onSetting = false;
-        }
-
-        settingMenuText.color = Color.black;
     }
 
     // 리셋 메뉴 관리

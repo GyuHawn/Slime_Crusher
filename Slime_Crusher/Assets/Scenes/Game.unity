@@ -614,8 +614,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7401df902393a704fb13a869f431566b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settingButton: {fileID: 632262307}
   settingMenu: {fileID: 1801597745}
-  moveDuration: 1
 --- !u!114 &4910552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14043,7 +14043,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4371369334075902766, guid: d1e6ed385729e4c44971393459f26176, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 1650.62
       objectReference: {fileID: 0}
     - target: {fileID: 4371369334075902766, guid: d1e6ed385729e4c44971393459f26176, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
