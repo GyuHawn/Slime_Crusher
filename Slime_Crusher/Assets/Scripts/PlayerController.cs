@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
 {
     private StageManager stageManager;
     private ItemSkill itemSkill;
-    private AudioManager audioManager;
     private CharacterSkill charaterSkill;
     private Combo combo;
 
@@ -55,7 +54,6 @@ public class PlayerController : MonoBehaviour
     {
         stageManager = GameObject.Find("Manager").GetComponent<StageManager>();
         itemSkill = GameObject.Find("Manager").GetComponent<ItemSkill>();
-        audioManager = GameObject.Find("Manager").GetComponent<AudioManager>();
         charaterSkill = GameObject.Find("Manager").GetComponent<CharacterSkill>();
         combo = GameObject.Find("Manager").GetComponent<Combo>();
     }
@@ -219,7 +217,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerHit() // 플레이어 피격
     {
-        audioManager.HitAudio();
+        AudioManager.Instance.PlayHitAudio();
 
         playerHealth -= 1; // 체력 감소
         combo.comboNum = 0; // 콤보 초기화
@@ -271,7 +269,7 @@ public class PlayerController : MonoBehaviour
     {
         defending = true;
 
-        audioManager.DefenseAudio();
+        AudioManager.Instance.PlayDefenseAudio();
 
         defenseEffect.SetActive(true);
         defenseCoolTime.SetActive(true);
@@ -351,7 +349,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator AttackMonster(MonsterController monsterController)
     {
         isAttacking = true;
-        audioManager.AttackAudio(); // 공격 오디오
+        AudioManager.Instance.PlayAttackAudio(); // 공격 오디오
         itemSkill.SetCurrentAttackedMonster(monsterController.gameObject); // 현재 공격받는 몬스터 설정
 
         if (monsterController.defense) // 몬스터가 방어중일때 공격 불가

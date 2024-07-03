@@ -6,7 +6,6 @@ using UnityEngine;
 public class CharacterSkill : MonoBehaviour
 {
     private ItemSkill itemSkill;
-    private AudioManager audioManager;
     private PlayerController playerController;
 
     // 캐릭터 변수
@@ -37,7 +36,6 @@ public class CharacterSkill : MonoBehaviour
     private void Awake()
     {
         itemSkill = GameObject.Find("Manager").GetComponent<ItemSkill>();
-        audioManager = GameObject.Find("Manager").GetComponent<AudioManager>();
         playerController = GameObject.Find("Manager").GetComponent<PlayerController>();
     }
 
@@ -84,7 +82,7 @@ public class CharacterSkill : MonoBehaviour
     {
         if(rockTime <= 0)
         {
-            audioManager.RockAudio();
+            AudioManager.Instance.PlayRockAudio();
             RockAttack();
         }
     }
@@ -126,7 +124,7 @@ public class CharacterSkill : MonoBehaviour
     {
         if (sturnTime <= 0)
         {
-            audioManager.SturnAudio();
+            AudioManager.Instance.PlayStunAudio();
             SturnAttack();
         }      
     }
@@ -261,7 +259,7 @@ public class CharacterSkill : MonoBehaviour
                 // 이펙트 생성 위치
                 Vector3 waterPosition = new Vector3(monsterController.gameObject.transform.position.x, monsterController.gameObject.transform.position.y - 0.2f, monsterController.gameObject.transform.position.z);
                 GameObject waterInstance = Instantiate(waterEffect, waterPosition, Quaternion.Euler(90, 0, 0)); // 이펙트 생성
-                audioManager.WaterAudio(); // 오디오 실행
+                AudioManager.Instance.PlayWaterAudio(); // 오디오 실행
 
                 if (monsterController.pWaterTakeDamage)
                 {

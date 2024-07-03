@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class StageManager : MonoBehaviour
 {
@@ -96,6 +97,7 @@ public class StageManager : MonoBehaviour
         UpdateStageText(); // 스테이지 표시 텍스트 변경
         TimeOver(); // 제한시간 초과시 게임종료
         GameOver();  // 게임종료 결과 표시, 집계
+        StageAudio(); // 스테이지오디오   
     }
     void UpdateMap() // 스테이지 맵 변경
     {
@@ -401,4 +403,26 @@ public class StageManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
     }  
+
+    void StageAudio()
+    {
+        if (SceneManager.GetActiveScene().name == "Game")
+        {
+            if (mainStage <= 8)
+            {
+                if (subStage == 5)
+                {
+                    AudioManager.Instance.PlayBossAudio();
+                }
+                else
+                {
+                    AudioManager.Instance.PlayStageAudio();
+                }
+            }
+            else
+            {
+                AudioManager.Instance.PlayBossAudio();
+            }
+        }
+    }
 }

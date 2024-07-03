@@ -167,6 +167,7 @@ public class CharacterSelect : MonoBehaviour
     // 캐릭터 선택
     public void RockChar() // 돌 캐릭터
     {
+        AudioManager.Instance.PlayButtonAudio();
         CheckReset(); // 캐릭터 선택 UI 초기화
         checkChar[0].SetActive(true); // 캐릭터 선택 UI 활성화
 
@@ -184,6 +185,7 @@ public class CharacterSelect : MonoBehaviour
     {
         if (waterChar)
         {
+            AudioManager.Instance.PlayButtonAudio();
             CheckReset();
             checkChar[1].SetActive(true);
 
@@ -201,6 +203,7 @@ public class CharacterSelect : MonoBehaviour
     {
         if (lightChar)
         {
+            AudioManager.Instance.PlayButtonAudio();
             CheckReset();
             checkChar[2].SetActive(true);
 
@@ -218,6 +221,7 @@ public class CharacterSelect : MonoBehaviour
     {
         if (luckChar)
         {
+            AudioManager.Instance.PlayButtonAudio();
             CheckReset();
             checkChar[3].SetActive(true);
 
@@ -236,6 +240,7 @@ public class CharacterSelect : MonoBehaviour
     {
         if (playerMoney >= 100) // 100원 이상일때
         {
+            AudioManager.Instance.PlayButtonAudio();
             waterChar = true; // 캐릭터 오픈
             playerMoney -= 100; // 사용한 돈 제거
             PlayerPrefs.SetInt("WaterCharOpen", 1);
@@ -247,6 +252,7 @@ public class CharacterSelect : MonoBehaviour
     {
         if (playerMoney >= 500)
         {
+            AudioManager.Instance.PlayButtonAudio();
             lightChar = true;
             playerMoney -= 500;
             PlayerPrefs.SetInt("LightCharOpen", 1);
@@ -258,6 +264,7 @@ public class CharacterSelect : MonoBehaviour
     {
         if (playerMoney >= 1000)
         {
+            AudioManager.Instance.PlayButtonAudio();
             luckChar = true;
             playerMoney -= 1000;
             PlayerPrefs.SetInt("LuckCharOpen", 1);
@@ -272,6 +279,7 @@ public class CharacterSelect : MonoBehaviour
         {
             if (playerMoney >= 1000) // 1000원 이상일때
             {
+                AudioManager.Instance.PlayButtonAudio();
                 rockLevel++; // 레벨얼
                 playerMoney -= 1000; // 사용한 1000원 제거
                 PlayerPrefs.SetInt("rockLevel", rockLevel);
@@ -283,8 +291,9 @@ public class CharacterSelect : MonoBehaviour
     {
         if (waterLevel <= 20)
         {
-            if (playerMoney >= 1000) 
+            if (playerMoney >= 1000)
             {
+                AudioManager.Instance.PlayButtonAudio();
                 waterLevel++;
                 playerMoney -= 1000;
                 PlayerPrefs.SetInt("waterLevel", waterLevel);
@@ -298,6 +307,7 @@ public class CharacterSelect : MonoBehaviour
         {
             if (playerMoney >= 1000)
             {
+                AudioManager.Instance.PlayButtonAudio();
                 lightLevel++;
                 playerMoney -= 1000;
                 PlayerPrefs.SetInt("lightLevel", lightLevel);
@@ -311,6 +321,7 @@ public class CharacterSelect : MonoBehaviour
         {
             if (playerMoney >= 1000)
             {
+                AudioManager.Instance.PlayButtonAudio();
                 luckLevel++;
                 playerMoney -= 1000;
                 PlayerPrefs.SetInt("luckLevel", luckLevel);
@@ -324,6 +335,7 @@ public class CharacterSelect : MonoBehaviour
     {
         if (enter) // 게임시작 가능일때
         {
+            AudioManager.Instance.PlayButtonAudio();
             enterText.color = Color.white; // 텍스트 시각화
             PlayerPrefs.SetInt("SelectChar", selectChar);
             StartCoroutine(GameStartButton()); // 게임시작
@@ -347,6 +359,7 @@ public class CharacterSelect : MonoBehaviour
     {
         yield return new WaitForSeconds(1f); // 만약을 위한 1초 대기
 
-        LodingController.LoadNextScene("Game");
+        SceneManager.LoadScene("Game");
+       // LodingController.LoadNextScene("Game");
     }
 }

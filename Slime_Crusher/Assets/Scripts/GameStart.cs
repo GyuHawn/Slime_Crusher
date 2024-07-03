@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using TMPro;
 
 public class GameStart : MonoBehaviour
@@ -29,12 +29,14 @@ public class GameStart : MonoBehaviour
         // 기초 값 설정
         tutorialNum = -1; // 튜토리얼 페이지 값
 
+        AudioManager.Instance.PlayMainMenuAudio();
         SettingMenuManager.Instance.InitializeOptionMenu(settingMenu);
         settingButton.onClick.AddListener(OnSettingMenu);
     }
 
     void OnSettingMenu()
     {
+        AudioManager.Instance.PlayButtonAudio();
         SettingMenuManager.Instance.ToggleSettingMenu();
     }
 
@@ -68,20 +70,24 @@ public class GameStart : MonoBehaviour
     }
 
     public void NewGame() // 버튼 클릭 시각적 표시 및 씬 이동
-    {  
+    {
+        AudioManager.Instance.PlayButtonAudio();
         startMenuText.color = Color.white;
-        LodingController.LoadNextScene("Character");
+        SceneManager.LoadScene("Character");
+       // LodingController.LoadNextScene("Character");
     }
 
     // 리셋 메뉴 관리
     public void OnResetMenu()
     {
+        AudioManager.Instance.PlayButtonAudio();
         resetMenu.SetActive(!resetMenu.activeSelf);
     }
 
     // 데이터 리셋
     public void ResetGame()
     {
+        AudioManager.Instance.PlayButtonAudio();
         PlayerPrefs.DeleteAll();
         resetMenu.SetActive(false);
     }
@@ -89,6 +95,7 @@ public class GameStart : MonoBehaviour
     // 튜토리얼 시작
     public void OnTutorial()
     {
+        AudioManager.Instance.PlayButtonAudio();
         tutorialMenuText.color = Color.white;
         tutorialMenu.SetActive(true);
         tutorialNum = 0;
@@ -97,7 +104,8 @@ public class GameStart : MonoBehaviour
     // 다음 튜토리얼로 이동
     public void NextTutorial()
     {
-        if(tutorialNum < tutorials.Length)
+        AudioManager.Instance.PlayButtonAudio();
+        if (tutorialNum < tutorials.Length)
         {
             tutorialNum++;
         }
@@ -106,6 +114,7 @@ public class GameStart : MonoBehaviour
     // 이전 튜토리얼로 이동
     public void BeforeTutorial()
     {
+        AudioManager.Instance.PlayButtonAudio();
         if (tutorialNum > 0)
         {
             tutorialNum--;
@@ -115,12 +124,14 @@ public class GameStart : MonoBehaviour
     // 저작권 관련 창 관리
     public void OnSource()
     {
+        AudioManager.Instance.PlayButtonAudio();
         source.SetActive(!source.activeSelf);
     }
 
     // 게임종료
     public void Exit()
     {
+        AudioManager.Instance.PlayButtonAudio();
         exitMenuText.color = Color.black;
         Application.Quit();
     }

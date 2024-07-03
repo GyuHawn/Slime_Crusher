@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Option : MonoBehaviour
@@ -25,6 +26,7 @@ public class Option : MonoBehaviour
 
     public void MainMenu() // 메인메뉴로 이동
     {
-        LodingController.LoadNextScene("MainMenu");
+        SceneManager.LoadScene("MainMenu");
+        //LodingController.LoadNextScene("MainMenu");
     }
 }
