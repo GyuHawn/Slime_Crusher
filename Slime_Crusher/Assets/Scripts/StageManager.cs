@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class StageManager : MonoBehaviour
 {
-    private MonsterSpwan monsterSpawn;
+    private MonsterSpawn monsterSpawn;
     private SelectItem selectItem;
     private SelectPass selectPass;
     private StageTimeLimit stageTimeLimit;
@@ -50,7 +50,7 @@ public class StageManager : MonoBehaviour
 
     private void Awake()
     {
-        monsterSpawn = GameObject.Find("Manager").GetComponent<MonsterSpwan>();
+        monsterSpawn = GameObject.Find("Manager").GetComponent<MonsterSpawn>();
         selectItem = GameObject.Find("Manager").GetComponent<SelectItem>();
         selectPass = GameObject.Find("Manager").GetComponent<SelectPass>();
         stageTimeLimit = GameObject.Find("Manager").GetComponent<StageTimeLimit>();

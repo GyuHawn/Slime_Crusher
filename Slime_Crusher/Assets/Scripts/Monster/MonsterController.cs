@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class MonsterController : MonoBehaviour
 {
-    private MonsterSpwan monsterSpawn;
+    private MonsterSpawn monsterSpawn;
     private PlayerController playerController;
     private ItemSkill itemSkill;
     private AudioManager audioManager;
@@ -68,7 +68,7 @@ public class MonsterController : MonoBehaviour
 
     private void Awake()
     {
-        monsterSpawn = GameObject.Find("Manager").GetComponent<MonsterSpwan>();
+        monsterSpawn = GameObject.Find("Manager").GetComponent<MonsterSpawn>();
         playerController = GameObject.Find("Manager").GetComponent<PlayerController>();
         itemSkill = GameObject.Find("Manager").GetComponent<ItemSkill>();
         audioManager = GameObject.Find("Manager").GetComponent<AudioManager>();

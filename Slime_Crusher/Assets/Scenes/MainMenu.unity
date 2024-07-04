@@ -10940,9 +10940,9 @@ MonoBehaviour:
   holyShotAudio: {fileID: 621505701}
   holyWaveAudio: {fileID: 974542066}
   meleeAudio: {fileID: 564242207}
-  poisonAudio: {fileID: 0}
+  poisonAudio: {fileID: 1100169892}
   rockAudio: {fileID: 1097583934}
-  stunAudio: {fileID: 0}
+  stunAudio: {fileID: 1031064323}
   water: {fileID: 344104781}
   bgmSlider: {fileID: 0}
   generalSlider: {fileID: 0}

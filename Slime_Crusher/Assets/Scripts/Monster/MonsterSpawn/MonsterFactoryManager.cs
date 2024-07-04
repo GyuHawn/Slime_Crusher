@@ -4,11 +4,14 @@ using UnityEngine;
 public class MonsterFactoryManager
 {
     private Dictionary<int, MonsterFactory> factories;
+    private GameObject[] infiniteMonsters;
 
     public MonsterFactoryManager(GameObject[] stage1Monsters, GameObject[] stage2Monsters, GameObject[] stage3Monsters,
                                  GameObject[] stage4Monsters, GameObject[] stage5Monsters, GameObject[] stage6Monsters,
-                                 GameObject[] stage7Monsters, GameObject[] InfiniteMonsters)
+                                 GameObject[] stage7Monsters, GameObject[] infiniteMonsters)
     {
+        this.infiniteMonsters = infiniteMonsters;
+
         factories = new Dictionary<int, MonsterFactory>();
 
         // 각 스테이지별 팩토리 생성 및 등록
@@ -19,7 +22,7 @@ public class MonsterFactoryManager
         factories[5] = new Stage5MonsterFactory(stage5Monsters);
         factories[6] = new Stage6MonsterFactory(stage6Monsters);
         factories[7] = new Stage7MonsterFactory(stage7Monsters);
-        factories[8] = new InfiniteMonsterFactory(InfiniteMonsters);
+        factories[8] = new InfiniteMonsterFactory(infiniteMonsters);
     }
 
     public MonsterFactory GetFactory(int stage)
@@ -31,7 +34,7 @@ public class MonsterFactoryManager
         else
         {
             // 8스테이지 이후 InfiniteMonsters[] 팩토리 반환
-            return new InfiniteMonsterFactory(InfiniteMonsters);
+            return new InfiniteMonsterFactory(infiniteMonsters);
         }
     }
 }

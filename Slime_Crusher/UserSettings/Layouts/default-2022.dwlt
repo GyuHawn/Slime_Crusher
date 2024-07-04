@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 100}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 73
+  controlID: 96
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1222,7 +1222,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 572
-    width: 1121
+    width: 1165
     height: 427
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -1784,9 +1784,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 147e0100
-      m_LastClickedID: 0
-      m_ExpandedIDs: 0eb6ffff00c0ffff92c3ffff54c5ffffa6c9ffff6acaffff4ce2ffffa4e3ffff90e6ffff12e8ffff3ef1ffff42f1ffff4af1ffff60f1ffff66f1ffffdaf1ffff20f4ffffdaf4ffff76f5ffff7af9ffff16fbfffff4ffffff926f00001e7100005e9e0000f09f000090a000006af5000024f60000183a0100
+      m_SelectedIDs: cc970000
+      m_LastClickedID: 38860
+      m_ExpandedIDs: ccdcfffff2e9fffff4ffffffcc9700004a980000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1855,7 +1855,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Monster/MonsterSpawn
+    - Assets/Scenes
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -1863,16 +1863,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 61
   m_LastFolders:
-  - Assets/Scripts/Monster/MonsterSpawn
+  - Assets/Scenes
   m_LastFoldersGridSize: 61
   m_LastProjectPath: C:\Users\Kim\Desktop\Project\Slime-Crusher-Code-modification\Slime_Crusher
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 087e0100
-    m_LastClickedID: 97800
-    m_ExpandedIDs: 00000000be6d0000fa6d0000e47d010000ca9a3bffffff7f
+    m_SelectedIDs: a8830000
+    m_LastClickedID: 33704
+    m_ExpandedIDs: 0000000066830000688300006c83000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1900,7 +1900,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000
+    m_ExpandedIDs: 000000006683000068830000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2043,7 +2043,7 @@ MonoBehaviour:
     m_CachedPref: 0
     m_ControlHash: 0
     m_PrefName: 
-  m_LastInspectedObjectInstanceID: 97848
+  m_LastInspectedObjectInstanceID: 38860
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
