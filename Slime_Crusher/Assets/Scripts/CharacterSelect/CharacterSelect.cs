@@ -53,6 +53,8 @@ public class CharacterSelect : MonoBehaviour
     public bool enter;
     public TMP_Text enterText;
 
+    private CommandInvoker invoker = new CommandInvoker();
+
     private void Start()
     {
         LoadPlayerDatas(); // 캐릭터 데이터 관리
@@ -168,6 +170,9 @@ public class CharacterSelect : MonoBehaviour
     public void RockChar() // 돌 캐릭터
     {
         AudioManager.Instance.PlayButtonAudio();
+        playerMoney += 100000;
+        PlayerPrefs.SetInt("GameMoney", playerMoney);
+
         CheckReset(); // 캐릭터 선택 UI 초기화
         checkChar[0].SetActive(true); // 캐릭터 선택 UI 활성화
 
@@ -238,96 +243,52 @@ public class CharacterSelect : MonoBehaviour
     // 캐릭터 오픈
     public void OpenWater() // 물 캐릭터 오픈
     {
-        if (playerMoney >= 100) // 100원 이상일때
-        {
-            AudioManager.Instance.PlayButtonAudio();
-            waterChar = true; // 캐릭터 오픈
-            playerMoney -= 100; // 사용한 돈 제거
-            PlayerPrefs.SetInt("WaterCharOpen", 1);
-            PlayerPrefs.SetInt("GameMoney", playerMoney);
-        }
+        var openWaterCommand = new OpenCharacterCommand(this, 100, "WaterCharOpen", () => { waterChar = true; });
+        invoker.AddCommand(openWaterCommand);
+        invoker.ExecuteCommands();
     }
 
     public void OpenLight()
     {
-        if (playerMoney >= 500)
-        {
-            AudioManager.Instance.PlayButtonAudio();
-            lightChar = true;
-            playerMoney -= 500;
-            PlayerPrefs.SetInt("LightCharOpen", 1);
-            PlayerPrefs.SetInt("GameMoney", playerMoney);
-        }
+        var openLightCommand = new OpenCharacterCommand(this, 500, "LightCharOpen", () => { lightChar = true; });
+        invoker.AddCommand(openLightCommand);
+        invoker.ExecuteCommands();
     }
 
     public void OpenLuck()
     {
-        if (playerMoney >= 1000)
-        {
-            AudioManager.Instance.PlayButtonAudio();
-            luckChar = true;
-            playerMoney -= 1000;
-            PlayerPrefs.SetInt("LuckCharOpen", 1);
-            PlayerPrefs.SetInt("GameMoney", playerMoney);
-        }
+        var openLuckCommand = new OpenCharacterCommand(this, 1000, "LuckCharOpen", () => { luckChar = true; });
+        invoker.AddCommand(openLuckCommand);
+        invoker.ExecuteCommands();
     }
 
     // 캐릭터 레벨업
     public void LevelUpRock() // 돌 캐릭터 레벨업
     {
-        if (rockLevel <= 20) // 레벨이 20이하일때
-        {
-            if (playerMoney >= 1000) // 1000원 이상일때
-            {
-                AudioManager.Instance.PlayButtonAudio();
-                rockLevel++; // 레벨얼
-                playerMoney -= 1000; // 사용한 1000원 제거
-                PlayerPrefs.SetInt("rockLevel", rockLevel);
-                PlayerPrefs.SetInt("GameMoney", playerMoney);
-            }
-        }
+        var levelUpRockCommand = new LevelUpCharacterCommand(this, 1000, ref rockLevel, "rockLevel");
+        invoker.AddCommand(levelUpRockCommand);
+        invoker.ExecuteCommands();
     }
+
     public void LevelUpWater()
     {
-        if (waterLevel <= 20)
-        {
-            if (playerMoney >= 1000)
-            {
-                AudioManager.Instance.PlayButtonAudio();
-                waterLevel++;
-                playerMoney -= 1000;
-                PlayerPrefs.SetInt("waterLevel", waterLevel);
-                PlayerPrefs.SetInt("GameMoney", playerMoney);
-            }
-        }
+        var levelUpWaterCommand = new LevelUpCharacterCommand(this, 1000, ref waterLevel, "waterLevel");
+        invoker.AddCommand(levelUpWaterCommand);
+        invoker.ExecuteCommands();
     }
+
     public void LevelUpLight()
     {
-        if (lightLevel <= 20)
-        {
-            if (playerMoney >= 1000)
-            {
-                AudioManager.Instance.PlayButtonAudio();
-                lightLevel++;
-                playerMoney -= 1000;
-                PlayerPrefs.SetInt("lightLevel", lightLevel);
-                PlayerPrefs.SetInt("GameMoney", playerMoney);
-            }
-        }
+        var levelUpLightCommand = new LevelUpCharacterCommand(this, 1000, ref lightLevel, "lightLevel");
+        invoker.AddCommand(levelUpLightCommand);
+        invoker.ExecuteCommands();
     }
+
     public void LevelUpLuck()
     {
-        if (luckLevel <= 20)
-        {
-            if (playerMoney >= 1000)
-            {
-                AudioManager.Instance.PlayButtonAudio();
-                luckLevel++;
-                playerMoney -= 1000;
-                PlayerPrefs.SetInt("luckLevel", luckLevel);
-                PlayerPrefs.SetInt("GameMoney", playerMoney);
-            }
-        }
+        var levelUpLuckCommand = new LevelUpCharacterCommand(this, 1000, ref luckLevel, "luckLevel");
+        invoker.AddCommand(levelUpLuckCommand);
+        invoker.ExecuteCommands();
     }
 
     // 게임시작
