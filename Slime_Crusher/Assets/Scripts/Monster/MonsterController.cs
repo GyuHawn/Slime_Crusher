@@ -280,7 +280,7 @@ public class MonsterController : MonoBehaviour
             bossAttackNum = true;
             playerController.playerHealth -= damage;
             playerController.UpdateHealth(); // 플레이어 피격
-            combo.comboNum = 0;
+            stageManager.comboNum = 0;
         }
 
         yield return new WaitForSeconds(1f);
@@ -517,7 +517,7 @@ public class MonsterController : MonoBehaviour
 
             combo.ComboUp();
 
-            if (combo.comboNum % 5 == 0)
+            if (stageManager.comboNum % 5 == 0)
             {
                 playerController.comboDamageUP = true;
             }

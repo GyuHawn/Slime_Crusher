@@ -42,10 +42,6 @@ public class PlayerController : MonoBehaviour
     // 돈
     public int money;
 
-    // 시간
-    public float gameTime; // 총시간 표시
-    public TMP_Text gameTimeText;
-
     // 스테이지 관련
     public bool stage5Debuff = false; //보스 스킬 관련
     public bool isStageHit = true; 
@@ -61,8 +57,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerHealth = 8; // 체력 설정
-        damage = 10; // 데미지 설정
-        gameTime = 0f; // 지속시간 초기화
+        damage = 10; // 데미지 설정  
 
         die = false; // 사망 여부 초기화
         comboDamageUP = false; // 데미지 증가 여부 초기화
@@ -88,8 +83,7 @@ public class PlayerController : MonoBehaviour
             Die();
         }
 
-        DefenseCoolTime(); // 방어 쿨타임 관련
-        GamePlayTime(); // 게임 진행시간
+        DefenseCoolTime(); // 방어 쿨타임 관련        
         PlayerAttack(); // 플레이어 공격관련
         ComboDamageUp(); // 콤보 증가시 데미지 증가
     }
@@ -128,13 +122,6 @@ public class PlayerController : MonoBehaviour
             defenseCoolTime.SetActive(false);
         }
     }
-
-    void GamePlayTime() // 게임 진행시간
-    {
-        gameTime += Time.deltaTime;
-        gameTimeText.text = string.Format("{0:00}:{1:00}", Mathf.Floor(gameTime / 60), gameTime % 60);
-    }
-
 
     void OnDrag() // 공격 시작 여부
     {
@@ -220,7 +207,7 @@ public class PlayerController : MonoBehaviour
         AudioManager.Instance.PlayHitAudio();
 
         playerHealth -= 1; // 체력 감소
-        combo.comboNum = 0; // 콤보 초기화
+        stageManager.comboNum = 0; // 콤보 초기화
         UpdateHealth(); // 플레이어 피격
 
         Instantiate(hitEffect, transform.position, Quaternion.identity);
@@ -244,12 +231,12 @@ public class PlayerController : MonoBehaviour
     {      
         if (comboDamageUP)
         {
-            if (combo.comboNum >= 5)
+            if (stageManager.comboNum >= 5)
             {
                 comboDamage += 5;
                 comboDamageUP = false;
             }
-            else if (combo.comboNum < 5)
+            else if (stageManager.comboNum < 5)
             {
                 comboDamage = 0;
             }
@@ -301,7 +288,7 @@ public class PlayerController : MonoBehaviour
     {
         isStageHit = false;      
         playerHealth -= 1;
-        combo.comboNum = 0;
+        stageManager.comboNum = 0;
         UpdateHealth(); // 플레이어 피격
 
         Vector3 effectPos = new Vector3(transform.position.x, transform.position.y, transform.position.z - 6f);

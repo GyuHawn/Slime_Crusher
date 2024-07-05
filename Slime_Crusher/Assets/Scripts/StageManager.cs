@@ -2,8 +2,9 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System;
 
-public class StageManager : MonoBehaviour
+public class StageManager : MonoBehaviour, Observer
 {
     private MonsterSpawn monsterSpawn;
     private SelectItem selectItem;
@@ -16,6 +17,7 @@ public class StageManager : MonoBehaviour
     private StageStatus stageStatus;
     private StageChange stageChange;
     private Combo combo;
+    private GameTimeUI gameTimeUI;
 
     public bool gameStart = false; // 게임시작 여부
 
@@ -35,7 +37,7 @@ public class StageManager : MonoBehaviour
     public float timeLimit; // 스테이지당 제한시간
 
     public bool selectingPass; // 패시브 선택중인지
-    
+
     public float totalTime; // 총 시간
     public int rewardMoney; // 획득 머니
     public TMP_Text totalTimeText;
@@ -45,6 +47,9 @@ public class StageManager : MonoBehaviour
     public TMP_Text clearText;
 
     public bool passing; // 스테이지 전환 표시 중
+
+    public int comboNum;
+    public int maxComboNum;
 
     public Canvas canvas;
 
@@ -65,6 +70,13 @@ public class StageManager : MonoBehaviour
 
     void Start()
     {
+        GameUIManager gameUIManager = FindObjectOfType<GameUIManager>();
+        gameTimeUI = FindObjectOfType<GameTimeUI>();
+        if (gameTimeUI != null && gameUIManager != null)
+        {
+            gameTimeUI.RegisterObserver(gameUIManager);
+        }
+
         // 1-1 시작 설정 후 게임 시작
         if (!gameStart)
         {
@@ -77,9 +89,9 @@ public class StageManager : MonoBehaviour
 
             totalTime = 0;
             rewardMoney = 0;
-        }   
+        }       
     }
-
+       
     void Update()
     {
         // 게임 클리어
@@ -105,27 +117,8 @@ public class StageManager : MonoBehaviour
         {
             map[i].SetActive(i == mainStage - 1);
         }
-        /*
-         if (mainStage <= 8)
-        {
-            for (int i = 0; i < mainStage - 1; ++i)
-            {
-                map[i].SetActive(false);
-            }
-
-            map[mainStage - 1].SetActive(true);
-        }
-        else
-        {
-            for (int i = 0; i < 7; ++i)
-            {
-                map[i].SetActive(false);
-            }
-
-            map[7].SetActive(true);
-        }
-        */
     }
+
     void UpdateStageText() // 스테이지 표시 텍스트 변경
     { 
         if (mainStage <= 7)
@@ -137,6 +130,7 @@ public class StageManager : MonoBehaviour
             stageText.text = "스테이지 " + mainStage;
         }
     }
+
     void TimeOver() // 제한시간 초과시 게임종료
     {     
         if (stageTimeLimit.stageFail >= stageTimeLimit.stageTime)
@@ -146,9 +140,17 @@ public class StageManager : MonoBehaviour
         }
     }
 
+
+    public void UpdateTime(float gameTime)
+    {
+        totalTime = gameTime; // 게임 시간을 누적하여 totalTime으로 설정
+    }
+    public void UpdateCombo(int combo, int maxCombo)
+    {
+        maxComboNum = maxCombo;
+    }
     void GameOver()  // 게임종료 결과 표시, 집계
     {
-        totalTime = playerController.gameTime;
         totalTimeText.text = string.Format("{0:00}:{1:00}", Mathf.Floor(totalTime / 60), totalTime % 60);
         if (mainStage < 8)
         {
@@ -158,11 +160,9 @@ public class StageManager : MonoBehaviour
         {
             finalWaveText.text = mainStage + " Wave";
         }
-        maxComboText.text = combo.maxComboNum.ToString();
+        maxComboText.text = maxComboNum.ToString();
         rewardMoneyText.text = rewardMoney.ToString();
     }
-
-
 
     // 게임중 머니 획득 (결과 머니 게임중 획득)
     public void Reward()
@@ -170,7 +170,7 @@ public class StageManager : MonoBehaviour
         if (gameStart)
         {
             rewardMoney += (int)(totalTime * 1);
-            rewardMoney += combo.maxComboNum;
+            rewardMoney += maxComboNum;
 
             int playerMoney = PlayerPrefs.GetInt("GameMoney", 0);
             playerMoney += rewardMoney;
