@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class CommandInvoker : MonoBehaviour
+public class CommandInvoker
 {
     private Queue<Command> commandQueue = new Queue<Command>();
 
@@ -10,7 +8,7 @@ public class CommandInvoker : MonoBehaviour
     {
         commandQueue.Enqueue(command);
     }
-    
+
     public void ExecuteCommands()
     {
         while (commandQueue.Count > 0)

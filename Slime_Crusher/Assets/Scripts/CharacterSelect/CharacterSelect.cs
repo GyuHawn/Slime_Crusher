@@ -40,12 +40,15 @@ public class CharacterSelect : MonoBehaviour
     public int rockLevel;
     public TMP_Text rockLevelText;
     public GameObject waterLevelUPButton;
+    public GameObject waterLevelUI;
     public int waterLevel;
     public TMP_Text waterLevelText;
     public GameObject lightLevelUPButton;
+    public GameObject lightLevelUI;
     public int lightLevel;
     public TMP_Text lightLevelText;
     public GameObject luckLevelUPButton;
+    public GameObject luckLevelUI;
     public int luckLevel;
     public TMP_Text luckLevelText;
 
@@ -112,6 +115,7 @@ public class CharacterSelect : MonoBehaviour
             useWater.SetActive(false);
             waterOpenBtn.SetActive(false);
             waterLevelUPButton.SetActive(true);
+            waterLevelUI.SetActive(true);
             waterLevelText.gameObject.SetActive(true);
         }
         if (lightChar)
@@ -119,6 +123,7 @@ public class CharacterSelect : MonoBehaviour
             useLight.SetActive(false);
             lightOpenBtn.SetActive(false);
             lightLevelUPButton.SetActive(true);
+            lightLevelUI.SetActive(true);
             lightLevelText.gameObject.SetActive(true);
         }
         if (luckChar)
@@ -126,6 +131,7 @@ public class CharacterSelect : MonoBehaviour
             useLuck.SetActive(false);
             luckOpenBtn.SetActive(false);
             luckLevelUPButton.SetActive(true);
+            luckLevelUI.SetActive(true);
             luckLevelText.gameObject.SetActive(true);
         }
     } 
