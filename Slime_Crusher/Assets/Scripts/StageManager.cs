@@ -14,7 +14,7 @@ public class StageManager : MonoBehaviour, Observer
     private CharacterSkill characterSkill;
     private Character character;
     private ItemSkill itemSkill;
-    private StageStatus stageStatus;
+    private StageStatusManager stageStatusManager;
     private StageChange stageChange;
     private Combo combo;
     private GameTimeUI gameTimeUI;
@@ -63,7 +63,7 @@ public class StageManager : MonoBehaviour, Observer
         characterSkill = GameObject.Find("Manager").GetComponent<CharacterSkill>();
         character = GameObject.Find("Manager").GetComponent<Character>();
         itemSkill = GameObject.Find("Manager").GetComponent<ItemSkill>();
-        stageStatus = GameObject.Find("Manager").GetComponent<StageStatus>();
+        stageStatusManager = GameObject.Find("Manager").GetComponent<StageStatusManager>();
         stageChange = GameObject.Find("Manager").GetComponent<StageChange>();
         combo = GameObject.Find("Manager").GetComponent<Combo>();
     }
@@ -360,13 +360,13 @@ public class StageManager : MonoBehaviour, Observer
         passing = false;
         yield return new WaitForSeconds(3f);
 
-        stageStatus.ResetStatus(); // 버프 초기화
+        stageStatusManager.ResetStatus(); // 버프 초기화
 
         NextStageSetting(); // 스테이지 이동시 몬스터수 초기화
         StageMonsterSetting(); // 스테이지 몬스터 수 설정
         SpawnMonsters(); // 몬스터 스폰
 
-        stageStatus.BuffStatus(allMonstersSpawned); // 버프 설정
+        stageStatusManager.BuffStatus(allMonstersSpawned); // 버프 설정
     }
 
     // 맵에 남아있는 이전 스테이지 데이터 제거

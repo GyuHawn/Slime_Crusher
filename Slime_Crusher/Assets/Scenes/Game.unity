@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4910542}
   - component: {fileID: 4910543}
-  - component: {fileID: 4910555}
   - component: {fileID: 4910540}
   - component: {fileID: 4910552}
   - component: {fileID: 4910550}
@@ -145,6 +144,7 @@ GameObject:
   - component: {fileID: 4910541}
   - component: {fileID: 4910551}
   - component: {fileID: 4910556}
+  - component: {fileID: 4910557}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -592,46 +592,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d412f574e0a60e642b0fceaf448c1cfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageTimeLimit: {fileID: 0}
+  playerController: {fileID: 0}
+  itemSkill: {fileID: 0}
   buff: 0
   status: 0
   stageStatus: {fileID: 1206127809}
   statusPos: {fileID: 278570558}
-  saveDamage: 0
-  damageUp: {fileID: 1494243767}
   isDamageUp: 0
-  monsterHealthDown: {fileID: 1435129635}
   isMonsterHealthDown: 0
-  timeUp: {fileID: 1900468971}
   isTimeUp: 0
-  percentUp: {fileID: 2116947860}
   isPercentUp: 0
+  damageUp: {fileID: 1494243767}
+  monsterHealthDown: {fileID: 1435129635}
+  timeUp: {fileID: 1900468971}
+  percentUp: {fileID: 2116947860}
   monsterDie: {fileID: 289651367}
-  damageDown: {fileID: 32809883}
   isDamageDown: 0
-  monsterHealthUP: {fileID: 2010060055}
   isMonsterHealthUP: 0
-  timeDown: {fileID: 900416814}
   isTimeDown: 0
-  percentDown: {fileID: 576081452}
   isPercentDown: 0
-  monsterAttackSpdUp: {fileID: 1566930176}
   isMonsterAttackSpdUp: 0
-  monsterSizeDown: {fileID: 61836396}
   isMonsterSizeDown: 0
+  damageDown: {fileID: 32809883}
+  monsterHealthUP: {fileID: 2010060055}
+  timeDown: {fileID: 900416814}
+  percentDown: {fileID: 576081452}
+  monsterAttackSpdUp: {fileID: 1566930176}
+  monsterSizeDown: {fileID: 61836396}
   buffText: {fileID: 930810558}
---- !u!114 &4910555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4910539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7070f8ea0a4459f44b0c062b611af722, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  comboText: {fileID: 1673948558}
 --- !u!114 &4910556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -649,6 +638,19 @@ MonoBehaviour:
   subStage: 0
   mainStageText: {fileID: 1806575821}
   subStageText: {fileID: 2024316791}
+--- !u!114 &4910557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4910539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7070f8ea0a4459f44b0c062b611af722, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comboText: {fileID: 1673948558}
 --- !u!1 &5875218
 GameObject:
   m_ObjectHideFlags: 0
@@ -24376,6 +24378,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1853038231
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1853038232}
+  m_Layer: 0
+  m_Name: StatusManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1853038232
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853038231}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.38732097, y: -0.20057254, z: 0.031510357}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1864652092
 GameObject:
   m_ObjectHideFlags: 0
@@ -27815,3 +27848,4 @@ SceneRoots:
   - {fileID: 2049470044}
   - {fileID: 119394889}
   - {fileID: 1889385058}
+  - {fileID: 1853038232}
