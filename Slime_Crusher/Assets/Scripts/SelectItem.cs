@@ -66,7 +66,7 @@ public class SelectItem : MonoBehaviour
     public bool selectedItem; // 아이템을 선택하였는지 확인
 
     public Canvas canvas;
-    public GameObject getItemUIPos; // 생성한 아이템 오브젝트 부모용 오브젝트
+  //  public GameObject getItemUIPos; // 생성한 아이템 오브젝트 부모용 오브젝트
 
     private void Awake()
     {
@@ -255,32 +255,38 @@ public class SelectItem : MonoBehaviour
             selectItemMenu.SetActive(false);
         }
     }
-    
+
     // 획득한 아이템 생성
     void InstantiateItem()
     {
         GameObject newItem = Instantiate(items[selectNum - 1], selectItemPos1.transform.position, Quaternion.identity);
-        newItem.transform.SetParent(getItemUIPos.transform, false);
 
-        switch (selectItems.Count)
+        int playerItemsCount = playerItems.Count;
+
+        switch (playerItemsCount)
         {
+            case 0:
+                newItem.transform.SetParent(selectItemPos1.transform, false);
+                newItem.transform.localPosition = Vector3.zero;
+                break;
             case 1:
-                newItem.transform.position = selectItemPos1.transform.position;
+                newItem.transform.SetParent(selectItemPos2.transform, false);
+                newItem.transform.localPosition = Vector3.zero;
                 break;
             case 2:
-                newItem.transform.position = selectItemPos2.transform.position;
+                newItem.transform.SetParent(selectItemPos3.transform, false);
+                newItem.transform.localPosition = Vector3.zero;
                 break;
             case 3:
-                newItem.transform.position = selectItemPos3.transform.position;
-                break;
-            case 4:
-                newItem.transform.position = selectItemPos4.transform.position;
+                newItem.transform.SetParent(selectItemPos4.transform, false);
+                newItem.transform.localPosition = Vector3.zero;
                 break;
         }
 
         playerItems.Add(newItem);
-        newItem.name = newItem.name.Replace("(Clone)", "Pltem");      
+        newItem.name = newItem.name.Replace("(Clone)", "Pltem");
     }
+
 
     // 획득한 아이템과 맞는 레벨 할당
     int GetItemLevel(GameObject item)

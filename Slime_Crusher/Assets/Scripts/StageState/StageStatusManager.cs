@@ -80,18 +80,20 @@ public class StageStatusManager : MonoBehaviour
 
     void Update()
     {
+
         if (buff == 1) // 버프 적용
         {
-            ApplyBuff();
+            if (currentStatus == null)
+            {
+                ApplyBuff();
+            }
         }
         else if (buff == 2) // 디버프 적용
         {
-            ApplyDeBuff();
-        }
-
-        if(currentStatus != null)  // 버프 상태 적용
-        {
-            currentStatus.Apply(this);
+            if (currentStatus == null)
+            {
+                ApplyDeBuff();
+            }
         }
     }
 
@@ -213,7 +215,7 @@ public class StageStatusManager : MonoBehaviour
                 buff = 2;
                 DeBuff();
             }
-
+            
             if (selectedList.Count > 0)
             {
                 int randomIndex = Random.Range(0, selectedList.Count);

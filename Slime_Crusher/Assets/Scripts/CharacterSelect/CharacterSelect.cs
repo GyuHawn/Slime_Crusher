@@ -176,9 +176,6 @@ public class CharacterSelect : MonoBehaviour
     public void RockChar() // 돌 캐릭터
     {
         AudioManager.Instance.PlayButtonAudio();
-        playerMoney += 100000;
-        PlayerPrefs.SetInt("GameMoney", playerMoney);
-
         CheckReset(); // 캐릭터 선택 UI 초기화
         checkChar[0].SetActive(true); // 캐릭터 선택 UI 활성화
 

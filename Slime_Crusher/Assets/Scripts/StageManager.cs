@@ -63,7 +63,7 @@ public class StageManager : MonoBehaviour, Observer
         characterSkill = GameObject.Find("Manager").GetComponent<CharacterSkill>();
         character = GameObject.Find("Manager").GetComponent<Character>();
         itemSkill = GameObject.Find("Manager").GetComponent<ItemSkill>();
-        stageStatusManager = GameObject.Find("Manager").GetComponent<StageStatusManager>();
+        stageStatusManager = GameObject.Find("StageStatusManager").GetComponent<StageStatusManager>();
         stageChange = GameObject.Find("Manager").GetComponent<StageChange>();
         combo = GameObject.Find("Manager").GetComponent<Combo>();
     }
