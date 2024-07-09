@@ -91,11 +91,11 @@ public class MonsterController : MonoBehaviour
     {       
         if (stageManager.mainStage > 8)
         {
-            maxHealth = maxHealth + ((stageManager.mainStage - 8) * 15);
+            maxHealth += ((stageManager.mainStage - 8) * 15);
 
             if (gameObject.name == "6(Clone)")
             {
-                maxHealth = maxHealth + ((stageManager.mainStage - 8) * 25);
+                maxHealth += ((stageManager.mainStage - 8) * 25);
             }
             else if (gameObject.name == "6-2(Clone)")
             {
@@ -111,7 +111,20 @@ public class MonsterController : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-
+    void Update()
+    {
+        if (currentHealth <= 0)
+        {
+            Die(); // 사망
+        }
+        else
+        {
+            UpdateBossDieState(); // 보스 사망시 상태 초기화
+            MonsterState(); // 몬스터 상태
+            MonsterAttackCoolTime(); // 몬스터 공격 대기시간
+            PlayerItemHitDamage(); // 플레이어 아이템에 대한 피격
+        }
+    }
 
     void UpdateBossDieState() // 보스 사망시 상태 초기화
     {
@@ -120,54 +133,26 @@ public class MonsterController : MonoBehaviour
 
         if (boss == null)
         {
-            if (stageManager.mainStage == 1 && stageManager.subStage == 5) // 1스테이지 보스
-            {
-                boss1Defending = false;
-            }
-            else if (stageManager.mainStage >= 8) // 8스테이지 보스
+            if (stageManager.mainStage == 1 && stageManager.subStage == 5 || stageManager.mainStage >= 8) // 1스테이지 보스
             {
                 boss1Defending = false;
             }
 
-
-            if (stageManager.mainStage == 7 && stageManager.subStage == 5) // 7스테이지 보스
+            if (stageManager.mainStage == 7 && stageManager.subStage == 5 || stageManager.mainStage >= 8) // 7스테이지 보스
             {
-                GameObject[] bossSkill = GameObject.FindObjectsOfType<GameObject>();
-
-                if (bossSkill != null)
-                {
-                    foreach (GameObject skill in bossSkill)
-                    {
-                        if (skill.name == "BossSkill")
-                        {
-                            Destroy(skill);
-                        }
-                    }
-                }
-            }
-            else if (stageManager.mainStage >= 8) // 8스테이지 보스
-            {
-                GameObject[] bossSkill = GameObject.FindObjectsOfType<GameObject>();
-
-                if (bossSkill != null)
-                {
-                    foreach (GameObject skill in bossSkill)
-                    {
-                        if (skill.name == "BossSkill")
-                        {
-                            Destroy(skill);
-                        }
-                    }
-                }
+                DestroyAllBossObjects("BossSkill");
             }
         }
     }
-
-    void MonsterDie() // 사망
+    private void DestroyAllBossObjects(string name)
     {
-        if (currentHealth <= 0)
+        GameObject[] objects = GameObject.FindObjectsOfType<GameObject>();
+        foreach (GameObject obj in objects)
         {
-            Die();
+            if (obj.name == name)
+            {
+                Destroy(obj);
+            }
         }
     }
 
@@ -193,6 +178,19 @@ public class MonsterController : MonoBehaviour
         else
         {
             attackTime -= Time.deltaTime;
+        }
+    }
+    // 보스 공격 준비
+    IEnumerator BossAttackReady()
+    {
+        if (!isBossAttacking)
+        {
+            isBossAttacking = true;
+            danager.SetActive(true);
+            yield return new WaitForSeconds(1.0f);
+            danager.SetActive(false);
+            yield return StartCoroutine(BossAttack());
+            isBossAttacking = false;
         }
     }
 
@@ -231,22 +229,6 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        UpdateBossDieState(); // 보스 사망시 상태 초기화
-        MonsterDie(); // 사망
-        MonsterState(); // 몬스터 상태
-        MonsterAttackCoolTime(); // 몬스터 공격 대기시간
-        PlayerItemHitDamage(); // 플레이어 아이템에 대한 피격
-    }
-
-    // 기절종료
-    IEnumerator Removestun()
-    {
-        yield return new WaitForSeconds(3f);
-        stop = false;
-    }
-
     // 불 삭제
     IEnumerator DeleteFire()
     {
@@ -254,20 +236,13 @@ public class MonsterController : MonoBehaviour
         fired = false;
     }
 
-    // 보스 공격 준비
-    IEnumerator BossAttackReady()
-    {
-        if (!isBossAttacking)
-        {
-            isBossAttacking = true;
-            danager.SetActive(true);
-            yield return new WaitForSeconds(1.0f);
-            danager.SetActive(false);
-            yield return StartCoroutine(BossAttack());
-            isBossAttacking = false;
-        }
-    }
 
+    public void TakeDamage()
+    {
+        playerController.playerHealth -= damage;
+        playerController.UpdateHealth();
+    }
+    
     // 보스 공격
     IEnumerator BossAttack()
     {
@@ -278,8 +253,7 @@ public class MonsterController : MonoBehaviour
         if (bossAttackNum != true && !playerController.defending)
         {
             bossAttackNum = true;
-            playerController.playerHealth -= damage;
-            playerController.UpdateHealth(); // 플레이어 피격
+            TakeDamage(); // 플레이어 피격
             stageManager.comboNum = 0;
         }
 
@@ -355,6 +329,169 @@ public class MonsterController : MonoBehaviour
         spriteRenderer.color = Color.white;
     }
 
+    // 사망
+    public void Die()
+    {
+        ComboUp(); // 사망시 콤보 증가
+        ItemSpawn(); // 사망시 확률적으로 회복 아이템 생성
+        StartCoroutine(DieEffect()); // 사망시 사망 이펙트 생성
+        MonsterSturnState(); // 기절 관련        
+        monsterSpawn.RemoveMonsterFromList(gameObject); // 사망시 총 소환 몬스터 리스트에서 제거       
+    }
+
+    void ComboUp() // 사망시 콤보 증가
+    {
+        if (!isDie)
+        {
+            isDie = true;
+            combo.ComboUp();
+
+            if (stageManager.comboNum % 5 == 0)
+            {
+                playerController.comboDamageUP = true;
+            }
+        }
+    }
+
+    void ItemSpawn() // 사망시 확률적으로 회복 아이템 생성
+    {    
+        if (gameObject.CompareTag("Monster"))
+        {
+            if (!itemSpawn)
+            {
+                itemSpawn = true;
+
+                if (Random.Range(0f, 100f) <= 5)
+                {
+                    Instantiate(healthUpItem, gameObject.transform.position, Quaternion.identity).name = "HealthUpItem";
+                }
+            }
+        } 
+    }
+    
+    void MonsterSturnState() // 기절 관련
+    {
+        if (stop)
+        {
+            itemSkill.DestroyMonster(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    IEnumerator DieEffect()  // 사망시 사망 이펙트 생성
+    {     
+        if (dieEffect != null)
+        {
+            SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
+            renderer.enabled = false;
+
+            dieEffect.SetActive(true);
+
+            yield return new WaitForSeconds(1f);
+        }   
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "HolyShot":
+                if (holyShotTakeDamage)
+                {
+                    ApplyDamage(itemSkill.holyShotDamage, 0.5f, FireShotSubDamageCooldown(0.5f, 0.2f));
+                }
+                break;
+
+            case "Fire":
+                fired = true;
+                break;
+
+            case "Poison":
+                poisoned = true;
+                break;
+
+            case "FireShotSub":
+                if (fireShotSubTakeDamage)
+                {
+                    ApplyDamage(itemSkill.fireShotSubDamage, 0.5f, FireShotSubDamageCooldown(0.5f, 0.2f));
+                }
+                break;
+
+            case "Monster":
+            case "Boss":
+                if (!isColliding)
+                {
+                    StartCoroutine(MoveWithRandomDirection());
+                }
+                break;
+
+            case "Wall":
+                transform.position = Vector3.zero;
+                break;
+        }
+    }
+
+    private void ApplyDamage(float baseDamage, float defenseMultiplier, IEnumerator cooldownCoroutine)
+    {
+        float damage = boss1Defending ? baseDamage * defenseMultiplier : baseDamage;
+        playerController.HolyShotDamageText(this); // Assume this method can handle all damage texts or adjust as needed
+        currentHealth -= damage;
+        StartCoroutine(cooldownCoroutine);
+    }
+    private bool isColliding = false;
+
+    // 몬스터가 겹칠시 랜덤한 위치로 이동
+    private IEnumerator MoveWithRandomDirection()
+    {
+        isColliding = true;
+        Rigidbody2D playerRb = GetComponent<Rigidbody2D>();
+
+        if (playerRb != null)
+        {
+            // 일정 시간 동안 멈춤
+            playerRb.velocity = Vector2.zero;
+            yield return new WaitForSeconds(Random.Range(0.1f, 0.3f)); // 짧은 랜덤 시간 동안 멈춤
+
+            // 무작위 방향 설정
+            float randomAngle = Random.Range(0f, 360f);
+            float randomAngleInRadians = Mathf.Deg2Rad * randomAngle;
+            Vector2 randomDirection = new Vector2(Mathf.Cos(randomAngleInRadians), Mathf.Sin(randomAngleInRadians));
+
+            playerRb.velocity = randomDirection * 3f;
+
+            yield return new WaitForSeconds(1.5f); // 일정 시간 동안 이동
+
+            // 계속해서 충돌하는 경우 재귀적으로 다시 이동
+            if (isColliding)
+            {
+                StartCoroutine(MoveWithRandomDirection());
+            }
+            else
+            {
+                playerRb.velocity = Vector2.zero; // 충돌이 해소된 경우 속도를 0으로 설정
+            }
+        }
+
+        isColliding = false; // 충돌 상태 해제
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        // 겹치지 않을시 멈춤
+        if (collision.gameObject.tag == "Monster")
+        {
+            isColliding = false;
+            Rigidbody2D playerRb = GetComponent<Rigidbody2D>();
+
+            if (playerRb != null)
+            {
+                playerRb.velocity = Vector2.zero;
+            }
+        }
+    }
     // 피격 간격 관리
     public void PlayerDamegeCoolDown(float damageCooldown, float colorChangeTime) // 다른 스크립트용
     { 
@@ -494,159 +631,5 @@ public class MonsterController : MonoBehaviour
         pWaterTakeDamage = false;
         yield return new WaitForSeconds(damageCooldown);
         pWaterTakeDamage = true;
-    }
-
-    // 사망
-    public void Die()
-    {
-        ComboUp(); // 사망시 콤보 증가
-        ItemSpawn(); // 사망시 확률적으로 회복 아이템 생성
-
-        StartCoroutine(DieEffect()); // 사망시 사망 이펙트 생성
-
-        MonsterSturnState(); // 기절 관련
-        
-        monsterSpawn.RemoveMonsterFromList(gameObject); // 사망시 총 소환 몬스터 리스트에서 제거       
-    }
-
-    void ComboUp() // 사망시 콤보 증가
-    {
-        if (!isDie)
-        {
-            isDie = true;
-
-            combo.ComboUp();
-
-            if (stageManager.comboNum % 5 == 0)
-            {
-                playerController.comboDamageUP = true;
-            }
-        }
-    }
-
-    void ItemSpawn() // 사망시 확률적으로 회복 아이템 생성
-    {    
-        if (gameObject.CompareTag("Monster"))
-        {
-            if (!itemSpawn)
-            {
-                itemSpawn = true;
-
-                if (Random.Range(0f, 100f) <= 5)
-                {
-                    GameObject item = Instantiate(healthUpItem, gameObject.transform.position, Quaternion.identity);
-                    item.name = "HealthUpItem";
-                }
-            }
-        }
-    }
-    
-    void MonsterSturnState() // 기절 관련
-    {
-        if (stop)
-        {
-            itemSkill.DestroyMonster(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-
-    IEnumerator DieEffect()  // 사망시 사망 이펙트 생성
-    {     
-        if (dieEffect != null)
-        {
-            SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
-            renderer.enabled = false;
-
-            dieEffect.SetActive(true);
-
-            yield return new WaitForSeconds(1f);
-        }   
-    }
-
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        // 플레이어 아이템에 피격
-        if (collision.gameObject.tag == "HolyShot")
-        {
-            if (holyShotTakeDamage)
-            {
-                float damage = boss1Defending ? itemSkill.holyShotDamage * 0.5f : itemSkill.holyShotDamage;
-                playerController.HolyShotDamageText(this);
-                currentHealth -= damage;
-                StartCoroutine(FireShotSubDamageCooldown(0.5f, 0.2f));
-            }
-        }
-        else if (collision.gameObject.tag == "Fire")
-        {
-            fired = true;
-        }
-        else if (collision.gameObject.tag == "Poison")
-        {
-            poisoned = true;
-        }
-        else if (collision.gameObject.tag == "FireShotSub")
-        {
-            if (fireShotSubTakeDamage)
-            {
-                float damage = boss1Defending ? itemSkill.fireShotSubDamage * 0.5f : itemSkill.fireShotSubDamage;
-                playerController.FireShotSubDamageText(this);
-                currentHealth -= damage;
-                StartCoroutine(FireShotSubDamageCooldown(0.5f, 0.2f));
-            }
-        }
-        // 몬스터 위치 관리
-        else if ((collision.gameObject.tag == "Monster" || collision.gameObject.tag == "Boss") && !isColliding)
-        {
-            StartCoroutine(MoveWithRandomDirection()); // 유닛 겹치지 않도록
-        }
-        else if (collision.gameObject.tag == "Wall")
-        {
-            transform.position = Vector3.zero;
-        }
-    }
-    private bool isColliding = false;
-
-    // 몬스터가 겹칠시 랜덤한 위치로 이동
-    private IEnumerator MoveWithRandomDirection()
-    {
-        isColliding = true;
-
-        Rigidbody2D playerRb = GetComponent<Rigidbody2D>();
-
-        if (playerRb != null)
-        {
-            float randomAngle = Random.Range(0f, 360f);
-            float randomAngleInRadians = Mathf.Deg2Rad * randomAngle;
-            Vector2 randomDirection = new Vector2(Mathf.Cos(randomAngleInRadians), Mathf.Sin(randomAngleInRadians));
-
-            playerRb.velocity = randomDirection * 3f;
-
-            yield return new WaitForSeconds(1f);
-
-            if (isColliding)
-            {
-                StartCoroutine(MoveWithRandomDirection());
-            }
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        // 겹치지 않을시 멈춤
-        if (collision.gameObject.tag == "Monster")
-        {
-            isColliding = false;
-            Rigidbody2D playerRb = GetComponent<Rigidbody2D>();
-
-            if (playerRb != null)
-            {
-                playerRb.velocity = Vector2.zero;
-            }
-        }
     }
 }
