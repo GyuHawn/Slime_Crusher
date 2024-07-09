@@ -121,7 +121,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 100}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 41
+  controlID: 147
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1784,9 +1784,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 3a3c0100
-      m_LastClickedID: 80954
-      m_ExpandedIDs: 046dffff5874fffff67effff5cb8ffff9cc0ffff74c9ffff16cbffff96d1ffffb8d7ffff16fbffff34bb000064bc0000f8bc0000b0bd00005cc00000dac000004ac2000048c50000f0c700009ac800007eca000036dd0000b4e70000e4e8000078e9000030ea0000dcec00005aed0000c6f700009cf80000caf80000f6f800008af9000042fa00006afa0000a2fc0000eefc00006cfd00007a190100aa1a0100201f010088290100b82a01002e2f010096390100c63a01003c3f0100
+      m_SelectedIDs: 64700000
+      m_LastClickedID: 0
+      m_ExpandedIDs: 28efffff8cf9ffff16fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1855,7 +1855,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prifabs/Item UI
+    - Assets/Scenes
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -1863,16 +1863,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 61
   m_LastFolders:
-  - Assets/Prifabs/Item UI
+  - Assets/Scenes
   m_LastFoldersGridSize: 61
   m_LastProjectPath: C:\Users\Kim\Desktop\Project\Slime-Crusher-Code-modification\Slime_Crusher
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 826f0000
-    m_LastClickedID: 28546
-    m_ExpandedIDs: 000000003a6f00003c6f00003e6f0000446f00009e6f000056de000000ca9a3bffffff7f
+    m_SelectedIDs: 966f0000
+    m_LastClickedID: 28566
+    m_ExpandedIDs: 000000003a6f00003c6f00003e6f0000406f0000426f0000526f000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1900,7 +1900,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000003a6f00003c6f00003e6f0000
+    m_ExpandedIDs: 000000003a6f00003c6f00003e6f0000406f0000426f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2043,7 +2043,7 @@ MonoBehaviour:
     m_CachedPref: 0
     m_ControlHash: 0
     m_PrefName: 
-  m_LastInspectedObjectInstanceID: -1
+  m_LastInspectedObjectInstanceID: 28772
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0

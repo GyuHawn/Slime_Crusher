@@ -424,7 +424,6 @@ MonoBehaviour:
   selectItemMenu: {fileID: 1043014251}
   selectedItem: 0
   canvas: {fileID: 1811929530}
-  getItemUIPos: {fileID: 692695626}
 --- !u!114 &4910545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,6 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 795ce409c77e663438bbe8fa3e550d01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageManager: {fileID: 0}
   timeImage: {fileID: 65938763}
   stageTime: 60
   stageFail: 0
