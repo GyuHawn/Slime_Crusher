@@ -1,10 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using TMPro;
 using System;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 
 public class SelectItem : MonoBehaviour
 {
@@ -70,10 +67,14 @@ public class SelectItem : MonoBehaviour
 
     private void Awake()
     {
-        character = GameObject.Find("Manager").GetComponent<Character>();
-        stageManager = GameObject.Find("Manager").GetComponent<StageManager>();
-        playerController = GameObject.Find("Manager").GetComponent<PlayerController>();
-        itemSkill = GameObject.Find("Manager").GetComponent<ItemSkill>();
+        if (!character)
+            character = FindObjectOfType<Character>();
+        if (!stageManager)
+            stageManager = FindObjectOfType<StageManager>();
+        if (!playerController)
+            playerController = FindObjectOfType<PlayerController>();
+        if (!itemSkill)
+            itemSkill = FindObjectOfType<ItemSkill>();
     }
 
     private void Start()
@@ -242,7 +243,6 @@ public class SelectItem : MonoBehaviour
 
             ItemTextClear();
             ItemLevelUp();
-            //itemSkill.ItemValueUp();
             itemSkill.GetItem();    
             itemSelecting = false;
             stageManager.selectingPass = false;

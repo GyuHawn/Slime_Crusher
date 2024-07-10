@@ -45,9 +45,13 @@ public class Stage8 : MonoBehaviour
     private void Awake()
     {
         monsterController = gameObject.GetComponent<MonsterController>();
-        monsterSpwan = GameObject.Find("Manager").GetComponent<MonsterSpawn>();
-        playerController = GameObject.Find("Manager").GetComponent<PlayerController>();
-        stageManager = GameObject.Find("Manager").GetComponent<StageManager>();
+
+        if (!monsterSpwan)
+            monsterSpwan = FindObjectOfType<MonsterSpawn>();
+        if (!playerController)
+            playerController = FindObjectOfType<PlayerController>();
+        if (!stageManager)
+            stageManager = FindObjectOfType<StageManager>();
     }
 
     void Start()

@@ -17,7 +17,8 @@ public class StageChange : MonoBehaviour
 
     private void Awake()
     {
-        stageManager = GameObject.Find("Manager").GetComponent<StageManager>();
+        if (!stageManager)
+            stageManager = FindObjectOfType<StageManager>();
     }
 
     private void Start()

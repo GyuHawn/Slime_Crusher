@@ -9,11 +9,6 @@ public class Option : MonoBehaviour
     public Button settingButton;
     public GameObject settingMenu; // 可记 滚瓢
 
-    /*public float moveDuration = 1.0f; // 可记芒 捞悼矫埃
-    private Vector3 startMenuPos; // 可记芒 困摹包府
-    private Vector3 endMenuPos; // 可记芒 困摹包府
-    private bool onSetting; // 可记 劝己拳*/
-
     private void Start()
     {
         SettingMenuManager.Instance.InitializeOptionMenu(settingMenu);

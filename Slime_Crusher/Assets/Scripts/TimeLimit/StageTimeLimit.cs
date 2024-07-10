@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +19,8 @@ public class StageTimeLimit : MonoBehaviour
 
     private void Awake()
     {
-        stageManager = GameObject.Find("Manager").GetComponent<StageManager>();
+        if (!stageManager)
+            stageManager = FindObjectOfType<StageManager>();
     }
 
     private void Start()

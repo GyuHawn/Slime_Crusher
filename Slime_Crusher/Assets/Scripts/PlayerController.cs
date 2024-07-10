@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     private StageManager stageManager;
     private ItemSkill itemSkill;
-    private CharacterSkill charaterSkill;
+    private CharacterSkill characterSkill;
     private Combo combo;
 
     // 플레이어 체력 관련
@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
     public bool isAttacking = false; // 공격 속도 (다음 공격까지 시간을 주기위함)
     public bool playerHit = true; // 몬스터에게 공격 받았는지
     public GameObject hubDamageText; // 데미지 시각적 표시
-
     public GameObject attckEffect; // 공격 이펙트
     public GameObject dragEffect;
 
@@ -48,10 +47,14 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        stageManager = GameObject.Find("Manager").GetComponent<StageManager>();
-        itemSkill = GameObject.Find("Manager").GetComponent<ItemSkill>();
-        charaterSkill = GameObject.Find("Manager").GetComponent<CharacterSkill>();
-        combo = GameObject.Find("Manager").GetComponent<Combo>();
+        if (!stageManager)
+            stageManager = FindObjectOfType<StageManager>();
+        if (!itemSkill)
+            itemSkill = FindObjectOfType<ItemSkill>();
+        if (!characterSkill)
+            characterSkill = FindObjectOfType<CharacterSkill>();
+        if (!combo)
+            combo = FindObjectOfType<Combo>();
     }
 
     void Start()
@@ -67,6 +70,7 @@ public class PlayerController : MonoBehaviour
 
         UpdateHealth(); // 플레이어 체력관리
     }
+
     public void UpdateHealth() // 플레이어 체력관리
     {
         for (int i = 0; i < playerHealthUI.Length; i++)
@@ -93,13 +97,12 @@ public class PlayerController : MonoBehaviour
         die = true;
         Handheld.Vibrate(); // 사망시 진동
 
-        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster"); // 맵의 몬스터 전체 삭제
-        GameObject boss = GameObject.FindWithTag("Boss");
-        foreach (GameObject monster in monsters)
+        // 모든 몬스터 삭제
+        foreach(GameObject monster in GameObject.FindGameObjectsWithTag("Monster"))
         {
             Destroy(monster);
         }
-        Destroy(boss);
+        Destroy(GameObject.FindWithTag("Boss"));
 
         playerHealthUI[0].SetActive(true);
         Time.timeScale = 0f; // 게임 멈추기
@@ -206,7 +209,7 @@ public class PlayerController : MonoBehaviour
     {
         AudioManager.Instance.PlayHitAudio();
 
-        playerHealth -= 1; // 체력 감소
+        playerHealth --; // 체력 감소
         stageManager.comboNum = 0; // 콤보 초기화
         UpdateHealth(); // 플레이어 피격
 
@@ -329,7 +332,6 @@ public class PlayerController : MonoBehaviour
         effectTransform.localScale = targetScale;
 
         yield return new WaitForSeconds(destroyDelay);
-        Destroy(effectTransform.gameObject);
     }
 
     // 몬스터 공격
@@ -517,7 +519,7 @@ public class PlayerController : MonoBehaviour
         if (monsterController != null)
         {
         GameObject damegeText = Instantiate(hubDamageText, monsterController.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
-        damegeText.GetComponent<DamageText>().damege = (int)charaterSkill.waterDamage;
+        damegeText.GetComponent<DamageText>().damege = (int)characterSkill.waterDamage;
         }
     }
     public void CRockDamageText(MonsterController monsterController)
@@ -525,7 +527,7 @@ public class PlayerController : MonoBehaviour
         if (monsterController != null)
         {
         GameObject damegeText = Instantiate(hubDamageText, monsterController.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
-        damegeText.GetComponent<DamageText>().damege = (int)charaterSkill.rockDamage;
+        damegeText.GetComponent<DamageText>().damege = (int)characterSkill.rockDamage;
         }
     }
 }

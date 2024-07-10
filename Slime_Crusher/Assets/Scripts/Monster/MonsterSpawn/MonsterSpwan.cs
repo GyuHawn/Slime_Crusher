@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class MonsterSpawn : MonoBehaviour
@@ -23,9 +24,10 @@ public class MonsterSpawn : MonoBehaviour
 
     private void Awake()
     {
-        stageManager = GameObject.Find("Manager").GetComponent<StageManager>();
+        if (!stageManager)
+            stageManager = FindObjectOfType<StageManager>();
 
-        // MonsterFactoryManager 인스턴스 생성 시에 필요한 몬스터 배열들을 전달합니다.
+        // MonsterFactoryManager 인스턴스 생성 시에 필요한 몬스터 배열를 전달
         factoryManager = new MonsterFactoryManager(stage1Monsters, stage2Monsters, stage3Monsters, stage4Monsters,
                                                   stage5Monsters, stage6Monsters, stage7Monsters, InfiniteMonsters);
     }

@@ -55,17 +55,28 @@ public class StageManager : MonoBehaviour, Observer
 
     private void Awake()
     {
-        monsterSpawn = GameObject.Find("Manager").GetComponent<MonsterSpawn>();
-        selectItem = GameObject.Find("Manager").GetComponent<SelectItem>();
-        selectPass = GameObject.Find("Manager").GetComponent<SelectPass>();
-        stageTimeLimit = GameObject.Find("Manager").GetComponent<StageTimeLimit>();
-        playerController = GameObject.Find("Manager").GetComponent<PlayerController>();
-        characterSkill = GameObject.Find("Manager").GetComponent<CharacterSkill>();
-        character = GameObject.Find("Manager").GetComponent<Character>();
-        itemSkill = GameObject.Find("Manager").GetComponent<ItemSkill>();
-        stageStatusManager = GameObject.Find("StageStatusManager").GetComponent<StageStatusManager>();
-        stageChange = GameObject.Find("Manager").GetComponent<StageChange>();
-        combo = GameObject.Find("Manager").GetComponent<Combo>();
+        if (!monsterSpawn)
+            monsterSpawn = FindObjectOfType<MonsterSpawn>();
+        if (!selectItem)
+            selectItem = FindObjectOfType<SelectItem>();
+        if (!selectPass)
+            selectPass = FindObjectOfType<SelectPass>();
+        if (!stageTimeLimit)
+            stageTimeLimit = FindObjectOfType<StageTimeLimit>();
+        if (!playerController)
+            playerController = FindObjectOfType<PlayerController>();
+        if (!characterSkill)
+            characterSkill = FindObjectOfType<CharacterSkill>();
+        if (!character)
+            character = FindObjectOfType<Character>();
+        if (!itemSkill)
+            itemSkill = FindObjectOfType<ItemSkill>();
+        if (!stageStatusManager)
+            stageStatusManager = FindObjectOfType<StageStatusManager>();
+        if (!stageChange)
+            stageChange = FindObjectOfType<StageChange>();
+        if (!combo)
+            combo = FindObjectOfType<Combo>();
     }
 
     void Start()

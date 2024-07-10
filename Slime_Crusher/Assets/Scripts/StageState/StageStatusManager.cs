@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Burst.Intrinsics;
 
 public class StageStatusManager : MonoBehaviour
 {
@@ -51,10 +52,14 @@ public class StageStatusManager : MonoBehaviour
 
     private void Awake()
     {
-        stageTimeLimit = GameObject.Find("Manager").GetComponent<StageTimeLimit>();
-        playerController = GameObject.Find("Manager").GetComponent<PlayerController>();
-        itemSkill = GameObject.Find("Manager").GetComponent<ItemSkill>();
-        stageManager = GameObject.Find("Manager").GetComponent<StageManager>();
+        if (!stageTimeLimit)
+            stageTimeLimit = FindObjectOfType<StageTimeLimit>();
+        if (!playerController)
+            playerController = FindObjectOfType<PlayerController>();
+        if (!itemSkill)
+            itemSkill = FindObjectOfType<ItemSkill>();
+        if (!stageManager)
+            stageManager = FindObjectOfType<StageManager>();
     }
 
     void Start()

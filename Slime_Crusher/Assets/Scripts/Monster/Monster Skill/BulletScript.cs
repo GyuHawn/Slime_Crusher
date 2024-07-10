@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class BulletScript : MonoBehaviour
@@ -12,8 +13,10 @@ public class BulletScript : MonoBehaviour
 
     private void Awake()
     {
-        stageManager = GameObject.Find("Manager").GetComponent<StageManager>();
-        playerController = GameObject.Find("Manager").GetComponent<PlayerController>();
+        if (!stageManager)
+            stageManager = FindObjectOfType<StageManager>();
+        if (!playerController)
+            playerController = FindObjectOfType<PlayerController>();
     }
 
     void Update()

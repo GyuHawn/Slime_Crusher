@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class CharacterSkill : MonoBehaviour
@@ -35,8 +36,10 @@ public class CharacterSkill : MonoBehaviour
 
     private void Awake()
     {
-        itemSkill = GameObject.Find("Manager").GetComponent<ItemSkill>();
-        playerController = GameObject.Find("Manager").GetComponent<PlayerController>();
+        if (!itemSkill)
+            itemSkill = FindObjectOfType<ItemSkill>();
+        if (!playerController)
+            playerController = FindObjectOfType<PlayerController>();
     }
 
     void Start()

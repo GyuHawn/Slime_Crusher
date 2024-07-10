@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class Stage7 : MonoBehaviour
@@ -14,7 +15,8 @@ public class Stage7 : MonoBehaviour
 
     private void Awake()
     {
-        stageManager = GameObject.Find("Manager").GetComponent<StageManager>();
+        if (!stageManager)
+            stageManager = FindObjectOfType<StageManager>();
     }
 
     void Start()

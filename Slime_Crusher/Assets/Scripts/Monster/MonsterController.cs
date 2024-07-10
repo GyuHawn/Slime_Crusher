@@ -68,12 +68,18 @@ public class MonsterController : MonoBehaviour
 
     private void Awake()
     {
-        monsterSpawn = GameObject.Find("Manager").GetComponent<MonsterSpawn>();
-        playerController = GameObject.Find("Manager").GetComponent<PlayerController>();
-        itemSkill = GameObject.Find("Manager").GetComponent<ItemSkill>();
-        audioManager = GameObject.Find("Manager").GetComponent<AudioManager>();
-        stageManager = GameObject.Find("Manager").GetComponent<StageManager>();
-        combo = GameObject.Find("Manager").GetComponent<Combo>();
+        if (!monsterSpawn)
+            monsterSpawn = FindObjectOfType<MonsterSpawn>();
+        if (!playerController)
+            playerController = FindObjectOfType<PlayerController>();
+        if (!itemSkill)
+            itemSkill = FindObjectOfType<ItemSkill>();
+        if (!audioManager)
+            audioManager = FindObjectOfType<AudioManager>();
+        if (!stageManager)
+            stageManager = FindObjectOfType<StageManager>();
+        if (!combo)
+            combo = FindObjectOfType<Combo>();
     }
 
     void Start()

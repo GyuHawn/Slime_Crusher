@@ -13,7 +13,8 @@ public class Stage3 : MonoBehaviour
 
     private void Awake()
     {
-        monsterSpwan = GameObject.Find("Manager").GetComponent<MonsterSpawn>();
+        if (!monsterSpwan)
+            monsterSpwan = FindObjectOfType<MonsterSpawn>();
     }
    
     void Start()

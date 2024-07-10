@@ -10,7 +10,8 @@ public class Stage5 : MonoBehaviour
 
     private void Awake()
     {
-        playerController = GameObject.Find("Manager").GetComponent<PlayerController>();
+        if (!playerController)
+            playerController = FindObjectOfType<PlayerController>();
     }
 
     void Start()

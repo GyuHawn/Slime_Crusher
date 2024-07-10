@@ -347,7 +347,7 @@ MonoBehaviour:
   isAttacking: 0
   playerHit: 1
   hubDamageText: {fileID: 5731957617961231814, guid: aa615103c4892a34ba9918ab7b799ceb, type: 3}
-  attckEffect: {fileID: 696086729348756167, guid: 3e39937104f65b54593071add0a1e431, type: 3}
+  attckEffect: {fileID: 7025615571788835890, guid: f1ad389118be1ff4ba7ce312100b1c3c, type: 3}
   dragEffect: {fileID: 1191912830}
   lastClickPosition: {x: 0, y: 0, z: 0}
   isDragging: 0
@@ -498,9 +498,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   passMenu: {fileID: 460957907}
-  selecPass: 0
-  passName: {fileID: 1728494792}
-  passEx: {fileID: 312696075}
+  selectedPass: 0
+  passNameText: {fileID: 1728494792}
+  passExText: {fileID: 312696075}
 --- !u!114 &4910547
 MonoBehaviour:
   m_ObjectHideFlags: 0

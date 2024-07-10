@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class ItemSkill : MonoBehaviour
 {
@@ -82,10 +79,14 @@ public class ItemSkill : MonoBehaviour
 
     private void Awake()
     {
-        selectItem = GameObject.Find("Manager").GetComponent<SelectItem>();
-        playerController = GameObject.Find("Manager").GetComponent<PlayerController>();
-        character = GameObject.Find("Manager").GetComponent<Character>();
-        characterSkill = GameObject.Find("Manager").GetComponent<CharacterSkill>();
+        if (!selectItem)
+            selectItem = FindObjectOfType<SelectItem>();
+        if (!playerController)
+            playerController = FindObjectOfType<PlayerController>();
+        if (!character)
+            character = FindObjectOfType<Character>();
+        if (!characterSkill)
+            characterSkill = FindObjectOfType<CharacterSkill>();
     }
 
     void Start()
