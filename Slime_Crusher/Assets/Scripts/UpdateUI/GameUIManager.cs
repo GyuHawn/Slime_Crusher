@@ -18,8 +18,8 @@ public class GameUIManager : MonoBehaviour, Observer
     void Start()
     {
         // 텍스트 크기 및 콤보수 초기화
-        maxScale = 90f;
-        minScale = 55f;
+        maxScale = 70f;
+        minScale = 50f;
         scaleSpeed = 400f;
         maxComboNum = 0;
 

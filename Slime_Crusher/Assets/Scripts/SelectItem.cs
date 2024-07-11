@@ -248,7 +248,7 @@ public class SelectItem : MonoBehaviour
             stageManager.selectingPass = false;
 
             stageManager.passing = true;
-            stageManager.NextSetting();
+            stageManager.NextStageInforSettingReady();
 
             playerController.isAttacking = false;
             Time.timeScale = 1f;

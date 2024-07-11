@@ -91,7 +91,7 @@ public class SelectPass : MonoBehaviour
         passExText.text = "";
 
         stageManager.passing = true; // 스테이지 변경
-        stageManager.NextSetting();
+        stageManager.NextStageInforSettingReady();
 
         passMenu.SetActive(false); // UI 비활성화
     }

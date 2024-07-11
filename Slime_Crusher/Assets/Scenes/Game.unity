@@ -2660,6 +2660,7 @@ MonoBehaviour:
   percentDown: {fileID: 576081452}
   monsterAttackSpdUp: {fileID: 1566930176}
   monsterSizeDown: {fileID: 61836396}
+  selectedEffect: {fileID: 0}
   buffText: {fileID: 930810558}
 --- !u!4 &211155458
 Transform:
@@ -4239,8 +4240,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 53, y: -129.32}
-  m_SizeDelta: {x: 170, y: 100}
+  m_AnchoredPosition: {x: 23.64, y: -135}
+  m_SizeDelta: {x: 240, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &386434700
 MonoBehaviour:
@@ -22346,8 +22347,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.2799988, y: 0.0000038146973}
-  m_SizeDelta: {x: 167.44, y: 100}
+  m_AnchoredPosition: {x: 0.005027771, y: 0.0000038146973}
+  m_SizeDelta: {x: 233.1, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1673948558
 MonoBehaviour:
@@ -22369,7 +22370,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c7fd215e1e3603b439d33d3dcf5c45e4, type: 2}
   m_sharedMaterial: {fileID: 7150721134416835561, guid: c7fd215e1e3603b439d33d3dcf5c45e4, type: 2}
@@ -22396,8 +22397,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

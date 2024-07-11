@@ -45,7 +45,7 @@ public class StageStatusManager : MonoBehaviour
     public GameObject monsterSizeDown;// 몬스터 크기 감소
     private List<GameObject> deBuffList = new List<GameObject>(); // 디버프 리스트
 
-    private GameObject selectedEffect; // 선택된 버프
+    public GameObject selectedEffect; // 선택된 버프
     public TMP_Text buffText;
 
     private StageStatus currentStatus;
@@ -85,20 +85,13 @@ public class StageStatusManager : MonoBehaviour
 
     void Update()
     {
-
         if (buff == 1) // 버프 적용
         {
-            if (currentStatus == null)
-            {
-                ApplyBuff();
-            }
+            ApplyBuff();
         }
         else if (buff == 2) // 디버프 적용
         {
-            if (currentStatus == null)
-            {
-                ApplyDeBuff();
-            }
+            ApplyDeBuff();
         }
     }
 
@@ -152,6 +145,8 @@ public class StageStatusManager : MonoBehaviour
 
     void ApplyDeBuff() // 디버프 적용
     {
+        if (currentStatus != null) return;
+
         switch (status)
         {
             case 1:
@@ -206,7 +201,9 @@ public class StageStatusManager : MonoBehaviour
     // 버프 선택
     public void BuffStatus(bool execution) 
     {
-        if(execution)
+        if (currentStatus != null) return;
+
+        if (execution)
         {
             List<GameObject> selectedList = (Random.Range(0, 2) == 0) ? buffList : deBuffList;
 
@@ -240,9 +237,15 @@ public class StageStatusManager : MonoBehaviour
         if (currentStatus != null)
         {
             currentStatus.Reset(this);
+            currentStatus = null;
+            buffText.text = "";
+            if (selectedEffect != null)
+            {
+                selectedEffect.transform.position = new Vector3(-300, -300, 1);
+            }
         }
     }
-
+    
     void ResetState() // 버프 초기화
     {
         isDamageUp = false;
@@ -258,7 +261,7 @@ public class StageStatusManager : MonoBehaviour
 
         buff = 0;
         status = 0;
-
+  
         selectedEffect = null;
     }
 

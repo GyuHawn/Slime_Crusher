@@ -77,43 +77,49 @@ public class StageManager : MonoBehaviour, Observer
             stageChange = FindObjectOfType<StageChange>();
         if (!combo)
             combo = FindObjectOfType<Combo>();
+
+        if (gameTimeUI != null)
+        {
+            gameTimeUI.RegisterObserver(FindObjectOfType<GameUIManager>());
+        }
     }
 
     void Start()
     {
-        GameUIManager gameUIManager = FindObjectOfType<GameUIManager>();
-        gameTimeUI = FindObjectOfType<GameTimeUI>();
-        if (gameTimeUI != null && gameUIManager != null)
-        {
-            gameTimeUI.RegisterObserver(gameUIManager);
-        }
-
         // 1-1 시작 설정 후 게임 시작
         if (!gameStart)
         {
-            mainStage = 1;
-            subStage = 1;
+            InitialStageSetting(); // 스테이지 초반세팅
             StageMonsterSetting();
             SpawnMonsters();
-            selectingPass = false;
-            gameStart = true;
-
-            totalTime = 0;
-            rewardMoney = 0;
         }       
     }
-       
+    void InitialStageSetting() // 스테이지 초반 세팅
+    {
+        mainStage = 1;
+        subStage = 1;
+        selectingPass = false;
+        gameStart = true;
+
+        totalTime = 0;
+        rewardMoney = 0;
+    }
+
+    void ClearSetting() // 클리어 후 세팅
+    {
+        clearText.text = "게임 클리어!!";
+        clearText.fontSize = 40;
+        Time.timeScale = 0f;
+        Reward();
+        gameStart = false;
+        playerController.gameover.SetActive(true);
+    }
     void Update()
     {
         // 게임 클리어
         if(mainStage > 20)
         {
-            clearText.text = "게임 클리어!!";
-            clearText.fontSize = 40;
-            Time.timeScale = 0f;
-            Reward();
-            gameStart = false;
-            playerController.gameover.SetActive(true);
+            ClearSetting(); // 클리어 후 세팅
         }
 
         UpdateMap(); // 스테이지 맵 변경
@@ -131,14 +137,10 @@ public class StageManager : MonoBehaviour, Observer
     }
 
     void UpdateStageText() // 스테이지 표시 텍스트 변경
-    { 
+    {
         if (mainStage <= 7)
         {
-            stageText.text = "스테이지 " + mainStage + "-" + subStage;
-        }
-        else if (mainStage >= 8)
-        {
-            stageText.text = "스테이지 " + mainStage;
+            stageText.text = mainStage <= 7 ? $"스테이지 {mainStage}-{subStage}" : $"스테이지 {mainStage}";
         }
     }
 
@@ -163,14 +165,7 @@ public class StageManager : MonoBehaviour, Observer
     void GameOver()  // 게임종료 결과 표시, 집계
     {
         totalTimeText.text = string.Format("{0:00}:{1:00}", Mathf.Floor(totalTime / 60), totalTime % 60);
-        if (mainStage < 8)
-        {
-            finalWaveText.text = mainStage + " - " + subStage + " Wave";
-        }
-        else if (mainStage >= 8)
-        {
-            finalWaveText.text = mainStage + " Wave";
-        }
+        finalWaveText.text = mainStage < 8 ? $"{mainStage} - {subStage} Wave" : $"{mainStage} Wave";
         maxComboText.text = maxComboNum.ToString();
         rewardMoneyText.text = rewardMoney.ToString();
     }
@@ -180,11 +175,8 @@ public class StageManager : MonoBehaviour, Observer
     {
         if (gameStart)
         {
-            rewardMoney += (int)(totalTime * 1);
-            rewardMoney += maxComboNum;
-
-            int playerMoney = PlayerPrefs.GetInt("GameMoney", 0);
-            playerMoney += rewardMoney;
+            rewardMoney += (int)totalTime + maxComboNum;
+            int playerMoney = PlayerPrefs.GetInt("GameMoney", 0) + rewardMoney;
             PlayerPrefs.SetInt("GameMoney", playerMoney);
             PlayerPrefs.Save();
         }       
@@ -235,7 +227,7 @@ public class StageManager : MonoBehaviour, Observer
     }
 
     // 몬스터 수 초기화
-    void NextStageSetting()
+    void NextMonsterNumSetting()
     {
         base0Monster = 1;
         base1Monster = 0;
@@ -271,98 +263,99 @@ public class StageManager : MonoBehaviour, Observer
                 allMonstersSpawned = false;
                 characterSkill.CharacterCoolTime();
                 ResetStageState();
-
-                if (character.currentCharacter == 2)
-                {
-                    characterSkill.useWaterSkill = false;
-                }
-
-                if (mainStage < 8)
-                {
-                    NextSubStage();
-
-                    if (mainStage >= 2)
-                    {
-                        if (subStage == 2)
-                        {
-                            selectingPass = true;
-                            SelectPass();
-                        }
-                    }
-
-                    if (subStage == 3)
-                    {
-                        selectItem.ItemSelect();
-                        StartCoroutine(DelayStage());
-                    }
-                    else if (subStage > 5)
-                    {
-                        subStage = 1;
-                        NextMainStage();
-
-                        selectItem.ItemSelect();
-                        StartCoroutine(DelayStage());
-                    }
-                }
-                else
-                {
-                    NextMainStage();
-                    if (mainStage == 12 || mainStage == 15 || mainStage == 18)
-                    {
-                        selectingPass = true;
-                        SelectPass();
-                    }
-                    else if (mainStage == 10 || mainStage == 16)
-                    {
-                        selectItem.ItemSelect();
-                        StartCoroutine(DelayStage());
-                    }
-                }
-
-                if (mainStage >= 8)
-                {
-                    if (mainStage == 8 || mainStage == 10 || mainStage == 12 || mainStage == 15 || mainStage == 16 || mainStage == 18)
-                    {}
-                    else
-                    {
-                        passing = true;
-                        NextSetting();
-                    }
-                }
-                else
-                {
-                    if ((mainStage >= 2 && (subStage == 1 || subStage == 2)) || subStage == 3)
-                    {}
-                    else
-                    {
-                        passing = true;
-                        NextSetting();
-                    }
-                }
-
+                NextStageCharacterReset(); // 스테이지 전환시 캐릭터 상태 관리
+                NextStageSetting(); // 스테이지 전환 관리
+                NextSetting();
             }
             StartCoroutine(DelayNextStage());
         }
     }
-
-    // 스테이지 변경 전 초기화 시간 
-    IEnumerator DelayNextStage()
+    void NextStageCharacterReset() // 스테이지 전환시 캐릭터 상태 관리
     {
-        isNextStageAvailable = false;
-        yield return new WaitForSeconds(1f); 
-        isNextStageAvailable = true; 
-    }
-
-    // 스테이지 변경전 초기화 및 설정
-    public void NextSetting()
-    {
-        if (mainStage <= 20 && passing)
+        if (character.currentCharacter == 2)
         {
-            StartCoroutine(NextStageOrTile());
+            characterSkill.useWaterSkill = false;
+        }
+    }
+    void NextStageSetting() // 스테이지 전환 관리
+    {
+        if (mainStage < 8)
+        {
+            NextSubStage();
+
+            if (mainStage >= 2)
+            {
+                if (subStage == 2)
+                {
+                    selectingPass = true;
+                    SelectPass();
+                }
+            }
+
+            if (subStage == 3)
+            {
+                selectItem.ItemSelect();
+                StartCoroutine(DelayStage());
+            }
+            else if (subStage > 5)
+            {
+                subStage = 1;
+                NextMainStage();
+
+                selectItem.ItemSelect();
+                StartCoroutine(DelayStage());
+            }
+        }
+        else
+        {
+            NextMainStage();
+            if (mainStage == 12 || mainStage == 15 || mainStage == 18)
+            {
+                selectingPass = true;
+                SelectPass();
+            }
+            else if (mainStage == 10 || mainStage == 16)
+            {
+                selectItem.ItemSelect();
+                StartCoroutine(DelayStage());
+            }
         }
     }
 
-    IEnumerator NextStageOrTile()
+    void NextSetting()
+    {
+        if (mainStage >= 8)
+        {
+            if (mainStage == 8 || mainStage == 10 || mainStage == 12 || mainStage == 15 || mainStage == 16 || mainStage == 18)
+            { }
+            else
+            {
+                passing = true;
+                NextStageInforSettingReady();
+            }
+        }
+        else
+        {
+            if ((mainStage >= 2 && (subStage == 1 || subStage == 2)) || subStage == 3)
+            { }
+            else
+            {
+                passing = true;
+                NextStageInforSettingReady();
+            }
+        }
+    }
+
+    // 스테이지 변경전 초기화 및 설정
+    public void NextStageInforSettingReady()
+    {
+        if (mainStage <= 20 && passing)
+        {
+            StartCoroutine(NextStageInforSetting()); // 스테이지 정보 세팅
+        }
+    }
+    
+    IEnumerator NextStageInforSetting() // 스테이지 정보 세팅
     {
         stageTimeLimit.stageFail = 0f;
         yield return new WaitForSeconds(0.1f);
@@ -373,11 +366,19 @@ public class StageManager : MonoBehaviour, Observer
 
         stageStatusManager.ResetStatus(); // 버프 초기화
 
-        NextStageSetting(); // 스테이지 이동시 몬스터수 초기화
+        NextMonsterNumSetting(); // 스테이지 이동시 몬스터수 초기화
         StageMonsterSetting(); // 스테이지 몬스터 수 설정
         SpawnMonsters(); // 몬스터 스폰
 
         stageStatusManager.BuffStatus(allMonstersSpawned); // 버프 설정
+    }
+
+    // 스테이지 변경 전 초기화 시간 
+    IEnumerator DelayNextStage()
+    {
+        isNextStageAvailable = false;
+        yield return new WaitForSeconds(1f); 
+        isNextStageAvailable = true; 
     }
 
     // 맵에 남아있는 이전 스테이지 데이터 제거
