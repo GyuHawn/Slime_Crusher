@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ItemSkill : MonoBehaviour
@@ -10,7 +11,7 @@ public class ItemSkill : MonoBehaviour
     private CharacterSkill characterSkill;
 
     // fire
-    private GameObject fireInstance;
+    public GameObject fireInstance;
     public GameObject fireEffect;
     public float fireDamage;
     public float fireDamagePercent;
@@ -30,10 +31,10 @@ public class ItemSkill : MonoBehaviour
     public bool isFireShot;
 
     // holyWave
-    private GameObject WaveInstance;
+    public GameObject WaveInstance;
     public GameObject holyWaveEffect;
     public Transform holyWavePos;
-    public bool holyWave;
+    public bool holyWaving;
     public float holyWaveDuration;
     public float holyWaveDamage;
     public float holyWaveDamagePercent;
@@ -75,7 +76,18 @@ public class ItemSkill : MonoBehaviour
     public float sturnDuration;
     public float sturnPercent;
     public bool isSturn;
-    private GameObject currentAttackedMonster; // 선택된 몬스터
+    public GameObject currentAttackedMonster; // 선택된 몬스터
+    public Dictionary<GameObject, GameObject> monsterToSturnImage = new Dictionary<GameObject, GameObject>();
+
+    private I_Skill fire;
+    private I_Skill fireShot;
+    private I_Skill holyWave;
+    private I_Skill holyShot;
+    private I_Skill melee;
+    private I_Skill posion;
+    private I_Skill rock;
+    private I_Skill sturn;
+
 
     private void Awake()
     {
@@ -92,7 +104,16 @@ public class ItemSkill : MonoBehaviour
     void Start()
     {
         // 사용 여부
-        holyWave = false;
+        holyWaving = false;
+
+        fire = new I_Fire(this);
+        fireShot = new I_FireShot(this);
+        holyWave = new I_HolyWave(this);
+        holyShot = new I_HolyShot(this);
+        melee = new I_Melee(this);
+        posion = new I_Posion(this);
+        rock = new I_Rock(this);
+        sturn = new I_Sturn(this);
     }
 
     private void Update()
@@ -182,214 +203,51 @@ public class ItemSkill : MonoBehaviour
     // fire
     public void Fire(Vector3 targetPosition)
     {
-        if(isFire)
-        {
-            AudioManager.Instance.PlayFireAudio();
-
-            Vector3 firePos = new Vector3(targetPosition.x, targetPosition.y, targetPosition.z + 3f);
-            fireInstance = Instantiate(fireEffect, firePos, Quaternion.Euler(-90, 0, 0));
-            fireInstance.name = "PlayerSkill";
-
-            Destroy(fireInstance, 3f);
-        }      
+        fire.Execute(this, targetPosition, 0);    
     }
 
     // fireShot
     public void FireShot(Vector3 targetPosition)
     {
-        if (isFireShot)
-        {
-            AudioManager.Instance.PlayFireShotAudio();
-
-            GameObject fireShotInstance = Instantiate(fireShotEffect, targetPosition, Quaternion.identity);
-            List<GameObject> sub = new List<GameObject>();
-
-            for (int i = 0; i < fireShotSubNum; i++)
-            {
-                GameObject subShot = Instantiate(fireShotSub, targetPosition, Quaternion.identity);
-                subShot.name = "PlayerSkill";
-                Vector2 randomDirection = Random.insideUnitCircle.normalized;
-                subShot.GetComponent<Rigidbody2D>().velocity = randomDirection * 5f;
-
-                sub.Add(subShot);
-            }
-
-            StartCoroutine(DestroySubShots(sub, 3f));
-            Destroy(fireShotInstance, 1f);
-        }
+        fireShot.Execute(this, targetPosition, fireShotSubNum);
     } 
-
-    private IEnumerator DestroySubShots(List<GameObject> subShots, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        foreach (GameObject subShot in subShots)
-        {
-            Destroy(subShot);
-        }
-    }
 
     // holyWave 
 
     public void HolyWave()
     {
-        if(isHolyWave)
-        {
-            AudioManager.Instance.PlayHolyWaveAudio();
-
-            WaveInstance = Instantiate(holyWaveEffect, holyWavePos.position, Quaternion.identity);
-            WaveInstance.name = "PlayerSkill";
-            holyWave = true;
-
-            Destroy(WaveInstance, holyWaveDuration);
-            StartCoroutine(DestroyWave());
-        }      
-    }
-
-    IEnumerator DestroyWave()
-    {
-        yield return new WaitForSeconds(holyWaveDuration);
-        Destroy(WaveInstance);
-        holyWave = false;
+        holyWave.Execute(this, new Vector3(0,0,0), 0);
     }
 
     // holyShot 
 
     public void HolyShot(Vector3 targetPosition)
     {
-        if (isHolyShot)
-        {
-            AudioManager.Instance.PlayHolyShotAudio();
-
-            GameObject holyShotInstance = Instantiate(holyShotEffect, targetPosition, Quaternion.identity);
-            holyShotInstance.name = "PlayerSkill";
-
-            if (holyShotInstance != null) 
-            {
-                StartCoroutine(RotateHolyShot(holyShotInstance, 5f));       
-            }
-        }       
+        holyShot.Execute(this, targetPosition, 0);
     }
-
-    private IEnumerator RotateHolyShot(GameObject holyShotInstance, float duration)
-    {
-        if (holyShotInstance == null)
-        {
-            yield break;
-        }
-
-        float elapsedTime = 0f;
-        float rotationSpd = 360f / duration;
-
-        while (elapsedTime < duration)
-        {
-            if (holyShotInstance == null)
-            {
-                yield break;
-            }
-
-            holyShotInstance.transform.Rotate(rotationSpd * Time.deltaTime, 0f, 0f);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-    }
-
-
 
     // melee 
     public void Melee(Vector3 targetPosition, int numEffects)
     {
-        if (isMelee)
-        {
-            StartCoroutine(MeleeInstantiate(targetPosition, numEffects));
-        }     
-    }
-
-    IEnumerator MeleeInstantiate(Vector3 targetPosition, int numEffects)
-    {
-        for (int i = 0; i < numEffects; i++)
-        {
-            AudioManager.Instance.PlayMeleeAudio();
-
-            Vector3 randomOffset = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0f);
-            Vector3 spawnPosition = targetPosition + randomOffset;
-
-            GameObject meleeInstance = Instantiate(meleeEffect, spawnPosition, Quaternion.identity);
-            meleeInstance.name = "PlayerSkill";
-            Destroy(meleeInstance, 0.2f);
-
-            yield return new WaitForSeconds(0.1f);
-        }
+        melee.Execute(this, targetPosition, numEffects);
     }
 
     // posion 
     public void Posion(Vector3 targetPosition)
     {
-        if(isPosion)
-        {
-            AudioManager.Instance.PlayPoisonAudio();
-
-            GameObject posionInstance = Instantiate(posionEffect, targetPosition, Quaternion.identity);
-            Destroy(posionInstance, 5f);
-        }       
+        posion.Execute(this, targetPosition, 0);
     }
 
     // rock 
     public void Rock(Vector3 targetPosition)
     {
-        if(isRock)
-        {
-            AudioManager.Instance.PlayRockAudio();
-
-            GameObject rockInstance = Instantiate(rockEffect, targetPosition, Quaternion.identity);
-            Destroy(rockInstance, 5f);
-        }       
-    }
+        rock.Execute(this, targetPosition, 0);
+    }  
 
     // sturn 
-    private Dictionary<GameObject, GameObject> monsterToSturnImage = new Dictionary<GameObject, GameObject>();
-
     public void Sturn()
     {
-        if (isSturn)
-        {
-            if (currentAttackedMonster != null)
-            {
-                AudioManager.Instance.PlayStunAudio();
-
-                MonsterController monsterController = currentAttackedMonster.GetComponent<MonsterController>();
-                if (monsterController != null)
-                {
-                    GameObject sturnInstance = Instantiate(sturnEffect, currentAttackedMonster.transform.position, Quaternion.identity);
-                    Vector3 imagePos = new Vector3(monsterController.sturn.transform.position.x, monsterController.sturn.transform.position.y, monsterController.sturn.transform.position.z - 0.5f);
-                    GameObject sturnimageInstance = Instantiate(sturnImage, monsterController.sturn.transform.position, Quaternion.identity);
-                    sturnimageInstance.name = "PlayerSkill";
-
-                    monsterController.stop = true;
-                    monsterController.attackTime += 5;
-                    monsterToSturnImage[currentAttackedMonster] = sturnimageInstance;
-
-                    Destroy(sturnimageInstance, 2f);
-                }
-            }
-
-            StartCoroutine(Removestun());
-        }
-    }
-
-    IEnumerator Removestun()
-    {
-        yield return new WaitForSeconds(3f);
-
-        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
-        foreach (GameObject monster in monsters)
-        {
-            MonsterController monsterController = monster.GetComponent<MonsterController>();
-            if (monsterController != null)
-            {
-                monsterController.stop = false;
-            }
-        }
+        rock.Execute(this, new Vector3(0, 0, 0), 0);
     }
 
     public void SetCurrentAttackedMonster(GameObject monster) // 현재 공격받는 몬스터 설정

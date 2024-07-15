@@ -394,7 +394,7 @@ public class StageManager : MonoBehaviour, Observer
             }
         }
 
-        itemSkill.holyWave = false;
+        itemSkill.holyWaving = false;
         playerController.stage5Debuff = false;
     }
 

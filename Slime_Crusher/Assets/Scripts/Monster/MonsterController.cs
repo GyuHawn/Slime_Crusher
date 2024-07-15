@@ -202,7 +202,7 @@ public class MonsterController : MonoBehaviour
 
     void PlayerItemHitDamage() // 플레이어 아이템에 대한 피격
     {
-        if (itemSkill.holyWave && playerTakeDamage && holyWaveTakeDamage)
+        if (itemSkill.holyWaving && playerTakeDamage && holyWaveTakeDamage)
         {
             float damage = boss1Defending ? itemSkill.holyWaveDamage * 0.5f : itemSkill.holyWaveDamage;
             playerController.HolyWaveDamageText(this);
