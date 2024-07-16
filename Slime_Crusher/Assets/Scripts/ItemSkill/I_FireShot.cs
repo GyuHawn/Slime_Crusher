@@ -19,7 +19,6 @@ public class I_FireShot : MonoBehaviour, I_Skill
             AudioManager.Instance.PlayFireShotAudio();
 
             GameObject fireShotInstance = Instantiate(itemSkill.fireShotEffect, targetPosition, Quaternion.identity);
-            List<GameObject> sub = new List<GameObject>();
 
             for (int i = 0; i < itemSkill.fireShotSubNum; i++)
             {
@@ -28,20 +27,10 @@ public class I_FireShot : MonoBehaviour, I_Skill
                 Vector2 randomDirection = Random.insideUnitCircle.normalized;
                 subShot.GetComponent<Rigidbody2D>().velocity = randomDirection * 5f;
 
-                sub.Add(subShot);
+                Destroy(subShot, 3);
             }
 
-            StartCoroutine(DestroySubShots(sub, 3f));
             Destroy(fireShotInstance, 1f);
-        }
-    }
-    private IEnumerator DestroySubShots(List<GameObject> subShots, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        foreach (GameObject subShot in subShots)
-        {
-            Destroy(subShot);
         }
     }
 }

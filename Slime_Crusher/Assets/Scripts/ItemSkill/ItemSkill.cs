@@ -42,6 +42,7 @@ public class ItemSkill : MonoBehaviour
     public bool isHolyWave;
 
     // holyShot
+    public GameObject holyShotInstance;
     public GameObject holyShotEffect;
     public float holyShotDuration;
     public float holyShotDamage;
@@ -83,7 +84,6 @@ public class ItemSkill : MonoBehaviour
     private I_Skill fireShot;
     private I_Skill holyWave;
     private I_Skill holyShot;
-    private I_Skill melee;
     private I_Skill posion;
     private I_Skill rock;
     private I_Skill sturn;
@@ -110,7 +110,6 @@ public class ItemSkill : MonoBehaviour
         fireShot = new I_FireShot(this);
         holyWave = new I_HolyWave(this);
         holyShot = new I_HolyShot(this);
-        melee = new I_Melee(this);
         posion = new I_Posion(this);
         rock = new I_Rock(this);
         sturn = new I_Sturn(this);
@@ -213,10 +212,19 @@ public class ItemSkill : MonoBehaviour
     } 
 
     // holyWave 
-
     public void HolyWave()
     {
-        holyWave.Execute(this, new Vector3(0,0,0), 0);
+        holyWave.Execute(this, new Vector3(0,0,0), 0);     
+    }
+    public void ExecuteHolyWave()
+    {
+        StartCoroutine(DestroyWave());
+    }
+    IEnumerator DestroyWave()
+    {
+        yield return new WaitForSeconds(holyWaveDuration);
+        Destroy(WaveInstance);
+        holyWaving = false;
     }
 
     // holyShot 
@@ -226,10 +234,56 @@ public class ItemSkill : MonoBehaviour
         holyShot.Execute(this, targetPosition, 0);
     }
 
-    // melee 
-    public void Melee(Vector3 targetPosition, int numEffects)
+    public void ExecuteHolyShot()
     {
-        melee.Execute(this, targetPosition, numEffects);
+        StartCoroutine(RotateHolyShot(holyShotInstance, 5f));
+    }
+
+    IEnumerator RotateHolyShot(GameObject holyShot, float duration)
+    {
+        if (holyShot == null)
+        {
+            yield break;
+        }
+
+        float elapsedTime = 0f;
+        float rotationSpd = 360f / duration;
+
+        while (elapsedTime < duration)
+        {
+            if (holyShot == null)
+            {
+                yield break;
+            }
+
+            holyShot.transform.Rotate(rotationSpd * Time.deltaTime, 0f, 0f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+
+    // melee 
+    public void Melee(Vector3 targetPosition, int num)
+    {
+        StartCoroutine(MeleeInstantiate(targetPosition, num));
+    }
+
+    public IEnumerator MeleeInstantiate(Vector3 targetPosition, int numEffects)
+    {
+        for (int i = 0; i < numEffects; i++)
+        {
+            AudioManager.Instance.PlayMeleeAudio();
+
+            Vector3 randomOffset = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0f);
+            Vector3 spawnPosition = targetPosition + randomOffset;
+
+            GameObject meleeInstance = Instantiate(meleeEffect, spawnPosition, Quaternion.identity);
+            meleeInstance.name = "PlayerSkill";
+            Destroy(meleeInstance, 0.2f);
+
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     // posion 

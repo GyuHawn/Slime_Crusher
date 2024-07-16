@@ -97,6 +97,7 @@ public class StageStatusManager : MonoBehaviour
 
     void ApplyBuff() // 버프 적용
     {
+        buff = 0;
         switch (status)
         {
             case 1:
@@ -145,6 +146,7 @@ public class StageStatusManager : MonoBehaviour
 
     void ApplyDeBuff() // 디버프 적용
     {
+        buff = 0;
         if (currentStatus != null) return;
 
         switch (status)

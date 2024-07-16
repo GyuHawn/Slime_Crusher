@@ -21,15 +21,10 @@ public class I_HolyWave : MonoBehaviour, I_Skill
             itemSkill.WaveInstance.name = "PlayerSkill";
             itemSkill.holyWaving = true;
 
-            Destroy(itemSkill.WaveInstance, itemSkill.holyWaveDuration);
-            StartCoroutine(DestroyWave(itemSkill));
+            if (itemSkill.holyShotInstance != null)
+            {
+                itemSkill.ExecuteHolyWave();
+            }
         }
-    }
-
-    IEnumerator DestroyWave(ItemSkill itemSkill)
-    {
-        yield return new WaitForSeconds(itemSkill.holyWaveDuration);
-        Destroy(itemSkill.WaveInstance);
-        itemSkill.holyWaving = false;
     }
 }

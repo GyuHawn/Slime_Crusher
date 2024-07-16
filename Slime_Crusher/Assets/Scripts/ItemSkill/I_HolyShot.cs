@@ -17,35 +17,14 @@ public class I_HolyShot : MonoBehaviour, I_Skill
         {
             AudioManager.Instance.PlayHolyShotAudio();
 
-            GameObject holyShotInstance = Instantiate(itemSkill.holyShotEffect, targetPosition, Quaternion.identity);
-            holyShotInstance.name = "PlayerSkill";
+            itemSkill.holyShotInstance = Instantiate(itemSkill.holyShotEffect, targetPosition, Quaternion.identity);
+            itemSkill.holyShotInstance.name = "PlayerSkill";
 
-            if (holyShotInstance != null)
+            if (itemSkill.holyShotInstance != null)
             {
-                StartCoroutine(RotateHolyShot(holyShotInstance, 5f));
+                itemSkill.ExecuteHolyShot();
             }
         }
     }
-    private IEnumerator RotateHolyShot(GameObject holyShotInstance, float duration)
-    {
-        if (holyShotInstance == null)
-        {
-            yield break;
-        }
-
-        float elapsedTime = 0f;
-        float rotationSpd = 360f / duration;
-
-        while (elapsedTime < duration)
-        {
-            if (holyShotInstance == null)
-            {
-                yield break;
-            }
-
-            holyShotInstance.transform.Rotate(rotationSpd * Time.deltaTime, 0f, 0f);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-    }
+    
 }
