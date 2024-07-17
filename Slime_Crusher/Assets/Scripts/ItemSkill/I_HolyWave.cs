@@ -21,7 +21,7 @@ public class I_HolyWave : MonoBehaviour, I_Skill
             itemSkill.WaveInstance.name = "PlayerSkill";
             itemSkill.holyWaving = true;
 
-            if (itemSkill.holyShotInstance != null)
+            if (itemSkill.WaveInstance != null)
             {
                 itemSkill.ExecuteHolyWave();
             }

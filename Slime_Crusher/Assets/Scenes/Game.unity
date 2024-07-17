@@ -461,6 +461,7 @@ MonoBehaviour:
   holyWaveDamagePercent: 0
   holyWavePercent: 0
   isHolyWave: 0
+  holyShotInstance: {fileID: 0}
   holyShotEffect: {fileID: 1545806602296978, guid: 9e4577abe56a95f4a91d29a0473cd30c, type: 3}
   holyShotDuration: 3
   holyShotDamage: 0.1

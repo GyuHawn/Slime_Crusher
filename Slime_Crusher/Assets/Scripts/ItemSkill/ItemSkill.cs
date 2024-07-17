@@ -301,7 +301,27 @@ public class ItemSkill : MonoBehaviour
     // sturn 
     public void Sturn()
     {
-        rock.Execute(this, new Vector3(0, 0, 0), 0);
+        sturn.Execute(this, new Vector3(0, 0, 0), 0);
+    }
+
+    public void ExecuteSturnRemove()
+    {
+        StartCoroutine(Removestun());
+    }
+
+    IEnumerator Removestun()
+    {
+        yield return new WaitForSeconds(3f);
+
+        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+        foreach (GameObject monster in monsters)
+        {
+            MonsterController monsterController = monster.GetComponent<MonsterController>();
+            if (monsterController != null)
+            {
+                monsterController.stop = false;
+            }
+        }
     }
 
     public void SetCurrentAttackedMonster(GameObject monster) // 현재 공격받는 몬스터 설정

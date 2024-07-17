@@ -35,21 +35,7 @@ public class I_Sturn : MonoBehaviour, I_Skill
                 }
             }
 
-            StartCoroutine(Removestun());
-        }
-    }
-    IEnumerator Removestun()
-    {
-        yield return new WaitForSeconds(3f);
-
-        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
-        foreach (GameObject monster in monsters)
-        {
-            MonsterController monsterController = monster.GetComponent<MonsterController>();
-            if (monsterController != null)
-            {
-                monsterController.stop = false;
-            }
+            itemSkill.ExecuteSturnRemove();
         }
     }
 }

@@ -166,8 +166,8 @@ MonoBehaviour:
     y: 0
     width: 1096
     height: 520
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 12}
   m_Panes:
   - {fileID: 13}
@@ -194,8 +194,8 @@ MonoBehaviour:
     y: 520
     width: 1096
     height: 427
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 101, y: 121}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 15}
@@ -273,8 +273,8 @@ MonoBehaviour:
     y: 0
     width: 298
     height: 947
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -1634,9 +1634,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -2.0055332, y: -0.22673339, z: -5.0951643}
+    m_Target: {x: -1.3998252, y: -0.2369324, z: -5.0930114}
     speed: 2
-    m_Value: {x: -2.0055332, y: -0.22673339, z: -5.0951643}
+    m_Value: {x: -1.3998252, y: -0.2369324, z: -5.0930114}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1686,9 +1686,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 4.7847176
+    m_Target: 4.569405
     speed: 2
-    m_Value: 4.7847176
+    m_Value: 4.569405
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1784,9 +1784,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: c0510000
-      m_LastClickedID: 0
-      m_ExpandedIDs: de07fefff63dfeff9a8dfeff7ebbfeffd2f4feff7e84ffffe08effff0e9dffff6aa7ffff66b6ffffb0d5ffff80f2ffff10f4ffff16fbffff
+      m_SelectedIDs: 64a00000
+      m_LastClickedID: 41060
+      m_ExpandedIDs: 20f1ffff1cf9ffff16fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1855,7 +1855,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/StageState
+    - Assets/Scripts/Monster
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -1863,16 +1863,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 61
   m_LastFolders:
-  - Assets/Scripts/StageState
+  - Assets/Scripts/Monster
   m_LastFoldersGridSize: 61
   m_LastProjectPath: C:\Users\Kim\Desktop\Project\Slime-Crusher-Code-modification\Slime_Crusher
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: c2870000
-    m_LastClickedID: 34754
-    m_ExpandedIDs: 00000000f8860000fa860000fc860000fe8600000087000002870000048700004e87000000ca9a3bffffff7f
+    m_SelectedIDs: 586f0000
+    m_LastClickedID: 28504
+    m_ExpandedIDs: 00000000566f0000586f00005a6f00005c6f00005e6f0000606f0000626f0000686f000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1900,7 +1900,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000f8860000fa860000fc860000fe860000008700000287000004870000
+    m_ExpandedIDs: 00000000566f0000586f00005a6f00005c6f00005e6f0000606f0000626f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2043,7 +2043,7 @@ MonoBehaviour:
     m_CachedPref: 0
     m_ControlHash: 0
     m_PrefName: 
-  m_LastInspectedObjectInstanceID: 20928
+  m_LastInspectedObjectInstanceID: 21256
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0

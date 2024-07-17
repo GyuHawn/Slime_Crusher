@@ -407,7 +407,7 @@ public class MonsterController : MonoBehaviour
             case "HolyShot":
                 if (holyShotTakeDamage)
                 {
-                    ApplyDamage(itemSkill.holyShotDamage, 0.5f, FireShotSubDamageCooldown(0.5f, 0.2f));
+                    ApplyDamage(itemSkill.holyShotDamage, 0.5f, HolyShotDamageCooldown(0.5f, 0.2f));
                 }
                 break;
 

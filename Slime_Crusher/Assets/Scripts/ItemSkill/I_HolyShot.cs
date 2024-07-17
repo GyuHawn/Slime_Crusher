@@ -19,6 +19,7 @@ public class I_HolyShot : MonoBehaviour, I_Skill
 
             itemSkill.holyShotInstance = Instantiate(itemSkill.holyShotEffect, targetPosition, Quaternion.identity);
             itemSkill.holyShotInstance.name = "PlayerSkill";
+            Destroy(itemSkill.holyShotInstance, itemSkill.holyShotDuration);
 
             if (itemSkill.holyShotInstance != null)
             {
