@@ -15,7 +15,7 @@ C:/Users/Kim/Desktop/Project/Slime-Crusher-Code-modification/Slime_Crusher
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-62454
+63276
 Successfully changed project path to: C:/Users/Kim/Desktop/Project/Slime-Crusher-Code-modification/Slime_Crusher
 C:/Users/Kim/Desktop/Project/Slime-Crusher-Code-modification/Slime_Crusher
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -49,12 +49,12 @@ C:/Users/Kim/Desktop/Project/Slime-Crusher-Code-modification/Slime_Crusher
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [1528] Host "[IP] 222.103.200.167 [Port] 0 [Flags] 2 [Guid] 394174883 [EditorId] 394174883 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-5MEC467) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [10692] Host "[IP] 222.103.200.167 [Port] 0 [Flags] 2 [Guid] 390602518 [EditorId] 390602518 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-5MEC467) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [1528] Host "[IP] 222.103.200.167 [Port] 0 [Flags] 2 [Guid] 394174883 [EditorId] 394174883 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-5MEC467) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [10692] Host "[IP] 222.103.200.167 [Port] 0 [Flags] 2 [Guid] 390602518 [EditorId] 390602518 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-5MEC467) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
 [Physics::Module] Initialized MultithreadedJobDispatcher with 3 workers.
-Refreshing native plugins compatible for Editor in 172.93 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 75.29 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2022.3.14f1 (eff2de9070d8)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.3.14f1/Editor/Data/Resources/UnitySubsystems
@@ -70,51 +70,51 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.3.14f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.3.14f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.3.14f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56616
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56600
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.14f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.14f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.14f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.039542 seconds.
-- Loaded All Assemblies, in  1.002 seconds
+Registered in 0.039463 seconds.
+- Loaded All Assemblies, in  0.633 seconds
 Native extension for WindowsStandalone target not found
 [usbmuxd] Start listen thread
 [usbmuxd] Listen thread started
 Native extension for iOS target not found
 Native extension for Android target not found
-Android Extension - Scanning For ADB Devices 1082 ms
+Android Extension - Scanning For ADB Devices 518 ms
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  2.083 seconds
-Domain Reload Profiling: 3076ms
-	BeginReloadAssembly (203ms)
+- Finished resetting the current domain, in  1.009 seconds
+Domain Reload Profiling: 1636ms
+	BeginReloadAssembly (181ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
 		CreateAndSetChildDomain (1ms)
-	RebuildCommonClasses (48ms)
-	RebuildNativeTypeToScriptingClass (15ms)
-	initialDomainReloadingComplete (130ms)
-	LoadAllAssembliesAndSetupDomain (595ms)
-		LoadAssemblies (198ms)
+	RebuildCommonClasses (45ms)
+	RebuildNativeTypeToScriptingClass (14ms)
+	initialDomainReloadingComplete (116ms)
+	LoadAllAssembliesAndSetupDomain (271ms)
+		LoadAssemblies (178ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (590ms)
-			TypeCache.Refresh (586ms)
-				TypeCache.ScanAssembly (547ms)
-			ScanForSourceGeneratedMonoScriptInfo (1ms)
-			ResolveRequiredComponents (2ms)
-	FinalizeReload (2084ms)
+		AnalyzeDomain (265ms)
+			TypeCache.Refresh (264ms)
+				TypeCache.ScanAssembly (243ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (0ms)
+	FinalizeReload (1009ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (1881ms)
+		SetupLoadedEditorAssemblies (925ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (1359ms)
-			SetLoadedEditorAssemblies (6ms)
+			InitializePlatformSupportModulesInManaged (679ms)
+			SetLoadedEditorAssemblies (4ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (3ms)
-			ProcessInitializeOnLoadAttributes (277ms)
-			ProcessInitializeOnLoadMethodAttributes (235ms)
+			BeforeProcessingInitializeOnLoad (4ms)
+			ProcessInitializeOnLoadAttributes (144ms)
+			ProcessInitializeOnLoadMethodAttributes (94ms)
 			AfterProcessingInitializeOnLoad (0ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
@@ -122,8 +122,8 @@ Domain Reload Profiling: 3076ms
 ========================================================================
 Worker process is ready to serve import requests
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  1.273 seconds
-Refreshing native plugins compatible for Editor in 24.82 ms, found 4 plugins.
+- Loaded All Assemblies, in  1.106 seconds
+Refreshing native plugins compatible for Editor in 22.10 ms, found 4 plugins.
 Native extension for WindowsStandalone target not found
 Native extension for iOS target not found
 Native extension for Android target not found
@@ -132,188 +132,67 @@ Package Manager log level set to [2]
 [Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
 [Package Manager] Cannot connect to Unity Package Manager local server
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.035 seconds
-Domain Reload Profiling: 2293ms
-	BeginReloadAssembly (323ms)
+- Finished resetting the current domain, in  0.781 seconds
+Domain Reload Profiling: 1874ms
+	BeginReloadAssembly (272ms)
 		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (10ms)
+		DisableScriptedObjects (6ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (42ms)
-	RebuildCommonClasses (42ms)
-	RebuildNativeTypeToScriptingClass (13ms)
+		CreateAndSetChildDomain (30ms)
+	RebuildCommonClasses (48ms)
+	RebuildNativeTypeToScriptingClass (14ms)
 	initialDomainReloadingComplete (80ms)
-	LoadAllAssembliesAndSetupDomain (799ms)
-		LoadAssemblies (709ms)
+	LoadAllAssembliesAndSetupDomain (678ms)
+		LoadAssemblies (658ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (275ms)
-			TypeCache.Refresh (239ms)
-				TypeCache.ScanAssembly (216ms)
-			ScanForSourceGeneratedMonoScriptInfo (28ms)
-			ResolveRequiredComponents (7ms)
-	FinalizeReload (1035ms)
+		AnalyzeDomain (205ms)
+			TypeCache.Refresh (174ms)
+				TypeCache.ScanAssembly (154ms)
+			ScanForSourceGeneratedMonoScriptInfo (24ms)
+			ResolveRequiredComponents (6ms)
+	FinalizeReload (782ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (770ms)
+		SetupLoadedEditorAssemblies (604ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (58ms)
+			InitializePlatformSupportModulesInManaged (51ms)
 			SetLoadedEditorAssemblies (5ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (122ms)
-			ProcessInitializeOnLoadAttributes (466ms)
-			ProcessInitializeOnLoadMethodAttributes (86ms)
-			AfterProcessingInitializeOnLoad (32ms)
+			BeforeProcessingInitializeOnLoad (108ms)
+			ProcessInitializeOnLoadAttributes (381ms)
+			ProcessInitializeOnLoadMethodAttributes (39ms)
+			AfterProcessingInitializeOnLoad (20ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (24ms)
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
-Refreshing native plugins compatible for Editor in 27.00 ms, found 4 plugins.
+		AwakeInstancesAfterBackupRestoration (17ms)
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.10 seconds
+Refreshing native plugins compatible for Editor in 35.38 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 4203 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 84 unused Assets / (68.7 KB). Loaded Objects now: 4673.
+Unloading 84 unused Assets / (69.0 KB). Loaded Objects now: 4673.
 Memory consumption went from 169.7 MB to 169.6 MB.
-Total: 3.898800 ms (FindLiveObjects: 0.324900 ms CreateObjectMapping: 0.266600 ms MarkObjects: 3.146900 ms  DeleteObjects: 0.159500 ms)
+Total: 3.737300 ms (FindLiveObjects: 0.298100 ms CreateObjectMapping: 0.395000 ms MarkObjects: 2.913100 ms  DeleteObjects: 0.130100 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:CustomObjectIndexerAttribute: 756ad292c208cfabdd7b50bc23989ffe -> 
   custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
   custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Import Request.
-  Time since last request: 18935.406045 seconds.
-  path: Assets/Scripts/Monster/MonsterController.cs
-  artifactKey: Guid(712808c28a7bd86428971fb5ab087bd9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Monster/MonsterController.cs using Guid(712808c28a7bd86428971fb5ab087bd9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '40fdeb73b4796e062f93b137c6f567fb') in 0.002648 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 0
-========================================================================
-Received Prepare
-Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.928 seconds
-Refreshing native plugins compatible for Editor in 25.88 ms, found 4 plugins.
-Native extension for WindowsStandalone target not found
-Native extension for iOS target not found
-Native extension for Android target not found
-[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
-[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
-[Package Manager] Cannot connect to Unity Package Manager local server
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.919 seconds
-Domain Reload Profiling: 2834ms
-	BeginReloadAssembly (214ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (12ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (37ms)
-	RebuildCommonClasses (37ms)
-	RebuildNativeTypeToScriptingClass (12ms)
-	initialDomainReloadingComplete (60ms)
-	LoadAllAssembliesAndSetupDomain (591ms)
-		LoadAssemblies (681ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (35ms)
-			TypeCache.Refresh (12ms)
-				TypeCache.ScanAssembly (2ms)
-			ScanForSourceGeneratedMonoScriptInfo (13ms)
-			ResolveRequiredComponents (8ms)
-	FinalizeReload (1920ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (634ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (62ms)
-			SetLoadedEditorAssemblies (5ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (123ms)
-			ProcessInitializeOnLoadAttributes (363ms)
-			ProcessInitializeOnLoadMethodAttributes (45ms)
-			AfterProcessingInitializeOnLoad (35ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (30ms)
-Refreshing native plugins compatible for Editor in 23.23 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 4170 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 56 unused Assets / (43.0 KB). Loaded Objects now: 4678.
-Memory consumption went from 161.8 MB to 161.8 MB.
-Total: 2.886500 ms (FindLiveObjects: 0.293800 ms CreateObjectMapping: 0.238700 ms MarkObjects: 2.288400 ms  DeleteObjects: 0.064600 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:CustomObjectIndexerAttribute: 756ad292c208cfabdd7b50bc23989ffe -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
   custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
   custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Prepare
-Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.795 seconds
-Refreshing native plugins compatible for Editor in 29.86 ms, found 4 plugins.
-Native extension for WindowsStandalone target not found
-Native extension for iOS target not found
-Native extension for Android target not found
-[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
-[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
-[Package Manager] Cannot connect to Unity Package Manager local server
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.946 seconds
-Domain Reload Profiling: 2728ms
-	BeginReloadAssembly (220ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (14ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (34ms)
-	RebuildCommonClasses (38ms)
-	RebuildNativeTypeToScriptingClass (12ms)
-	initialDomainReloadingComplete (57ms)
-	LoadAllAssembliesAndSetupDomain (454ms)
-		LoadAssemblies (555ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (19ms)
-			TypeCache.Refresh (10ms)
-				TypeCache.ScanAssembly (0ms)
-			ScanForSourceGeneratedMonoScriptInfo (0ms)
-			ResolveRequiredComponents (8ms)
-	FinalizeReload (1946ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (588ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (76ms)
-			SetLoadedEditorAssemblies (5ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (122ms)
-			ProcessInitializeOnLoadAttributes (320ms)
-			ProcessInitializeOnLoadMethodAttributes (39ms)
-			AfterProcessingInitializeOnLoad (27ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (30ms)
-Refreshing native plugins compatible for Editor in 32.39 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 26.85 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 4171 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 56 unused Assets / (42.9 KB). Loaded Objects now: 4682.
-Memory consumption went from 164.0 MB to 164.0 MB.
-Total: 4.564300 ms (FindLiveObjects: 0.327800 ms CreateObjectMapping: 0.633900 ms MarkObjects: 3.530900 ms  DeleteObjects: 0.071000 ms)
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 1 unused Assets / (3.0 KB). Loaded Objects now: 4673.
+Memory consumption went from 96.4 MB to 96.4 MB.
+Total: 3.799100 ms (FindLiveObjects: 0.294800 ms CreateObjectMapping: 0.272900 ms MarkObjects: 3.210900 ms  DeleteObjects: 0.019800 ms)
 
 Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
@@ -331,9 +210,313 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 204.435430 seconds.
-  path: Assets/Scripts/Monster/MonsterController.cs
-  artifactKey: Guid(712808c28a7bd86428971fb5ab087bd9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Monster/MonsterController.cs using Guid(712808c28a7bd86428971fb5ab087bd9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a697a00ba6d5a127ebf51f684d8b93ca') in 0.002365 seconds
+  Time since last request: 20999.613771 seconds.
+  path: Assets/Prifabs/Stage/1/2.prefab
+  artifactKey: Guid(b706a104c1f27c540ac2f5a8bcedf56c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/1/2.prefab using Guid(b706a104c1f27c540ac2f5a8bcedf56c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '84de2e9295c5e24a24c6a3d2bd8d045c') in 0.158705 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 0
+Number of asset objects unloaded after import = 96
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/Prifabs/Stage/1/1.prefab
+  artifactKey: Guid(7853f1dff71f8234aaf4b15f25430909) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/1/1.prefab using Guid(7853f1dff71f8234aaf4b15f25430909) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '62e80b8f556e596e7d07c431eca0b007') in 0.073192 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 106
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Prifabs/Stage/1/3.prefab
+  artifactKey: Guid(34f4137950e5d584caf55e1b5d7e4e47) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/1/3.prefab using Guid(34f4137950e5d584caf55e1b5d7e4e47) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1647c01ebc0c849f65b832481a1d9e70') in 0.051932 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 96
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Prifabs/Stage/1/0.prefab
+  artifactKey: Guid(9ffad638b7fd88c41a3ffd1fc158302c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/1/0.prefab using Guid(9ffad638b7fd88c41a3ffd1fc158302c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9c1f622806572e75cc14ccbdf3ad6e36') in 0.074182 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 86
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Prifabs/Stage/1/4.prefab
+  artifactKey: Guid(9ba20df5bd4fa2a49874577431f68c86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/1/4.prefab using Guid(9ba20df5bd4fa2a49874577431f68c86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '22eae9b115e2edc67511c8de6072e8eb') in 0.159813 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 80
+========================================================================
+Received Import Request.
+  Time since last request: 7.742960 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage1/Stage1-1.prefab
+  artifactKey: Guid(92435882fb0eec24ea45ba8644996581) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage1/Stage1-1.prefab using Guid(92435882fb0eec24ea45ba8644996581) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fb28aa54c3a2dee2187f0e2318f1da0a') in 0.030341 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 22
+========================================================================
+Received Import Request.
+  Time since last request: 1.425499 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage1/Stage1-2.prefab
+  artifactKey: Guid(434efdbb97ee24849812490392eaa2d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage1/Stage1-2.prefab using Guid(434efdbb97ee24849812490392eaa2d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5f576525e9e8488dc3e2109c0a731286') in 0.022112 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 1.391178 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage1/Stage1-3.prefab
+  artifactKey: Guid(1ac11510e7dba4a44a5323410437bc98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage1/Stage1-3.prefab using Guid(1ac11510e7dba4a44a5323410437bc98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9d029952fe4da2f0de536a5ad339c7b7') in 0.072304 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage1/Stage1-1.prefab
+  artifactKey: Guid(92435882fb0eec24ea45ba8644996581) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage1/Stage1-1.prefab using Guid(92435882fb0eec24ea45ba8644996581) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b502060fb6717f7ecd4911a02dbcfd92') in 0.030513 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 22
+========================================================================
+Received Import Request.
+  Time since last request: 6.084641 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage2/Stage2-0.prefab
+  artifactKey: Guid(6d049d9c12899a849b3d0f4fed6b17eb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage2/Stage2-0.prefab using Guid(6d049d9c12899a849b3d0f4fed6b17eb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e72aa5c9d97e7c413940fc3d1b77cc23') in 0.032061 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.334561 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage2/Stage2-2.prefab
+  artifactKey: Guid(4d4cbd93c9565cd45866de8ab2c857bf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage2/Stage2-2.prefab using Guid(4d4cbd93c9565cd45866de8ab2c857bf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec5061d0f4c2a92190127891603af960') in 0.023664 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 1.733386 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage2/Stage2-2.5.prefab
+  artifactKey: Guid(d6817461ab12da142bf9eb564dbec923) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage2/Stage2-2.5.prefab using Guid(d6817461ab12da142bf9eb564dbec923) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c210e6e9fbd341c58350ec72fc539c55') in 0.015795 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 1.399193 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage2/Stage2-3.prefab
+  artifactKey: Guid(9f946ef9be02cf243a52cbbff72c5c5a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage2/Stage2-3.prefab using Guid(9f946ef9be02cf243a52cbbff72c5c5a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bce8a4d829a944ec0d830be05a40eedf') in 0.019871 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 11
+========================================================================
+Received Import Request.
+  Time since last request: 1.789325 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage3/Stage3-2.prefab
+  artifactKey: Guid(3c779624de095ba4fafb8b25284981f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage3/Stage3-2.prefab using Guid(3c779624de095ba4fafb8b25284981f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '15e16230126ebcf8cc2108b7ee37e5cc') in 0.054024 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 66
+========================================================================
+Received Import Request.
+  Time since last request: 1.737044 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage3/Stage3-0.prefab
+  artifactKey: Guid(0bb4746c2fc201e4a83a3913497cce83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage3/Stage3-0.prefab using Guid(0bb4746c2fc201e4a83a3913497cce83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b161287ec3581dbff8c9ad44010abe3d') in 0.022800 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.297509 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage3/Stage3-3.prefab
+  artifactKey: Guid(4c85b4e960220dd4fa00f293e36664cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage3/Stage3-3.prefab using Guid(4c85b4e960220dd4fa00f293e36664cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e8c50859d950ada3df2d9c6c80deb380') in 0.026314 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 1.421791 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage4/Stage4-0.prefab
+  artifactKey: Guid(3b851f9e27836b14793cfdfa11109185) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage4/Stage4-0.prefab using Guid(3b851f9e27836b14793cfdfa11109185) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '36bdda03cb639b8723d11dc962f6d2cd') in 0.035613 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 49
+========================================================================
+Received Import Request.
+  Time since last request: 1.835306 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage4/Stage4-0.prefab
+  artifactKey: Guid(3b851f9e27836b14793cfdfa11109185) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage4/Stage4-0.prefab using Guid(3b851f9e27836b14793cfdfa11109185) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '859d6205ca2cff6b54f7e77f362da493') in 0.018214 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 49
+========================================================================
+Received Import Request.
+  Time since last request: 1.830449 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage4/Stage4-1.prefab
+  artifactKey: Guid(d0bd791db75470145952b282a19b667d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage4/Stage4-1.prefab using Guid(d0bd791db75470145952b282a19b667d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '08596e00cb7548b262268680bd2047c9') in 0.016657 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 3.205743 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage4/Stage4-2.prefab
+  artifactKey: Guid(77b383353ff77cd4b8b3f152f8553ef9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage4/Stage4-2.prefab using Guid(77b383353ff77cd4b8b3f152f8553ef9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'caa36b1be8d5f2e8d8c733cfcabdeca2') in 0.055599 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 1.274841 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage4/Stage4-2.5.prefab
+  artifactKey: Guid(4d92c2b9a79b30b459383da3f5e777c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage4/Stage4-2.5.prefab using Guid(4d92c2b9a79b30b459383da3f5e777c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bdf759cf40e2a22c0fc5c53c171f3ad3') in 0.019171 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 3.781097 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage5/Stage5-0.prefab
+  artifactKey: Guid(13708cab54175d54c8ce5cee2439411a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage5/Stage5-0.prefab using Guid(13708cab54175d54c8ce5cee2439411a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '532dda633fd2c0327eba54e43e9d03d3') in 0.057551 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 1.106345 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage5/Stage5-1.prefab
+  artifactKey: Guid(e733336e7b4cab041b8d96a232dffe6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage5/Stage5-1.prefab using Guid(e733336e7b4cab041b8d96a232dffe6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cfe0453f53dfc66df42f9d7104d21e98') in 0.032727 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 11
+========================================================================
+Received Import Request.
+  Time since last request: 1.162888 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage5/Stage5-1.5.prefab
+  artifactKey: Guid(be98d9fe54dec8743a1805ca94261235) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage5/Stage5-1.5.prefab using Guid(be98d9fe54dec8743a1805ca94261235) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1a5415ee2e9d3e0ff94fe35f7b92bf31') in 0.019089 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 4.621141 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage6/Stage6-0.prefab
+  artifactKey: Guid(8191df5f2ea11854d9885afbd83db00b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage6/Stage6-0.prefab using Guid(8191df5f2ea11854d9885afbd83db00b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '505f410f1216835e78f691b1c0492c7f') in 0.021506 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 1.273912 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage6/Stage6-1.prefab
+  artifactKey: Guid(e18e4e9ee6885a8429962fddb6fbee39) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage6/Stage6-1.prefab using Guid(e18e4e9ee6885a8429962fddb6fbee39) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '469cd2a15e666d3e88b50b4ff8941070') in 0.029303 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 1.259829 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage6/Stage6-2.prefab
+  artifactKey: Guid(15321b01dbecbaa488fd88d6bb1c0655) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage6/Stage6-2.prefab using Guid(15321b01dbecbaa488fd88d6bb1c0655) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec4a17999379f8851caebe8c36c99204') in 0.021225 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 19
+========================================================================
+Received Import Request.
+  Time since last request: 4.110446 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage7/Stage7-0.prefab
+  artifactKey: Guid(7a5983f35863ba04e98e7347b5e88d09) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage7/Stage7-0.prefab using Guid(7a5983f35863ba04e98e7347b5e88d09) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c41ded4629b2b8976262e7bd5e6be4a1') in 0.025241 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 9
+========================================================================
+Received Import Request.
+  Time since last request: 1.532637 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage7/Stage7-2.prefab
+  artifactKey: Guid(2478ec7530dc25243b5506a882bca727) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage7/Stage7-2.prefab using Guid(2478ec7530dc25243b5506a882bca727) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '54badc3340e05506884d8c05277579e7') in 0.021614 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 1.147057 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Stage7/Stage7-3.prefab
+  artifactKey: Guid(56c8c19ac64be674594bf101d34883c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Stage7/Stage7-3.prefab using Guid(56c8c19ac64be674594bf101d34883c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a0104c3935fca5ea20fa723bb08a2cdf') in 0.019842 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 9
+========================================================================
+Received Import Request.
+  Time since last request: 4.415389 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Infinite/Stage8-0.prefab
+  artifactKey: Guid(fccf364a85f444f458a4fcb85ef8086f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Infinite/Stage8-0.prefab using Guid(fccf364a85f444f458a4fcb85ef8086f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '12cac3f48472e0e873ca8407c8ad6952') in 0.018895 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 0.005980 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Infinite/Stage8-1.prefab
+  artifactKey: Guid(2bce24fa13ba63a409e0efcd2ecc6483) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Infinite/Stage8-1.prefab using Guid(2bce24fa13ba63a409e0efcd2ecc6483) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f4d8cdc4cae3231e6bff9e6a4c032977') in 0.047491 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 27
+========================================================================
+Received Import Request.
+  Time since last request: 0.000336 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Infinite/Stage8-4.prefab
+  artifactKey: Guid(af4d525fd25ddb5428edb265ed88df32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Infinite/Stage8-4.prefab using Guid(af4d525fd25ddb5428edb265ed88df32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'beac82505f6c2ee98f88d9626e0bfb34') in 0.035281 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 25
+========================================================================
+Received Import Request.
+  Time since last request: 0.868192 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Infinite/Stage8-1.prefab
+  artifactKey: Guid(2bce24fa13ba63a409e0efcd2ecc6483) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Infinite/Stage8-1.prefab using Guid(2bce24fa13ba63a409e0efcd2ecc6483) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd6d8ed09e3e39228a64122db149d85e5') in 0.026056 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 27
+========================================================================
+Received Import Request.
+  Time since last request: 0.869976 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Infinite/Stage8-2.prefab
+  artifactKey: Guid(d99a57cf60884ce44a42c1924b714589) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Infinite/Stage8-2.prefab using Guid(d99a57cf60884ce44a42c1924b714589) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cf0d57bf571ffd3612f3382099f9c58d') in 0.020471 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 9
+========================================================================
+Received Import Request.
+  Time since last request: 0.837525 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Infinite/Stage8-3.prefab
+  artifactKey: Guid(c744f9b52b4da6647b406d61e598393c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Infinite/Stage8-3.prefab using Guid(c744f9b52b4da6647b406d61e598393c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e47df4c1c4b9e47911cf24dd3fd26e71') in 0.017713 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 11
+========================================================================
+Received Import Request.
+  Time since last request: 2.975124 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Infinite/Stage8-4.prefab
+  artifactKey: Guid(af4d525fd25ddb5428edb265ed88df32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Infinite/Stage8-4.prefab using Guid(af4d525fd25ddb5428edb265ed88df32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '32ba7bf09e3350547024410b4e64c14a') in 0.035561 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 25
+========================================================================
+Received Import Request.
+  Time since last request: 0.848465 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Infinite/Stage8-5.prefab
+  artifactKey: Guid(a00ddc9cf0e105b41b305d98eb0b6433) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Infinite/Stage8-5.prefab using Guid(a00ddc9cf0e105b41b305d98eb0b6433) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '073e7e1c1307f9a22e7afef09e6abd41') in 0.030828 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 1.177148 seconds.
+  path: Assets/Prifabs/Stage/MonsterSkill/Infinite/Stage8-5.5.prefab
+  artifactKey: Guid(9d9a088d6dfa34a4c94d7d2420830a19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prifabs/Stage/MonsterSkill/Infinite/Stage8-5.5.prefab using Guid(9d9a088d6dfa34a4c94d7d2420830a19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '309fb7bdad1dbdea73d1d81cc5fafb13') in 0.036657 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
