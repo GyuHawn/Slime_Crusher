@@ -10,6 +10,14 @@
 슬라임 크러셔는 유니티 2D를 활용하여 개발한 모바일 로그라이크 게임입니다.
 터치와 슬라이드를 이용하여 몬스터를 사냥하는 방식이고, 여러 아이템과 다양한 슬라임을 추가하여 매 게임마다 새로운 방식 경험을 하도록 개발하였습니다.
 
+## 게임 플레이
+![메인화면 PNG](https://github.com/user-attachments/assets/dc4e9446-f5b4-465d-900a-74ee7dc2f6e5)
+### [메인화면]
+![캐릭터선택 PNG](https://github.com/user-attachments/assets/c35e5aa1-f23a-4296-99b3-063840fa0623)
+### [캐릭터 선택]
+![게임화면 PNG](https://github.com/user-attachments/assets/b5ec49cc-ee05-4bc8-b9fd-7e2e06813e9f)
+### [게임 화면]
+
 ## 사용기술
 ### [Unity]
 ### [C#]
