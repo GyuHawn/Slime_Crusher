@@ -7,8 +7,6 @@
 Unity 2D로 개발한 로그라이크 형식의 모바일 게임입니다.
 스테이지별로 슬라임을 쓰러트려 마지막 스테이지까지 클리어를 목표로 합니다.
 
-## 게임플레이
-[![Video Label](http://img.youtube.com/vi/Th2O0DXzgVo/0.jpg)](https://youtu.be/Th2O0DXzgVo)
 ## 사용기술
 ### [Unity]
 ### [C#]
